@@ -4,13 +4,13 @@ using System.Collections;
 public class BuildingPlacer : MonoBehaviour {
 
 	bool validPlace = false;
-	Collider2D collider;
+	Collider2D col;
 	// Use this for initialization
 	void Start () {
 		//set UI aplha to visible
 		GameObject.Find ("Esc Text").GetComponent<CanvasGroup> ().alpha = 1;
 		//Get the Collider
-		collider = GetComponent<Collider2D> ();
+		col = GetComponent<Collider2D> ();
 	}
 	
 	// Update is called once per frame
@@ -24,7 +24,7 @@ public class BuildingPlacer : MonoBehaviour {
 		//Whatever this script is attached to, follow mouse.
 		this.transform.position = mousePos;
 		//As long as it's not touching Water
-		if( !collider.IsTouchingLayers(LayerMask.GetMask("Water")))
+		if( !col.IsTouchingLayers(LayerMask.GetMask("Water")))
 		   {
 			validPlace = true;
 
@@ -32,10 +32,10 @@ public class BuildingPlacer : MonoBehaviour {
 		//If able to place & valid location
 		if (validPlace && Input.GetMouseButtonDown(0)) {
 			//Destroy components
-
+			Game.current.setCurrentlyBuilding(null);
 			Destroy(GetComponent<Rigidbody2D>());
 			Destroy(this);
-
+			
 		}
 	}
 
