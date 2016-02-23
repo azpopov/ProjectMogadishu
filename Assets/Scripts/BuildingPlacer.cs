@@ -33,6 +33,8 @@ public class BuildingPlacer : MonoBehaviour {
 		if (validPlace && Input.GetMouseButtonDown(0)) {
 			//Destroy components
 			Game.current.setCurrentlyBuilding(null);
+			if(GetComponent<ResourceBuilding>() != null)
+				GetComponent<ResourceBuilding>().enabled = true;
 			Destroy(GetComponent<Rigidbody2D>());
 			Destroy(this);
 			
