@@ -12,20 +12,20 @@ public class ResourceManager : MonoBehaviour {
 	public int commodities {
 		get {return _commodities;}
 		set{ _commodities = value ;
-			commoditiesText.text = _commodities.ToString();
+			commoditiesText.text =  ":"+_commodities.ToString();
 			Debug.Log(value);}
 	}
 	public int luxuries
 	{
 		get {return _luxuries;}
 		set{ _luxuries = value;
-			luxuriesText.text = _luxuries.ToString();}
+			luxuriesText.text =  ":"+_luxuries.ToString();}
 	}
 	public int wealth
 	{
 		get {return _wealth;}
 		set{ _wealth = value ;
-			wealthText.text = _wealth.ToString();}
+			wealthText.text = ":"+_wealth.ToString();}
 	}
 
 
