@@ -7,6 +7,18 @@ public class Game : MonoBehaviour {
 	static public Game current;
 
 	public GameObject currentlyBuilding;
+
+	public enum buildingIndex
+	{
+		commodities1,
+		commodities2,
+		commodities3,
+		luxury1,
+		luxury2,
+		luxury3
+	};
+	[SerializeField]
+	public GameObject[] buildingPrefabs;
 	// Use this for initialization
 	void Start () {
 		if (current == null) {
@@ -28,15 +40,16 @@ public class Game : MonoBehaviour {
 	{
 		if (currentlyBuilding != null) {
 			Destroy(currentlyBuilding);
-			setCurrentlyBuilding(null);
+			SetCurrentlyBuilding(null);
 		}
 	}
 
-	public void setCurrentlyBuilding(GameObject _currentlyBuilding)
+	public void SetCurrentlyBuilding(GameObject _currentlyBuilding)
 	{
 
 		currentlyBuilding = _currentlyBuilding;
 	}
+
 
 	public void toggleToolBar(string toolbarPosition)
 	{
@@ -56,5 +69,16 @@ public class Game : MonoBehaviour {
 				GameObject.Find(toolbarPosition+"Button").GetComponentInChildren<Text>().text = "Hide";
 			}
 		}
+	}
+
+
+	public void StartBuilding(int _buildIndex)
+	{
+		CancelBuild ();
+		Vector3 currentMousePosition = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+		currentMousePosition.z = 0;
+		GameObject instance = (GameObject)Instantiate (buildingPrefabs [_buildIndex], currentMousePosition, Quaternion.identity);
+		SetCurrentlyBuilding (instance);
+
 	}
 }

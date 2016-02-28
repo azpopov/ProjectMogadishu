@@ -24,7 +24,7 @@ public class BuildingPlacer : MonoBehaviour {
 		//Whatever this script is attached to, follow mouse.
 		this.transform.position = mousePos;
 		//As long as it's not touching Water
-		if( !col.IsTouchingLayers(LayerMask.GetMask("Water")))
+		if( !col.IsTouchingLayers(LayerMask.GetMask("Water")) && !col.IsTouchingLayers(LayerMask.GetMask("Building")))
 		   {
 			validPlace = true;
 
@@ -32,7 +32,7 @@ public class BuildingPlacer : MonoBehaviour {
 		//If able to place & valid location
 		if (validPlace && Input.GetMouseButtonDown(0)) {
 			//Destroy components
-			Game.current.setCurrentlyBuilding(null);
+			Game.current.SetCurrentlyBuilding(null);
 			if(GetComponent<ResourceBuilding>() != null)
 				GetComponent<ResourceBuilding>().enabled = true;
 			Destroy(GetComponent<Rigidbody2D>());
