@@ -5,15 +5,19 @@ using System.Collections;
 public class ResourceManager : MonoBehaviour {
 
 	public static ResourceManager current;
-	Text commoditiesText, luxuriesText, wealthText;
+	Text commoditiesText, luxuriesText, wealthText, maxShipText;
 	int _commodities = 0;
 	int _luxuries = 0;
 	int _wealth = 0;
+
+	int _maxShips = 1;
+	int currentShips = 0;
 	public int commodities {
 		get {return _commodities;}
-		set{ _commodities = value ;
+		set{
+			_commodities = value ;
 			commoditiesText.text =  ":"+_commodities.ToString();
-			Debug.Log(value);}
+			}
 	}
 	public int luxuries
 	{
@@ -28,7 +32,18 @@ public class ResourceManager : MonoBehaviour {
 			wealthText.text = ":"+_wealth.ToString();}
 	}
 
-
+	public int maxShips
+	{
+		get
+		{
+			return _maxShips;
+		}
+		set
+		{
+			_maxShips = value;
+			maxShipText.text = currentShips.ToString() + " / "+_maxShips.ToString();
+		}
+	}
 
 	// Use this for initialization
 	void Start () {
@@ -39,14 +54,21 @@ public class ResourceManager : MonoBehaviour {
 		commoditiesText = GameObject.Find ("Commodities").GetComponentInChildren<Text> ();
 		luxuriesText = GameObject.Find ("Luxuries").GetComponentInChildren<Text> ();
 		wealthText = GameObject.Find ("Wealth").GetComponentInChildren<Text> ();
+		maxShipText = GameObject.Find ("MaxShips").GetComponentInChildren<Text> ();
 
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+
 	}
 
+	void FixedUpdate()
+	{
+		if (maxShipText != null)
+			maxShipText.text = currentShips.ToString () + " / " + _maxShips.ToString ();
+	}
+	
 	public void addToCommodities(int additive)
 	{
 		this.commodities += additive;

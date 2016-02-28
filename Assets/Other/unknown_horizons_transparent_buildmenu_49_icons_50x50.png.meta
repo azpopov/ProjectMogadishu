@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: c34cca3dab38c35459f034d9b8d33b57
-timeCreated: 1456219648
+timeCreated: 1456674140
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -13,7 +13,7 @@ TextureImporter:
     21300012: unknown_horizons_transparent_buildmenu_49_icons_50x50_6
     21300014: unknown_horizons_transparent_buildmenu_49_icons_50x50_7
     21300016: unknown_horizons_transparent_buildmenu_49_icons_50x50_8
-    21300018: unknown_horizons_transparent_buildmenu_49_icons_50x50_9
+    21300018: ShipSprite
     21300020: unknown_horizons_transparent_buildmenu_49_icons_50x50_10
     21300022: unknown_horizons_transparent_buildmenu_49_icons_50x50_11
     21300024: unknown_horizons_transparent_buildmenu_49_icons_50x50_12
@@ -119,7 +119,7 @@ TextureImporter:
         width: 42
         height: 36
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_2
       rect:
@@ -129,7 +129,7 @@ TextureImporter:
         width: 41
         height: 37
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_3
       rect:
@@ -139,7 +139,7 @@ TextureImporter:
         width: 28
         height: 36
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_4
       rect:
@@ -149,7 +149,7 @@ TextureImporter:
         width: 38
         height: 38
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_5
       rect:
@@ -159,7 +159,7 @@ TextureImporter:
         width: 30
         height: 39
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_6
       rect:
@@ -169,7 +169,7 @@ TextureImporter:
         width: 41
         height: 39
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_7
       rect:
@@ -179,7 +179,7 @@ TextureImporter:
         width: 33
         height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_8
       rect:
@@ -189,9 +189,9 @@ TextureImporter:
         width: 39
         height: 39
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_9
+    - name: ShipSprite
       rect:
         serializedVersion: 2
         x: 119
@@ -199,7 +199,7 @@ TextureImporter:
         width: 43
         height: 39
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_10
       rect:
@@ -209,7 +209,7 @@ TextureImporter:
         width: 46
         height: 42
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_11
       rect:
@@ -219,7 +219,7 @@ TextureImporter:
         width: 44
         height: 45
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_12
       rect:
@@ -229,7 +229,7 @@ TextureImporter:
         width: 43
         height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_13
       rect:
@@ -239,7 +239,7 @@ TextureImporter:
         width: 45
         height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_14
       rect:
@@ -249,7 +249,7 @@ TextureImporter:
         width: 33
         height: 27
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_15
       rect:
@@ -259,7 +259,7 @@ TextureImporter:
         width: 37
         height: 38
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_16
       rect:
@@ -269,7 +269,7 @@ TextureImporter:
         width: 33
         height: 33
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_17
       rect:
@@ -279,7 +279,7 @@ TextureImporter:
         width: 30
         height: 33
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_18
       rect:
@@ -289,7 +289,7 @@ TextureImporter:
         width: 41
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_19
       rect:
@@ -299,7 +299,7 @@ TextureImporter:
         width: 40
         height: 42
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_20
       rect:
@@ -309,7 +309,7 @@ TextureImporter:
         width: 42
         height: 35
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_21
       rect:
@@ -319,7 +319,7 @@ TextureImporter:
         width: 38
         height: 40
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_22
       rect:
@@ -329,7 +329,7 @@ TextureImporter:
         width: 32
         height: 37
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_23
       rect:
@@ -339,7 +339,7 @@ TextureImporter:
         width: 29
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_24
       rect:
@@ -349,7 +349,7 @@ TextureImporter:
         width: 37
         height: 39
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_25
       rect:
@@ -359,7 +359,7 @@ TextureImporter:
         width: 31
         height: 40
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_26
       rect:
@@ -369,7 +369,7 @@ TextureImporter:
         width: 30
         height: 36
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_27
       rect:
@@ -379,7 +379,7 @@ TextureImporter:
         width: 43
         height: 35
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_28
       rect:
@@ -389,7 +389,7 @@ TextureImporter:
         width: 25
         height: 6
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_29
       rect:
@@ -399,7 +399,7 @@ TextureImporter:
         width: 8
         height: 4
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_30
       rect:
@@ -409,7 +409,7 @@ TextureImporter:
         width: 10
         height: 13
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_31
       rect:
@@ -419,7 +419,7 @@ TextureImporter:
         width: 31
         height: 41
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_32
       rect:
@@ -429,7 +429,7 @@ TextureImporter:
         width: 27
         height: 42
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_33
       rect:
@@ -439,7 +439,7 @@ TextureImporter:
         width: 29
         height: 41
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_34
       rect:
@@ -449,7 +449,7 @@ TextureImporter:
         width: 40
         height: 42
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_35
       rect:
@@ -459,7 +459,7 @@ TextureImporter:
         width: 34
         height: 44
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_36
       rect:
@@ -469,7 +469,7 @@ TextureImporter:
         width: 39
         height: 40
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_37
       rect:
@@ -479,7 +479,7 @@ TextureImporter:
         width: 42
         height: 40
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_38
       rect:
@@ -489,7 +489,7 @@ TextureImporter:
         width: 36
         height: 27
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_39
       rect:
@@ -499,7 +499,7 @@ TextureImporter:
         width: 33
         height: 36
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_40
       rect:
@@ -509,7 +509,7 @@ TextureImporter:
         width: 33
         height: 36
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_41
       rect:
@@ -519,7 +519,7 @@ TextureImporter:
         width: 33
         height: 36
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_42
       rect:
@@ -529,7 +529,7 @@ TextureImporter:
         width: 33
         height: 36
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_43
       rect:
@@ -539,7 +539,7 @@ TextureImporter:
         width: 43
         height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_44
       rect:
@@ -549,7 +549,7 @@ TextureImporter:
         width: 33
         height: 36
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_45
       rect:
@@ -559,7 +559,7 @@ TextureImporter:
         width: 33
         height: 36
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_46
       rect:
@@ -569,7 +569,7 @@ TextureImporter:
         width: 33
         height: 36
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_47
       rect:
@@ -579,7 +579,7 @@ TextureImporter:
         width: 42
         height: 42
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_48
       rect:
@@ -589,7 +589,7 @@ TextureImporter:
         width: 42
         height: 40
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_49
       rect:
@@ -599,7 +599,7 @@ TextureImporter:
         width: 40
         height: 29
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: unknown_horizons_transparent_buildmenu_49_icons_50x50_50
       rect:
