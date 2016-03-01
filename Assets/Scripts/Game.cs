@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Game : MonoBehaviour {
 	//Singleton
@@ -14,6 +15,14 @@ public class Game : MonoBehaviour {
 		luxuries
 	};
 
+	struct TradeShip{
+		public float timeDestinationDefault;
+		public float timeToDestination;
+		public int expectedIncome = 0;
+		public GameObject uiRepresentation;
+	};
+
+	public List<TradeShip> tradeFleet = new List<TradeShip>();
 	public enum buildingIndex
 	{
 		commodities1,
@@ -105,7 +114,9 @@ public class Game : MonoBehaviour {
 
 	public void SendTradeMission(resourcesTypes e, int requestedAmount)
 	{
-		if(ResourceManager.current.
+		if (!ResourceManager.current.ShipAvailable ())
+			return;
+
 	}
 
 }

@@ -1,10 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ResourceManager : MonoBehaviour {
 
 	public static ResourceManager current;
+
+	List<float> timers = new List<float>();
+
 
 
 	Text commoditiesText, luxuriesText, wealthText, maxShipText;
@@ -83,5 +87,7 @@ public class ResourceManager : MonoBehaviour {
 		}
 		return true;
 	}
+
+
 
 }
