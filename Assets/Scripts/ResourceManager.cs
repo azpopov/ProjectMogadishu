@@ -5,6 +5,8 @@ using System.Collections;
 public class ResourceManager : MonoBehaviour {
 
 	public static ResourceManager current;
+
+
 	Text commoditiesText, luxuriesText, wealthText, maxShipText;
 	int _commodities = 0;
 	int _luxuries = 0;
@@ -73,4 +75,13 @@ public class ResourceManager : MonoBehaviour {
 	{
 		this.commodities += additive;
 	}
+
+	public bool ShipAvailable()
+	{
+		if (currentShips == 0) {
+			return false;
+		}
+		return true;
+	}
+
 }

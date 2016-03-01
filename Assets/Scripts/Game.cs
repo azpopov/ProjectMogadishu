@@ -8,6 +8,12 @@ public class Game : MonoBehaviour {
 
 	public GameObject currentlyBuilding;
 
+	public enum resourcesTypes
+	{
+		commodities,
+		luxuries
+	};
+
 	public enum buildingIndex
 	{
 		commodities1,
@@ -81,4 +87,25 @@ public class Game : MonoBehaviour {
 		SetCurrentlyBuilding (instance);
 
 	}
+
+	public void toggleCanvasGroup(CanvasGroup _canvasgroup)
+	{
+		if (_canvasgroup.alpha == 0) {
+			_canvasgroup.alpha = 1;
+			_canvasgroup.interactable = true;
+		} else 
+		{
+			_canvasgroup.alpha = 0;
+			_canvasgroup.interactable = false;
+		}
+
+
+
+	}
+
+	public void SendTradeMission(resourcesTypes e, int requestedAmount)
+	{
+		if(ResourceManager.current.
+	}
+
 }
