@@ -7,7 +7,6 @@ public class ResourceManager : MonoBehaviour {
 
 	public static ResourceManager current;
 
-	List<float> timers = new List<float>();
 
 
 
@@ -51,6 +50,7 @@ public class ResourceManager : MonoBehaviour {
 		}
 	}
 
+
 	// Use this for initialization
 	void Start () {
 		if (current == null)
@@ -89,5 +89,13 @@ public class ResourceManager : MonoBehaviour {
 	}
 
 
+
+//	public void SendTradeMission(resourcesTypes requestResource, int requestedAmount)
+//	{
+//		if (!ShipAvailable ())
+//			return;
+//
+//		
+//	}
 
 }

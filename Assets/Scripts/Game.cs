@@ -9,20 +9,9 @@ public class Game : MonoBehaviour {
 
 	public GameObject currentlyBuilding;
 
-	public enum resourcesTypes
-	{
-		commodities,
-		luxuries
-	};
 
-	struct TradeShip{
-		public float timeDestinationDefault;
-		public float timeToDestination;
-		public int expectedIncome = 0;
-		public GameObject uiRepresentation;
-	};
 
-	public List<TradeShip> tradeFleet = new List<TradeShip>();
+
 	public enum buildingIndex
 	{
 		commodities1,
@@ -112,11 +101,6 @@ public class Game : MonoBehaviour {
 
 	}
 
-	public void SendTradeMission(resourcesTypes e, int requestedAmount)
-	{
-		if (!ResourceManager.current.ShipAvailable ())
-			return;
 
-	}
 
 }

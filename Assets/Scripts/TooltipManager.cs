@@ -6,15 +6,15 @@ public class TooltipManager : MonoBehaviour {
 
 	static TooltipManager current;
 
-	Text title;
-	Text content;
+//	Text title;
+//	Text content;
 	Tooltip currentlyDisplaying = null;
 
 	Canvas canvasGame;
 	void Awake()
 	{
-		title = GameObject.Find("TooltipTitle").GetComponent<Text> ();
-		content = GameObject.Find ("TooltipContent").GetComponent<Text> ();
+//		title = GameObject.Find("TooltipTitle").GetComponent<Text> ();
+//		content = GameObject.Find ("TooltipContent").GetComponent<Text> ();
 		canvasGame = GameObject.Find ("Canvas").GetComponent<Canvas> ();
 		current.gameObject.SetActive (false);
 	}
