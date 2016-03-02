@@ -7,7 +7,7 @@ public class ResourceManager : MonoBehaviour {
 
 	public static ResourceManager current;
 
-
+	public Sprite[] resourceSprites;
 
 
 	Text commoditiesText, luxuriesText, wealthText, maxShipText;
