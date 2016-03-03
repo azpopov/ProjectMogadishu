@@ -25,7 +25,7 @@ public class Factions : MonoBehaviour
 //		{"iguana", -1}
 //	};
 	public Sprite[] insignias;
-	float refreshTimer = 60f;
+	float refreshTimer = 5f;
 
 	// Use this for initialization
 	void Start ()
@@ -46,6 +46,7 @@ public class Factions : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+		refreshTimer -= Time.deltaTime;
 		if (refreshTimer < float.Epsilon) {
 			refreshTimer = 60f + UnityEngine.Random.Range (-10f, +10f);
 			for(int i = tradeMissions.Count; i < 5; i++)
@@ -73,13 +74,14 @@ public class Factions : MonoBehaviour
 			tradeMissionScript.insignia = insignias [0];
 			tradeMissionScript.originalTime = UnityEngine.Random.Range (100f, 250f);
 			resourceType = UnityEngine.Random.Range (1, 3);
-
+			tradeMissionScript.f = faction.Celestial;
 			tradeMissionScript.requestedResources = GetResourceAmount(1.5f, resourceType);
 			break;
 		case faction.Omani:
 			tradeMissionScript.insignia = insignias [1];
 			tradeMissionScript.originalTime = UnityEngine.Random.Range (30f, 100f);
 			resourceType = UnityEngine.Random.Range (0, 3);
+			tradeMissionScript.f = faction.Omani;
 			tradeMissionScript.requestedResources = GetResourceAmount(0.8f, resourceType);
 			break;
 		default:
@@ -110,6 +112,37 @@ public class Factions : MonoBehaviour
 
 		baseValue = (int)((float)baseValue * factionBias);
 		return baseValue;
+	}
+
+	public void RemoveTradeMission(TradeMission _removedTrader)
+	{
+		tradeMissions.Remove (_removedTrader);
+		ResourceManager.current.TradeshipReturn ();
+	}
+
+	public void CompleteJourney(faction _f, int type, int _amountSent, int iniResult)
+	{
+		iniResult = iniResult + UnityEngine.Random.Range (0, 100);
+
+		if (iniResult <= 20)
+			DisasterJourney ();
+		else if (iniResult <= 70) 
+			SuccessfulJourney ();
+		else
+			AmazingJourney ();
+
+	}
+	int SuccessfulJourney()
+	{
+		return 0;
+	}
+	int DisasterJourney()
+	{
+		return 0;
+	}
+	int AmazingJourney()
+	{
+		return 0;
 	}
 
 }

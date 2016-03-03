@@ -3,80 +3,63 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Game : MonoBehaviour {
+public class Game : MonoBehaviour
+{
 	//Singleton
 	static public Game current;
-
 	public GameObject currentlyBuilding;
 
 
-
-
-	public enum buildingIndex
-	{
-		commodities1,
-		commodities2,
-		commodities3,
-		luxury1,
-		luxury2,
-		luxury3
-	};
 	[SerializeField]
-	public GameObject[] buildingPrefabs;
+	public GameObject[]
+		buildingPrefabs;
 	// Use this for initialization
-	void Start () {
+	void Start ()
+	{
 		if (current == null) {
 			current = this;
-		}
-		else{
-			Destroy(this);
+		} else {
+			Destroy (this);
 		}
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
 		if (Input.GetKeyDown (KeyCode.Escape))
 			CancelBuild ();	
 	}
 
-
-	void CancelBuild()
+	void CancelBuild ()
 	{
 		if (currentlyBuilding != null) {
-			Destroy(currentlyBuilding);
-			SetCurrentlyBuilding(null);
+			Destroy (currentlyBuilding);
+			SetCurrentlyBuilding (null);
 		}
 	}
 
-	public void SetCurrentlyBuilding(GameObject _currentlyBuilding)
+	public void SetCurrentlyBuilding (GameObject _currentlyBuilding)
 	{
 
 		currentlyBuilding = _currentlyBuilding;
 	}
 
-
-	public void toggleToolBar(string toolbarPosition)
+	public void toggleToolBar (string toolbarPosition)
 	{
-		GameObject toolbar = GameObject.Find (toolbarPosition +"Toolbar");
-		if (toolbar != null)
-		{
+		GameObject toolbar = GameObject.Find (toolbarPosition + "Toolbar");
+		if (toolbar != null) {
 			CanvasGroup canvasGroup = toolbar.GetComponent<CanvasGroup> ();
-			if (canvasGroup.alpha == 1) 
-			{
-				canvasGroup.alpha = 0;
-				canvasGroup.interactable = false;
-				GameObject.Find(toolbarPosition+"Button").GetComponentInChildren<Text>().text = "Show";
-
-			} else {
-				canvasGroup.alpha = 1;
-				canvasGroup.interactable = true;
-				GameObject.Find(toolbarPosition+"Button").GetComponentInChildren<Text>().text = "Hide";
-			}
+			canvasGroup.alpha = (canvasGroup.alpha + 1) % 2; 
+			canvasGroup.interactable = !canvasGroup.interactable;
+			if (!canvasGroup.interactable)
+				GameObject.Find (toolbarPosition + "Button").GetComponentInChildren<Text> ().text = "Show";
+			else 
+				GameObject.Find (toolbarPosition + "Button").GetComponentInChildren<Text> ().text = "Hide";
 		}
+
 	}
 
-
-	public void StartBuilding(int _buildIndex)
+	public void StartBuilding (int _buildIndex)
 	{
 		CancelBuild ();
 		Vector3 currentMousePosition = Camera.main.ScreenToWorldPoint (Input.mousePosition);
@@ -86,13 +69,12 @@ public class Game : MonoBehaviour {
 
 	}
 
-	public void toggleCanvasGroup(CanvasGroup _canvasgroup)
+	public void toggleCanvasGroup (CanvasGroup _canvasgroup)
 	{
 		if (_canvasgroup.alpha == 0) {
 			_canvasgroup.alpha = 1;
 			_canvasgroup.interactable = true;
-		} else 
-		{
+		} else {
 			_canvasgroup.alpha = 0;
 			_canvasgroup.interactable = false;
 		}

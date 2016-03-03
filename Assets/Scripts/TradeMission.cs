@@ -1,37 +1,33 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 using System.Collections;
 using System;
 
 public class TradeMission : MonoBehaviour
 {
-	
-	GameObject uiRepresentation;
-	public float timeToDest, originalTime;
 
-	public int type;
+	public float timeToDest, originalTime;
+	public int type, requestedResources;
 	public Sprite insignia;
 	Image insigiaComp;
-	public int requestedResources;
-
-
-	public int expectedReturn;
-
+	Transform button;
 	Text destText;
-
 	bool sailing = false;
+	private UnityAction action;
+	public Factions.faction f;
 	void Start ()
 	{
-		uiRepresentation = gameObject;
-//		foreach (Transform child in transform) {
-//			if(String.Equals(child.transform.name,"FactionInsignia") )
-//				insigiaComp = child.GetComponent<Image> ();
-//		}
+		action = new UnityAction (StartSailing);
+		button = transform.Find ("SendTradeButton");
+		button.GetComponent<Button> ().onClick.AddListener (action);
+		
 		insigiaComp = transform.Find ("FactionInsignia").GetComponent<Image> ();
+
 		insigiaComp.sprite = insignia;
 		destText = transform.Find ("TripLength").GetComponent<Text> ();
 		destText.text = "Trip Length: " + Math.Round (timeToDest).ToString () + "s";
-		transform.Find ("ResourcesRequested").Find("ResourceText").GetComponent<Text> ().text = requestedResources.ToString ();
+		transform.Find ("ResourcesRequested").Find ("ResourceText").GetComponent<Text> ().text = requestedResources.ToString ();
 		transform.Find ("ResourcesRequested").Find ("ResourceImage").GetComponent<Image> ().sprite = ResourceManager.current.resourceSprites [type];
 		timeToDest = originalTime;
 	}
@@ -42,10 +38,37 @@ public class TradeMission : MonoBehaviour
 			timeToDest -= Time.deltaTime;
 			destText.text = "Trip Length: " + Math.Round (timeToDest).ToString () + "s";
 		}
+		if (timeToDest < float.Epsilon) {
+			//Factions.current.CompleteJourney(f, type, requestedResources);
+			CancelSailing ();
 		}
+	}
 
+	void StartSailing ()
+	{
+		Debug.Log (ResourceManager.current.ShipAvailable ());
+		if (!ResourceManager.current.ShipAvailable ())
+			return;
+		ResourceManager.current.SendTradeship ();
+		sailing = true;
+		button.GetComponent<Image> ().color = Color.red;
+		button.transform.Find ("Text").GetComponent<Text> ().text = "Cancel Ship";
+		button.GetComponent<Button> ().onClick.RemoveListener (action);
+		action -= StartSailing;
+		action += CancelSailing;
+		button.GetComponent<Button> ().onClick.AddListener (action);
 
+		//((Button)button).onClick.RemoveListener =>
+	}
 
+	void CancelSailing ()
+	{
+		button.GetComponent<Button> ().onClick.RemoveListener (action);
+		sailing = false;
+		action -= CancelSailing;
+		Factions.current.RemoveTradeMission (this);
+		Destroy (gameObject);
 
+	}
 	
 }

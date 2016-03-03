@@ -11,12 +11,14 @@ public class ResourceManager : MonoBehaviour {
 
 
 	Text commoditiesText, luxuriesText, wealthText, maxShipText;
+
+
+	int _maxShips = 2;
+	int currentShips = 0;
+
 	int _commodities = 0;
 	int _luxuries = 0;
 	int _wealth = 0;
-
-	int _maxShips = 1;
-	int currentShips = 0;
 	public int commodities {
 		get {return _commodities;}
 		set{
@@ -82,20 +84,21 @@ public class ResourceManager : MonoBehaviour {
 
 	public bool ShipAvailable()
 	{
-		if (currentShips == 0) {
+		if (currentShips >= maxShips) {
 			return false;
 		}
 		return true;
 	}
 
+	public void TradeshipReturn()
+	{
+		currentShips--;
+	}
 
-
-//	public void SendTradeMission(resourcesTypes requestResource, int requestedAmount)
-//	{
-//		if (!ShipAvailable ())
-//			return;
-//
-//		
-//	}
+	public void SendTradeship()
+	{
+		currentShips++;
+	}
+	
 
 }
