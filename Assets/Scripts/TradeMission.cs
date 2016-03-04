@@ -8,7 +8,7 @@ public class TradeMission : MonoBehaviour
 {
 
 	public float timeToDest, originalTime;
-	public int type, requestedResources;
+	public int type, targetType, requestedResources;
 	public Sprite insignia;
 	Image insigiaComp;
 	Transform button;
@@ -26,27 +26,44 @@ public class TradeMission : MonoBehaviour
 
 		insigiaComp.sprite = insignia;
 		destText = transform.Find ("TripLength").GetComponent<Text> ();
-		destText.text = "Trip Length: " + Math.Round (timeToDest).ToString () + "s";
+
 		transform.Find ("ResourcesRequested").Find ("ResourceText").GetComponent<Text> ().text = requestedResources.ToString ();
 		transform.Find ("ResourcesRequested").Find ("ResourceImage").GetComponent<Image> ().sprite = ResourceManager.current.resourceSprites [type];
+		transform.Find ("ResourcesRequested").Find ("TargetResourceImage").GetComponent<Image> ().sprite = ResourceManager.current.resourceSprites [targetType];
 		timeToDest = originalTime;
+
+		destText.text = "Est Trip Length: " + Math.Round (timeToDest).ToString () + "s";
 	}
 
 	void Update ()
 	{
 		if (sailing) {
 			timeToDest -= Time.deltaTime;
-			destText.text = "Trip Length: " + Math.Round (timeToDest).ToString () + "s";
+			destText.text = "Arriving Back: " + Math.Round (timeToDest).ToString () + "s";
 		}
 		if (timeToDest < float.Epsilon) {
-			//Factions.current.CompleteJourney(f, type, requestedResources);
+			Factions.current.CompleteJourney(f, type, targetType, requestedResources, 0);
 			CancelSailing ();
 		}
 	}
 
 	void StartSailing ()
 	{
-		Debug.Log (ResourceManager.current.ShipAvailable ());
+		if (type == 0)
+		if (ResourceManager.current.commodities < requestedResources)
+			return;
+		else
+			ResourceManager.current.commodities -= requestedResources;
+		if(type == 1)
+			if(ResourceManager.current.luxuries < requestedResources)
+				return;
+		else
+			ResourceManager.current.luxuries -= requestedResources;
+		if(type == 2)
+			if(ResourceManager.current.wealth < requestedResources)
+				return;
+		else
+			ResourceManager.current.wealth -= requestedResources;
 		if (!ResourceManager.current.ShipAvailable ())
 			return;
 		ResourceManager.current.SendTradeship ();

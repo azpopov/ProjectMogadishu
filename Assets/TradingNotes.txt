@@ -1,0 +1,15 @@
+Commodity 1
+Luxury 4
+Wealth 10
+
+
+Thus
+
+Successful Journey
+
+1 Commodity  = 1/4 (0.25) Luxury 1/10 (0.1) Wealth
+To make Trade intersting
+1 Commodity -> 1/2 (0.5) Luxury 
+1 Commodity -> 1/6 (0.17)Wealth
+1/4 (0.25) Luxury -> (0.2) Wealth
+1/4 Luxury -> 2.2 Commodity

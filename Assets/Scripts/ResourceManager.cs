@@ -76,10 +76,15 @@ public class ResourceManager : MonoBehaviour {
 		if (maxShipText != null)
 			maxShipText.text = currentShips.ToString () + " / " + _maxShips.ToString ();
 	}
-	
-	public void addToCommodities(int additive)
+
+	public void addToResource(int _type, int _amount)
 	{
-		this.commodities += additive;
+		if (_type == 0) {
+			commodities += _amount;
+		} else if (_type == 1) {
+			luxuries += _amount;
+		} else
+			wealth += _amount;
 	}
 
 	public bool ShipAvailable()
