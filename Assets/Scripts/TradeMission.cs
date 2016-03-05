@@ -17,6 +17,7 @@ public class TradeMission : MonoBehaviour
 	private UnityAction action;
 	public Factions.faction f;
 	public string shipName = "HMS Victory";
+	public int resultBias = 0;
 
 	void Start ()
 	{
@@ -44,7 +45,7 @@ public class TradeMission : MonoBehaviour
 			destText.text = "Arriving Back: " + Math.Round (timeToDest).ToString () + "s";
 		}
 		if (timeToDest < float.Epsilon) {
-			Factions.current.CompleteJourney(f, type, targetType, requestedResources, 0);
+			Factions.current.CompleteJourney(this);
 			CancelSailing ();
 		}
 	}

@@ -16,9 +16,9 @@ public class ResourceManager : MonoBehaviour {
 	int _maxShips = 2;
 	int currentShips = 0;
 
-	int _commodities = 0;
-	int _luxuries = 0;
-	int _wealth = 0;
+	int _commodities = 500;
+	int _luxuries = 500;
+	int _wealth = 500;
 	public int commodities {
 		get {return _commodities;}
 		set{

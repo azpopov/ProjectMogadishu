@@ -132,55 +132,59 @@ public class Factions : MonoBehaviour
 
 
 
-	public void CompleteJourney(faction _f, int _type, int _targetType, int _amountSent, int iniResult)
+	public void CompleteJourney(TradeMission script)
 	{
-		iniResult = iniResult + UnityEngine.Random.Range (0, 100);
+		script.resultBias += UnityEngine.Random.Range (0, 100);
 
 		completeTradeWindow = (GameObject)Instantiate (completeTradeWindowPrefab, new Vector3 (0, 0), Quaternion.identity);
 		completeTradeWindow.transform.SetParent (GameObject.Find("UI").transform, false);
 
 		int amountReceived = 0;
-		string resultText = "";
+		string resultText = "The "+script.shipName + " has returned!\nTheJoyrney was deemed ";
 
 
-		if (iniResult <= 20) {
-			amountReceived = DisasterJourney (factionBiases [_f], _type, _targetType, _amountSent);
-		} else if (iniResult <= 80) {
-			amountReceived = SuccessfulJourney (factionBiases [_f], _type, _targetType, _amountSent);
+
+		if (script.resultBias <= 20) {
+			resultText += "DISASTROUS!\n";
+			amountReceived = DisasterJourney (script);
+		} else if (script.resultBias <= 80) {
+			resultText += "SUCCESSFUL!\n";
+			amountReceived = SuccessfulJourney (script);
 		} else {
-			amountReceived = AmazingJourney (factionBiases [_f], _type, _targetType, _amountSent);
+			resultText += "AMAZINGLY SUCCESSFUL!\n";
+			amountReceived = AmazingJourney (script);
 		}
-
-		ResourceManager.current.addToResource (_targetType, amountReceived);
+		completeTradeWindow.transform.FindChild ("TradeCompleteText").GetComponent<Text> ().text = resultText;
+		ResourceManager.current.addToResource (script.targetType, amountReceived);
 
 	}
-	int SuccessfulJourney(float _factionBias, int _type, int _targetType, int _amountSent)
+	int SuccessfulJourney(TradeMission script)
 	{
-		float amountReturned = (float)_amountSent;
-		amountReturned *= _factionBias;
+		float amountReturned = (float)script.requestedResources;
+		amountReturned *= factionBiases[script.f];
 
-		if (_type == 0 && _targetType == 1) {
+		if (script.type == 0 && script.targetType == 1) {
 			amountReturned /= 2f;
-		} else if (_type == 0 && _targetType == 2) {
+		} else if (script.type == 0 && script.targetType == 2) {
 			amountReturned /= 6f;
-		} else if (_type == 1 && _targetType == 2) {
+		} else if (script.type == 1 && script.targetType == 2) {
 			amountReturned *= 0.6f;
-		} else if (_type == 1 && _targetType == 0) {
+		} else if (script.type == 1 && script.targetType == 0) {
 			amountReturned *= 2.2f;
-		} else if (_type == _targetType)
+		} else if (script.type == script.targetType)
 			amountReturned *= 1.7f;
 
 		return (int)amountReturned;
 	}
-	int DisasterJourney(float _factionBias, int _type, int _targetType, int _amountSent)
+	int DisasterJourney(TradeMission script)
 	{
 		Debug.Log ("disaster not implemented");
 		return 0;
 	}
-	int AmazingJourney(float _factionBias, int _type,  int _targetType,int _amountSent)
+	int AmazingJourney(TradeMission script)
 	{
 		Debug.Log ("Amazing not implemented");
-		return 0;
+		return 0;	
 	}
 
 }
