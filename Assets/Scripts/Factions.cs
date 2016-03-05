@@ -9,8 +9,8 @@ public class Factions : MonoBehaviour
 
 	public static Factions current = null;
 	public List<TradeMission> tradeMissions = new List<TradeMission> ();
-	GameObject tradeWindow;
-	public GameObject tradePrefab;
+	GameObject tradeWindow, completeTradeWindow;
+	public GameObject tradePrefab, completeTradeWindowPrefab;
 	public enum faction
 	{
 		Celestial,
@@ -130,16 +130,28 @@ public class Factions : MonoBehaviour
 		ResourceManager.current.TradeshipReturn ();
 	}
 
+
+
 	public void CompleteJourney(faction _f, int _type, int _targetType, int _amountSent, int iniResult)
 	{
 		iniResult = iniResult + UnityEngine.Random.Range (0, 100);
 
-		if (iniResult <= 20)
-			DisasterJourney ( factionBiases[_f],  _type, _targetType,  _amountSent);
-		else if (iniResult <= 80) 
-			ResourceManager.current.addToResource(_targetType, SuccessfulJourney (factionBiases[_f],  _type, _targetType, _amountSent));
-		else
-			AmazingJourney (factionBiases[_f], _type, _targetType, _amountSent);
+		completeTradeWindow = (GameObject)Instantiate (completeTradeWindowPrefab, new Vector3 (0, 0), Quaternion.identity);
+		completeTradeWindow.transform.SetParent (GameObject.Find("UI").transform, false);
+
+		int amountReceived = 0;
+		string resultText = "";
+
+
+		if (iniResult <= 20) {
+			amountReceived = DisasterJourney (factionBiases [_f], _type, _targetType, _amountSent);
+		} else if (iniResult <= 80) {
+			amountReceived = SuccessfulJourney (factionBiases [_f], _type, _targetType, _amountSent);
+		} else {
+			amountReceived = AmazingJourney (factionBiases [_f], _type, _targetType, _amountSent);
+		}
+
+		ResourceManager.current.addToResource (_targetType, amountReceived);
 
 	}
 	int SuccessfulJourney(float _factionBias, int _type, int _targetType, int _amountSent)
