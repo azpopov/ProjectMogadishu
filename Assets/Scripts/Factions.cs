@@ -147,13 +147,18 @@ public class Factions : MonoBehaviour
 		if (script.resultBias <= 20) {
 			resultText += "DISASTROUS!\n";
 			amountReceived = DisasterJourney (script);
+			resultText += "You haven't received anything sadly";
 		} else if (script.resultBias <= 80) {
-			resultText += "SUCCESSFUL!\n";
+			resultText += "SUCCESSFUL!\n ";
 			amountReceived = SuccessfulJourney (script);
+			resultText += "You've received "+amountReceived.ToString() + " from the Journey.";
 		} else {
 			resultText += "AMAZINGLY SUCCESSFUL!\n";
 			amountReceived = AmazingJourney (script);
+
 		}
+
+
 		completeTradeWindow.transform.FindChild ("TradeCompleteText").GetComponent<Text> ().text = resultText;
 		ResourceManager.current.addToResource (script.targetType, amountReceived);
 
