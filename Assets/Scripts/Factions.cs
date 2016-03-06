@@ -18,7 +18,7 @@ public class Factions : MonoBehaviour
 	}
 	;
 	Dictionary<faction, float> factionBiases = new Dictionary<faction, float> ();
-
+	Dictionary<int, string> resourceTypes = new Dictionary<int,string>();
 //	Dictionary<faction, > d = new Dictionary<string, int>()
 //	{
 //		{"cat", 2},
@@ -39,7 +39,9 @@ public class Factions : MonoBehaviour
 		
 		factionBiases.Add (faction.Celestial, 1.5f);
 		factionBiases.Add (faction.Omani, 0.8f);
-
+		resourceTypes.Add (0, "Commodities");
+		resourceTypes.Add (1, "Luxuries");
+		resourceTypes.Add (2, "Wealth");
 		tradeWindow = GameObject.Find ("TradeWindow").gameObject;
 		for (int i = 0; i < 5; i++) 
 		{
@@ -140,7 +142,7 @@ public class Factions : MonoBehaviour
 		completeTradeWindow.transform.SetParent (GameObject.Find("UI").transform, false);
 
 		int amountReceived = 0;
-		string resultText = "The "+script.shipName + " has returned!\nTheJoyrney was deemed ";
+		string resultText = "The "+script.shipName + " has returned!\nThe Captain would like to report:\n ";
 
 
 
@@ -151,7 +153,9 @@ public class Factions : MonoBehaviour
 		} else if (script.resultBias <= 80) {
 			resultText += "SUCCESSFUL!\n ";
 			amountReceived = SuccessfulJourney (script);
-			resultText += "You've received "+amountReceived.ToString() + " from the Journey.";
+			resultText += "Resources Sent: "+script.requestedResources.ToString() + resourceTypes[script.type]+"\n";
+			resultText += "Resources Received: "+amountReceived.ToString() + resourceTypes[script.targetType]+"\n";
+		
 		} else {
 			resultText += "AMAZINGLY SUCCESSFUL!\n";
 			amountReceived = AmazingJourney (script);

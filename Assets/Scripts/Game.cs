@@ -83,6 +83,8 @@ public class Game : MonoBehaviour
 
 	}
 
+
+
 	public void DestroyGameObject(Object o)
 	{
 		Destroy (o);

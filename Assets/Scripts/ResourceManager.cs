@@ -19,6 +19,8 @@ public class ResourceManager : MonoBehaviour {
 	int _commodities = 500;
 	int _luxuries = 500;
 	int _wealth = 500;
+
+	public List<string> ownedShips = new List<string>();
 	public int commodities {
 		get {return _commodities;}
 		set{
@@ -59,6 +61,9 @@ public class ResourceManager : MonoBehaviour {
 			current = this;
 		else
 			Destroy (this);
+
+		ownedShips.Add ("HMS Victory");
+		ownedShips.Add ("Maria");
 		commoditiesText = GameObject.Find ("Commodities").GetComponentInChildren<Text> ();
 		luxuriesText = GameObject.Find ("Luxuries").GetComponentInChildren<Text> ();
 		wealthText = GameObject.Find ("Wealth").GetComponentInChildren<Text> ();
@@ -104,6 +109,14 @@ public class ResourceManager : MonoBehaviour {
 	{
 		currentShips++;
 	}
-	
+
+	public void AddNewShipName()
+	{
+
+
+			ownedShips.Add(GameObject.Find("InputField").GetComponent<InputField>().text);
+			Debug.Log(GameObject.Find("InputField").GetComponent<InputField>().text);
+
+	}
 
 }
