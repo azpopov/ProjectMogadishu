@@ -142,9 +142,7 @@ public class Factions : MonoBehaviour
 		completeTradeWindow.transform.SetParent (GameObject.Find("UI").transform, false);
 
 		int amountReceived = 0;
-		string resultText = "The "+script.shipName + " has returned!\nThe Captain would like to report:\n ";
-
-
+		string resultText = "The "+ ResourceManager.current.ownedShips[UnityEngine.Random.Range(0,ResourceManager.current.ownedShips.Count)]  + " has returned!\nThe Captain would like to report:\n ";
 
 		if (script.resultBias <= 20) {
 			resultText += "DISASTROUS!\n";

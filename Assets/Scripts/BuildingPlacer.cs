@@ -13,7 +13,7 @@ public class BuildingPlacer : MonoBehaviour {
 		col = GetComponent<Collider2D> ();
 	}
 
-	public GameObject newShipWindow;
+	public CanvasGroup newShipWindow;
 
 	// Update is called once per frame
 	void Update () {
@@ -40,9 +40,10 @@ public class BuildingPlacer : MonoBehaviour {
 			else
 			{
 				ResourceManager.current.maxShips += 1;
-				GameObject instance = Instantiate(newShipWindow, new Vector3 (0, 0), Quaternion.identity) as GameObject;
-				instance.transform.SetParent (GameObject.Find("UI").transform, false);
-
+			//	GameObject instance = Instantiate(newShipWindow, new Vector3 (0, 0), Quaternion.identity) as GameObject;
+				//instance.transform.SetParent (GameObject.Find("UI").transform, false);
+				newShipWindow.alpha = 1;
+				newShipWindow.interactable = true;
 			}
 			Destroy(GetComponent<Rigidbody2D>());
 			Destroy(this);
