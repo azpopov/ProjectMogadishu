@@ -1,19 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using System;
 public class BuildingPlacer : MonoBehaviour {
 
 	bool validPlace = false;
 	Collider2D col;
+	CanvasGroup newShipWindow;
 	// Use this for initialization
 	void Start () {
 		//set UI aplha to visible
 		GameObject.Find ("Esc Text").GetComponent<CanvasGroup> ().alpha = 1;
+		newShipWindow = GameObject.Find ("NewShipPopUp").GetComponent<CanvasGroup> ();
 		//Get the Collider
 		col = GetComponent<Collider2D> ();
 	}
 
-	public CanvasGroup newShipWindow;
+
 
 	// Update is called once per frame
 	void Update () {
@@ -44,6 +46,7 @@ public class BuildingPlacer : MonoBehaviour {
 				//instance.transform.SetParent (GameObject.Find("UI").transform, false);
 				newShipWindow.alpha = 1;
 				newShipWindow.interactable = true;
+				newShipWindow.blocksRaycasts = true;
 			}
 			Destroy(GetComponent<Rigidbody2D>());
 			Destroy(this);

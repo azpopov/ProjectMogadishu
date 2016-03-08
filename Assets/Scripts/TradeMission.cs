@@ -16,7 +16,6 @@ public class TradeMission : MonoBehaviour
 	bool sailing = false;
 	private UnityAction action;
 	public Factions.faction f;
-	public string shipName = "HMS Victory";
 	public int resultBias = 0;
 
 	void Start ()

@@ -62,8 +62,6 @@ public class ResourceManager : MonoBehaviour {
 		else
 			Destroy (this);
 
-		ownedShips.Add ("HMS Victory");
-		ownedShips.Add ("Maria");
 		commoditiesText = GameObject.Find ("Commodities").GetComponentInChildren<Text> ();
 		luxuriesText = GameObject.Find ("Luxuries").GetComponentInChildren<Text> ();
 		wealthText = GameObject.Find ("Wealth").GetComponentInChildren<Text> ();
