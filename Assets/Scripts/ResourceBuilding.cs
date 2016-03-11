@@ -19,6 +19,13 @@ public class ResourceBuilding : MonoBehaviour
 	public GameObject floatingTextPrefab;
 	FloatText floatText;
 
+	public enum resourceType
+	{
+		commodity,
+		luxury
+	}
+	public resourceType type;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -33,13 +40,12 @@ public class ResourceBuilding : MonoBehaviour
 	{
 		timeSinceTick += Time.deltaTime;
 		//If reached the point for the tick and resources aren't full
-		if (timeSinceTick > timeToTick && storedResources < maxResources) {
-			spriteRnd.sprite = glowSprite;
-			if (Random.Range (0, 10) == 9) {
-				storedResources += Random.Range (150, 250);
-			} else
-				storedResources += Random.Range (50, 150);
+		if (timeSinceTick > timeToTick) {
 			timeSinceTick = 0.0f;
+			if (storedResources < maxResources) {
+				spriteRnd.sprite = glowSprite;
+				produce();
+			}
 		}
 
 	}
@@ -66,10 +72,31 @@ public class ResourceBuilding : MonoBehaviour
 				spriteRnd.sprite = defaultSprite;
 
 			//Add stored resources to player Vault
-			ResourceManager.current.commodities += storedResources;
-			storedResources = 0;
+			addResource();
 		}
 	}
+	void addResource()
+	{
+		if (type == resourceType.commodity) {
+			ResourceManager.current.commodities += storedResources;
+		
+		} else if (type == resourceType.luxury) {
+			ResourceManager.current.luxuries += storedResources;
 
+		}
+		storedResources = 0;
+	}
+
+	void produce()
+	{
+		int random = Random.Range (0, 10);
+		if (type == resourceType.commodity) {
+			storedResources += Random.Range(50,200);
+			
+		} else if (type == resourceType.luxury) {
+			storedResources += Random.Range(12,50);
+			
+		}
+	}
 
 }

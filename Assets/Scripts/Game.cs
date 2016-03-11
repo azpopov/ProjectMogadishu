@@ -9,6 +9,7 @@ public class Game : MonoBehaviour
 	static public Game current;
 	public GameObject currentlyBuilding;
 
+	public float[] portugeseIntervals = new float[]{10,100,50};
 
 	[SerializeField]
 	public GameObject[]

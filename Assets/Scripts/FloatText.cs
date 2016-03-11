@@ -5,9 +5,9 @@ public class FloatText : MonoBehaviour {
 	private Vector3 start;         //the starting point for lerping movement
 	private Vector3 end;           //ending point
 	
-	public Vector3 offset = new Vector3(0f, 1f, 0f); //added relative distance to move
+	public Vector3 offset = new Vector3(0f, 0.001f, 0f); //added relative distance to move
 	public float randomX = 0.5f;   //randomize movement left/right +/- this value
-	public float time = 2.0f;      //time to move. this with distance will determine speed
+	public float time = 1.0f;      //time to move. this with distance will determine speed
 	
 	public AnimationCurve acMove;  //animation curve to move transform
 	public AnimationCurve acAlpha; //animation curve to move alpha
