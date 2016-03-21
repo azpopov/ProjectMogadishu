@@ -18,6 +18,8 @@ public class TradeMission : MonoBehaviour
 	public Factions.faction f;
 	public int resultBias = 0;
 
+
+	//
 	void Start ()
 	{
 		action = new UnityAction (StartSailing);
