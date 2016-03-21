@@ -29,7 +29,7 @@ public class BuildingPlacer : MonoBehaviour {
 		this.transform.position = mousePos;
 		if (transform.name.Equals ("ShipYard(Clone)")) 
 		{
-			if( col.IsTouchingLayers(LayerMask.GetMask("Water")) && !col.IsTouchingLayers(LayerMask.GetMask("Building")))
+			if( col.IsTouchingLayers(LayerMask.GetMask("Water")) && !col.IsTouchingLayers(LayerMask.GetMask("Building")) && col.IsTouchingLayers(LayerMask.GetMask("Buildable")))
 				validPlace = true;
 
 		}
