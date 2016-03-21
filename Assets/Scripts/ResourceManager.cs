@@ -13,7 +13,7 @@ public class ResourceManager : MonoBehaviour {
 	Text commoditiesText, luxuriesText, wealthText, maxShipText;
 
 
-	int _maxShips = 2;
+	int _maxShips = 0;
 	int currentShips = 0;
 
 	int _commodities = 500;

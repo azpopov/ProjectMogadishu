@@ -72,15 +72,14 @@ public class Game : MonoBehaviour
 
 	public void toggleCanvasGroup (CanvasGroup _canvasgroup)
 	{
-		if (_canvasgroup.alpha == 0) {
+		if (_canvasgroup.alpha == 0) 
 			_canvasgroup.alpha = 1;
-			_canvasgroup.interactable = true;
-		} else {
+		 else 
 			_canvasgroup.alpha = 0;
-			_canvasgroup.interactable = false;
-		}
 
 
+		_canvasgroup.interactable = !_canvasgroup.interactable;
+		_canvasgroup.blocksRaycasts = !_canvasgroup.blocksRaycasts;
 
 	}
 

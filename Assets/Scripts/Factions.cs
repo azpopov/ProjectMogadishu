@@ -19,13 +19,7 @@ public class Factions : MonoBehaviour
 	;
 	Dictionary<faction, float> factionBiases = new Dictionary<faction, float> ();
 	Dictionary<int, string> resourceTypes = new Dictionary<int,string>();
-//	Dictionary<faction, > d = new Dictionary<string, int>()
-//	{
-//		{"cat", 2},
-//		{"dog", 1},
-//		{"llama", 0},
-//		{"iguana", -1}
-//	};
+
 	public Sprite[] insignias;
 	float refreshTimer = 5f;
 

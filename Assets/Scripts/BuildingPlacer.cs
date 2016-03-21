@@ -45,7 +45,7 @@ public class BuildingPlacer : MonoBehaviour {
 			Game.current.SetCurrentlyBuilding(null);
 			if(GetComponent<ResourceBuilding>() != null)
 				GetComponent<ResourceBuilding>().enabled = true;
-			else
+			else 
 			{
 				ResourceManager.current.maxShips += 1;
 			//	GameObject instance = Instantiate(newShipWindow, new Vector3 (0, 0), Quaternion.identity) as GameObject;
