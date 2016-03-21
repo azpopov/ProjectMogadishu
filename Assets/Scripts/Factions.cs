@@ -51,7 +51,7 @@ public class Factions : MonoBehaviour
 	{
 		refreshTimer -= Time.deltaTime;
 		if (refreshTimer < float.Epsilon) {
-			refreshTimer = 60f + UnityEngine.Random.Range (-10f, +10f);
+			refreshTimer = 20f + UnityEngine.Random.Range (-10f, +10f);
 			for(int i = tradeMissions.Count; i < 5; i++)
 			{
 				CreateTradeRoute ();

@@ -53,24 +53,24 @@ public class TradeMission : MonoBehaviour
 
 	void StartSailing ()
 	{
-		if (type == 0 && (ResourceManager.current.commodities < requestedResources))
-			return;
-		else
-			ResourceManager.current.commodities -= requestedResources;
-
-		if(type == 1 && (ResourceManager.current.luxuries < requestedResources))
-				return;
-		else
-			ResourceManager.current.luxuries -= requestedResources;
-
-		if(type == 2 && (ResourceManager.current.wealth < requestedResources))
-				return;
-		else
-			ResourceManager.current.wealth -= requestedResources;
-
 		if (!ResourceManager.current.ShipAvailable ())
 			return;
+		bool _traded = false;
+		if (type == 0 && !(ResourceManager.current.commodities < requestedResources)) {
+			_traded = true;
+			ResourceManager.current.commodities -= requestedResources;
+		}
+		if (type == 1 && !(ResourceManager.current.luxuries < requestedResources)) {
+			_traded = true;
+			ResourceManager.current.luxuries -= requestedResources;
+		}
+		if (type == 2 && !(ResourceManager.current.wealth < requestedResources)) {
+			_traded = true;
+			ResourceManager.current.wealth -= requestedResources;
+		}
 
+		if (!_traded)
+			return;
 		ResourceManager.current.SendTradeship ();
 		sailing = true;
 		button.GetComponent<Image> ().color = Color.red;
