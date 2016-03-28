@@ -9,56 +9,96 @@ public class Game : MonoBehaviour
 	static public Game current;
 	public GameObject currentlyBuilding;
 
-	public float[] portugeseIntervals = new float[]{10,100,50};
 
 	[SerializeField]
 	public GameObject[]
 		buildingPrefabs;
-	// Use this for initialization
-	void Start ()
-	{
+	public Sprite[] resourceSprites;
+
+	//ShipManagement
+	int _maxShips = 0;
+	public int currentShips = 0;
+	public List<string> ownedShips = new List<string>();
+
+
+
+	//List of current Buildings
+	public List<ResourceBuilding> resourceBuildingList;
+	
+	Text commoditiesText, luxuriesText, wealthText, maxShipText;
+	void Awake(){
 		if (current == null) {
 			current = this;
 		} else {
 			Destroy (this);
 		}
+		resourceBuildingList = new List<ResourceBuilding> ();
+		commoditiesText = GameObject.Find ("Commodities").GetComponentInChildren<Text> ();
+		luxuriesText = GameObject.Find ("Luxuries").GetComponentInChildren<Text> ();
+		wealthText = GameObject.Find ("Wealth").GetComponentInChildren<Text> ();
+		maxShipText = GameObject.Find ("MaxShips").GetComponentInChildren<Text> ();
+	}
+
+	// Use this for initialization
+	void Start ()
+	{
+
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
+		//If presses Escape while holding bUilding, cancel it.
 		if (Input.GetKeyDown (KeyCode.Escape))
 			CancelBuild ();	
 	}
 
 	void CancelBuild ()
 	{
+		//if holding building, destroy it and set the variable to null
 		if (currentlyBuilding != null) {
 			Destroy (currentlyBuilding);
 			SetCurrentlyBuilding (null);
 		}
 	}
+	//For every building in the resourceBuildingList advance their production by 1
+	void IncrementProductionTicks()
+	{
+		foreach (ResourceBuilding building in resourceBuildingList) {
+			building.productionTick();
+		}
+	}
+	//Check all booleans here. Returning true means go ahead with NextTurn
+	bool NextTurnCheck()
+	{
+		foreach (ResourceBuilding building in resourceBuildingList) {
+			if(building.resourcesMaxed)
+			{
+				Debug.Log("ResourceCheck Failed");
+				toggleCanvasGroup(GameObject.Find("CapacityErrorPanel").GetComponent<CanvasGroup>());
+				toggleInteractableButton(GameObject.Find("EndTurnButton").GetComponent<Button>());
+				return false;
+			}
+		}
+		return true;
+	}
+	//Perform all between methods here
+	public void NextTurn()
+	{
+		if (NextTurnCheck()) {
+			IncrementProductionTicks();
+		}
 
+	}
+
+	//BUILDER METHODS
+	//Set method for currentlyBuilding
 	public void SetCurrentlyBuilding (GameObject _currentlyBuilding)
 	{
 
 		currentlyBuilding = _currentlyBuilding;
 	}
-
-	public void toggleToolBar (string toolbarPosition)
-	{
-		GameObject toolbar = GameObject.Find (toolbarPosition + "Toolbar");
-		if (toolbar != null) {
-			CanvasGroup canvasGroup = toolbar.GetComponent<CanvasGroup> ();
-			canvasGroup.alpha = (canvasGroup.alpha + 1) % 2; 
-			canvasGroup.interactable = !canvasGroup.interactable;
-			if (!canvasGroup.interactable)
-				GameObject.Find (toolbarPosition + "Button").GetComponentInChildren<Text> ().text = "Show";
-			else 
-				GameObject.Find (toolbarPosition + "Button").GetComponentInChildren<Text> ().text = "Hide";
-		}
-
-	}
+	
 
 	public void StartBuilding (int _buildIndex)
 	{
@@ -70,19 +110,22 @@ public class Game : MonoBehaviour
 
 	}
 
+
+	//OTHER METHODS
+
 	public void toggleCanvasGroup (CanvasGroup _canvasgroup)
 	{
-		if (_canvasgroup.alpha == 0) 
-			_canvasgroup.alpha = 1;
-		 else 
-			_canvasgroup.alpha = 0;
 
-
+		_canvasgroup.alpha = (_canvasgroup.alpha + 1) % 2; 
 		_canvasgroup.interactable = !_canvasgroup.interactable;
 		_canvasgroup.blocksRaycasts = !_canvasgroup.blocksRaycasts;
 
 	}
 
+	public void toggleInteractableButton(Button b)
+	{
+		b.interactable = !b.interactable;
+	}
 
 
 	public void DestroyGameObject(Object o)
@@ -90,6 +133,81 @@ public class Game : MonoBehaviour
 		Destroy (o);
 	}
 
+	//RESOURCE MANAGEMENT METHODS
+
+	int _commodities = 500;
+	int _luxuries = 500;
+	int _wealth = 500;
+
+	public int commodities {
+		get {return _commodities;}
+		set{
+			_commodities = value ;
+			commoditiesText.text =  ":"+_commodities.ToString();
+		}
+	}
+	public int luxuries
+	{
+		get {return _luxuries;}
+		set{ _luxuries = value;
+			luxuriesText.text =  ":"+_luxuries.ToString();}
+	}
+	public int wealth
+	{
+		get {return _wealth;}
+		set{ _wealth = value ;
+			wealthText.text = ":"+_wealth.ToString();}
+	}
+	
 
 
+	public void addToResource(int _type, int _amount)
+	{
+		if (_type == 0) {
+			commodities += _amount;
+		} else if (_type == 1) {
+			luxuries += _amount;
+		} else
+			wealth += _amount;
+	}
+
+
+	public void PassAllResourceChecks()
+	{
+		foreach(ResourceBuilding building in resourceBuildingList)
+			building.resourcesMaxed = false;
+		NextTurn();
+	}
+
+	//SHIP MANAGEMENT METHODS
+
+	public int maxShips
+	{
+		get
+		{
+			return _maxShips;
+		}
+		set
+		{
+			_maxShips = value;
+			maxShipText.text = currentShips.ToString() + " / "+_maxShips.ToString();
+		}
+	}
+
+	public bool ShipAvailable()
+	{
+		if (currentShips >= maxShips) {
+			return false;
+		}
+		return true;
+	}
+
+	public void AddNewShipName()
+	{
+		
+		
+		ownedShips.Add(GameObject.Find("InputField").GetComponent<InputField>().text);
+		Debug.Log(GameObject.Find("InputField").GetComponent<InputField>().text);
+		
+	}
 }

@@ -123,7 +123,7 @@ public class Factions : MonoBehaviour
 	public void RemoveTradeMission(TradeMission _removedTrader)
 	{
 		tradeMissions.Remove (_removedTrader);
-		ResourceManager.current.TradeshipReturn ();
+		Game.current.currentShips--;
 	}
 
 
@@ -136,7 +136,7 @@ public class Factions : MonoBehaviour
 		completeTradeWindow.transform.SetParent (GameObject.Find("UI").transform, false);
 
 		int amountReceived = 0;
-		string resultText = "The "+ ResourceManager.current.ownedShips[UnityEngine.Random.Range(0,ResourceManager.current.ownedShips.Count)]  + " has returned!\nThe Captain would like to report:\n ";
+		string resultText = "The "+ Game.current.ownedShips[UnityEngine.Random.Range(0,Game.current.ownedShips.Count)]  + " has returned!\nThe Captain would like to report:\n ";
 
 		if (script.resultBias <= 20) {
 			resultText += "DISASTROUS!\n";
@@ -156,7 +156,7 @@ public class Factions : MonoBehaviour
 
 
 		completeTradeWindow.transform.FindChild ("TradeCompleteText").GetComponent<Text> ().text = resultText;
-		ResourceManager.current.addToResource (script.targetType, amountReceived);
+		Game.current.addToResource (script.targetType, amountReceived);
 
 	}
 	int SuccessfulJourney(TradeMission script)

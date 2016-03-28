@@ -32,8 +32,8 @@ public class TradeMission : MonoBehaviour
 		destText = transform.Find ("TripLength").GetComponent<Text> ();
 
 		transform.Find ("ResourcesRequested").Find ("ResourceText").GetComponent<Text> ().text = requestedResources.ToString ();
-		transform.Find ("ResourcesRequested").Find ("ResourceImage").GetComponent<Image> ().sprite = ResourceManager.current.resourceSprites [type];
-		transform.Find ("ResourcesRequested").Find ("TargetResourceImage").GetComponent<Image> ().sprite = ResourceManager.current.resourceSprites [targetType];
+		transform.Find ("ResourcesRequested").Find ("ResourceImage").GetComponent<Image> ().sprite = Game.current.resourceSprites [type];
+		transform.Find ("ResourcesRequested").Find ("TargetResourceImage").GetComponent<Image> ().sprite = Game.current.resourceSprites [targetType];
 		timeToDest = originalTime;
 
 		destText.text = "Est Trip Length: " + Math.Round (timeToDest).ToString () + "s";
@@ -53,25 +53,25 @@ public class TradeMission : MonoBehaviour
 
 	void StartSailing ()
 	{
-		if (!ResourceManager.current.ShipAvailable ())
+		if (!Game.current.ShipAvailable ())
 			return;
 		bool _traded = false;
-		if (type == 0 && !(ResourceManager.current.commodities < requestedResources)) {
+		if (type == 0 && !(Game.current.commodities < requestedResources)) {
 			_traded = true;
-			ResourceManager.current.commodities -= requestedResources;
+			Game.current.commodities -= requestedResources;
 		}
-		if (type == 1 && !(ResourceManager.current.luxuries < requestedResources)) {
+		if (type == 1 && !(Game.current.luxuries < requestedResources)) {
 			_traded = true;
-			ResourceManager.current.luxuries -= requestedResources;
+			Game.current.luxuries -= requestedResources;
 		}
-		if (type == 2 && !(ResourceManager.current.wealth < requestedResources)) {
+		if (type == 2 && !(Game.current.wealth < requestedResources)) {
 			_traded = true;
-			ResourceManager.current.wealth -= requestedResources;
+			Game.current.wealth -= requestedResources;
 		}
 
 		if (!_traded)
 			return;
-		ResourceManager.current.SendTradeship ();
+		Game.current.currentShips++;
 		sailing = true;
 		button.GetComponent<Image> ().color = Color.red;
 		button.transform.Find ("Text").GetComponent<Text> ().text = "Cancel Ship";

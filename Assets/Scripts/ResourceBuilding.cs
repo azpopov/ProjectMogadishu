@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-
+using System.Collections.Generic;
 public class ResourceBuilding : MonoBehaviour
 {
 	//Counts up to timeToTick then adds resources to Building
-	float timeSinceTick = 0.0f, timeToTick = 3f;
+	int timeSinceTick = 0;
+	public int timeToTick = 1;
 
 	//Stores resources to be collected later up to a Maximum
 	int storedResources = 0, maxResources = 500;
@@ -19,6 +20,7 @@ public class ResourceBuilding : MonoBehaviour
 	public GameObject floatingTextPrefab;
 	FloatText floatText;
 
+	public bool resourcesMaxed = false;
 	public enum resourceType
 	{
 		commodity,
@@ -26,28 +28,33 @@ public class ResourceBuilding : MonoBehaviour
 	}
 	public resourceType type;
 
+	void Awake()
+	{
+		spriteRnd = GetComponent<SpriteRenderer> ();
+		
+		if (spriteRnd != null)
+			defaultSprite = spriteRnd.sprite;
+	}
+
 	// Use this for initialization
 	void Start ()
 	{
-		spriteRnd = GetComponent<SpriteRenderer> ();
 
-		if (spriteRnd != null)
-			defaultSprite = spriteRnd.sprite;
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-		timeSinceTick += Time.deltaTime;
-		//If reached the point for the tick and resources aren't full
-		if (timeSinceTick > timeToTick) {
-			timeSinceTick = 0.0f;
-			if (storedResources < maxResources) {
-				spriteRnd.sprite = glowSprite;
-				produce();
-			}
-		}
+		checkProduction ();
+	}
+	void OnEnable()
+	{
+		Game.current.resourceBuildingList.Add (this);
+	}
 
+	void OnDisable()
+	{
+		Game.current.resourceBuildingList.Remove (this);
 	}
 
 	void OnMouseDown ()
@@ -73,23 +80,45 @@ public class ResourceBuilding : MonoBehaviour
 
 			//Add stored resources to player Vault
 			addResource();
+
+			resourcesMaxed = false;
 		}
 	}
 	void addResource()
 	{
 		if (type == resourceType.commodity) {
-			ResourceManager.current.commodities += storedResources;
+			Game.current.commodities += storedResources;
 		
 		} else if (type == resourceType.luxury) {
-			ResourceManager.current.luxuries += storedResources;
+			Game.current.luxuries += storedResources;
 
 		}
 		storedResources = 0;
 	}
 
-	void produce()
+
+
+	public void productionTick()
 	{
-		int random = Random.Range (0, 10);
+		timeSinceTick++;
+	}
+
+	void checkProduction()
+	{
+		if (timeSinceTick != timeToTick) 
+			return;
+		Produce ();
+		timeSinceTick = 0;
+	}
+
+
+	void Produce()
+	{
+		if (storedResources > maxResources) {
+			resourcesMaxed = true;
+			return;
+			
+		}
 		if (type == resourceType.commodity) {
 			storedResources += Random.Range(50,200);
 			
@@ -97,6 +126,8 @@ public class ResourceBuilding : MonoBehaviour
 			storedResources += Random.Range(12,50);
 			
 		}
+		spriteRnd.sprite = glowSprite;
+
 	}
 
 }

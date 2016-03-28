@@ -47,9 +47,8 @@ public class BuildingPlacer : MonoBehaviour {
 				GetComponent<ResourceBuilding>().enabled = true;
 			else 
 			{
-				ResourceManager.current.maxShips += 1;
-			//	GameObject instance = Instantiate(newShipWindow, new Vector3 (0, 0), Quaternion.identity) as GameObject;
-				//instance.transform.SetParent (GameObject.Find("UI").transform, false);
+				Game.current.maxShips += 1;
+				
 				newShipWindow.alpha = 1;
 				newShipWindow.interactable = true;
 				newShipWindow.blocksRaycasts = true;

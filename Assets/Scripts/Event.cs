@@ -16,7 +16,7 @@ public class Event : MonoBehaviour {
 
 	public void NewShip(Text newName)
 	{
-		ResourceManager.current.ownedShips.Add (newName.text);
+		Game.current.ownedShips.Add (newName.text);
 	}
 
 	public void toggleWindow(CanvasGroup windowCG)
