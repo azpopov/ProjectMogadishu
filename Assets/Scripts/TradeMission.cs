@@ -23,6 +23,7 @@ public class TradeMission : MonoBehaviour
 	void Start ()
 	{
 		action = new UnityAction (StartSailing);
+		action += Game.current.ShipCheck;
 		button = transform.Find ("SendTradeButton");
 		button.GetComponent<Button> ().onClick.AddListener (action);
 		
@@ -36,20 +37,26 @@ public class TradeMission : MonoBehaviour
 		transform.Find ("ResourcesRequested").Find ("TargetResourceImage").GetComponent<Image> ().sprite = Game.current.resourceSprites [targetType];
 		timeToDest = originalTime;
 
-		destText.text = "Est Trip Length: " + Math.Round (timeToDest).ToString () + "s";
+		destText.text = "Est Trip Length: " + Math.Round (timeToDest).ToString () + " Turns";
 	}
 
 	void Update ()
 	{
+
+	}
+
+	public void SailTick(int n)
+	{
 		if (sailing) {
-			timeToDest -= Time.deltaTime;
-			destText.text = "Arriving Back: " + Math.Round (timeToDest).ToString () + "s";
-		}
-		if (timeToDest < float.Epsilon) {
-			Factions.current.CompleteJourney(this);
-			CancelSailing ();
+			timeToDest -= n;
+			destText.text = "Arriving Back in " + Math.Round (timeToDest).ToString () + " Turns";
+			if (timeToDest < float.Epsilon) {
+				Factions.current.CompleteJourney (this);
+				CancelSailing ();
+			}
 		}
 	}
+
 
 	void StartSailing ()
 	{

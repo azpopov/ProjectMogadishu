@@ -61,6 +61,8 @@ public class Factions : MonoBehaviour
 
 	}
 
+
+
 	GameObject CreateTradeRoute ()
 	{
 		faction rndFaction = GetRandomEnum<faction> ();
@@ -75,13 +77,13 @@ public class Factions : MonoBehaviour
 		switch (rndFaction) {
 		case faction.Celestial:
 			tradeMissionScript.insignia = insignias [0];
-			tradeMissionScript.originalTime = UnityEngine.Random.Range (100f, 250f);
+			tradeMissionScript.originalTime = UnityEngine.Random.Range (2, 6);
 			resourceType = UnityEngine.Random.Range (1, 3);
 			targetType = UnityEngine.Random.Range (2,3);
 			break;
 		case faction.Omani:
 			tradeMissionScript.insignia = insignias [1];
-			tradeMissionScript.originalTime = UnityEngine.Random.Range (3f, 10f);
+			tradeMissionScript.originalTime = UnityEngine.Random.Range (5, 8);
 			resourceType = UnityEngine.Random.Range (0, 3);
 			targetType = UnityEngine.Random.Range(0,3);
 

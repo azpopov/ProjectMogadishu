@@ -98,9 +98,9 @@ public class ResourceBuilding : MonoBehaviour
 
 
 
-	public void productionTick()
+	public void productionTick(int n)
 	{
-		timeSinceTick++;
+		timeSinceTick += n;
 	}
 
 	void checkProduction()

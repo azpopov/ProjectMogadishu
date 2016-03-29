@@ -17,7 +17,19 @@ public class Game : MonoBehaviour
 
 	//ShipManagement
 	int _maxShips = 0;
-	public int currentShips = 0;
+	int _currentShips = 0;
+	public int currentShips
+	{
+		get{
+			return _currentShips;
+		}
+		set
+		{
+			_currentShips = value;
+			ShipCheck();
+			shipText.text = currentShips.ToString() + " / "+_maxShips.ToString();
+		}
+	}
 	public List<string> ownedShips = new List<string>();
 
 
@@ -25,7 +37,7 @@ public class Game : MonoBehaviour
 	//List of current Buildings
 	public List<ResourceBuilding> resourceBuildingList;
 	
-	Text commoditiesText, luxuriesText, wealthText, maxShipText;
+	Text commoditiesText, luxuriesText, wealthText, shipText;
 	void Awake(){
 		if (current == null) {
 			current = this;
@@ -36,7 +48,7 @@ public class Game : MonoBehaviour
 		commoditiesText = GameObject.Find ("Commodities").GetComponentInChildren<Text> ();
 		luxuriesText = GameObject.Find ("Luxuries").GetComponentInChildren<Text> ();
 		wealthText = GameObject.Find ("Wealth").GetComponentInChildren<Text> ();
-		maxShipText = GameObject.Find ("MaxShips").GetComponentInChildren<Text> ();
+		shipText = GameObject.Find ("MaxShips").GetComponentInChildren<Text> ();
 	}
 
 	// Use this for initialization
@@ -65,9 +77,17 @@ public class Game : MonoBehaviour
 	void IncrementProductionTicks()
 	{
 		foreach (ResourceBuilding building in resourceBuildingList) {
-			building.productionTick();
+			building.productionTick(1);
 		}
 	}
+
+	void DecrementSailingShips ()
+	{
+		foreach (TradeMission missionScript in Factions.current.tradeMissions) {
+			missionScript.SailTick(1);
+		}
+	}
+	bool shipCheck = true;
 	//Check all booleans here. Returning true means go ahead with NextTurn
 	bool NextTurnCheck()
 	{
@@ -80,15 +100,38 @@ public class Game : MonoBehaviour
 				return false;
 			}
 		}
+		//Add building costs
+		if (!shipCheck) {
+			Debug.Log("ShipCheckFailed");
+			toggleCanvasGroup(GameObject.Find("ShipErrorPanel").GetComponent<CanvasGroup>());
+			toggleInteractableButton(GameObject.Find("EndTurnButton").GetComponent<Button>());
+		}
 		return true;
 	}
 	//Perform all between methods here
 	public void NextTurn()
 	{
-		if (NextTurnCheck()) {
-			IncrementProductionTicks();
-		}
+		if (!NextTurnCheck ())
+			return;
+		IncrementProductionTicks ();
+		DecrementSailingShips ();
 
+		ShipCheck ();
+
+	}
+	public void ShipCheck()
+	{
+		shipCheck = !ShipAvailable();
+	}
+	public void NextTurnForce()
+	{
+		IncrementProductionTicks();
+		DecrementSailingShips();
+	}
+
+	public void SetShipCheck(bool b)
+	{
+		shipCheck = b;
 	}
 
 	//BUILDER METHODS
@@ -190,7 +233,8 @@ public class Game : MonoBehaviour
 		set
 		{
 			_maxShips = value;
-			maxShipText.text = currentShips.ToString() + " / "+_maxShips.ToString();
+			ShipCheck();
+			shipText.text = currentShips.ToString() + " / "+_maxShips.ToString();
 		}
 	}
 

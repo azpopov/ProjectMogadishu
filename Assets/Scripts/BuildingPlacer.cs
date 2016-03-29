@@ -48,7 +48,7 @@ public class BuildingPlacer : MonoBehaviour {
 			else 
 			{
 				Game.current.maxShips += 1;
-				
+
 				newShipWindow.alpha = 1;
 				newShipWindow.interactable = true;
 				newShipWindow.blocksRaycasts = true;
