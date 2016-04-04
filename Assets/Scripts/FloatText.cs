@@ -23,8 +23,6 @@ public class FloatText : MonoBehaviour {
 		//get offset
 		end = start + offset;
 		
-		//move the x randomly left/right a little
-		//end.x += Random.Range(-randomX, randomX);
 		textMesh = GetComponent<TextMesh>();
 
 		textMesh.text = textForTextMesh;
@@ -39,8 +37,7 @@ public class FloatText : MonoBehaviour {
 		//while we still have animation time
 		while (timer <= time) {
 
-			//lerp our position
-			//transform.position = Vector3.Lerp (pos1, pos2, evalMove);
+			//move our text up
 			transform.Translate(offset*Time.deltaTime, Space.World);
 			//get the current color
 			textMesh.color = Color.Lerp(textMesh.color, Color.clear, timer/time);
