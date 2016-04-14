@@ -17,7 +17,7 @@ public class TradeMission : MonoBehaviour
 	private UnityAction action;
 	public Factions.faction f;
 	public int resultBias = 0;
-
+	public string shipName;
 
 	//
 	void Start ()

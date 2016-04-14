@@ -11,6 +11,7 @@ public class Factions : MonoBehaviour
 	public List<TradeMission> tradeMissions = new List<TradeMission> ();
 	GameObject tradeWindow, completeTradeWindow;
 	public GameObject tradePrefab, completeTradeWindowPrefab;
+	
 	public enum faction
 	{
 		Celestial,
@@ -138,7 +139,7 @@ public class Factions : MonoBehaviour
 		completeTradeWindow.transform.SetParent (GameObject.Find("UI").transform, false);
 
 		int amountReceived = 0;
-		string resultText = "The "+ Game.current.ownedShips[UnityEngine.Random.Range(0,Game.current.ownedShips.Count)]  + " has returned!\nThe Captain would like to report:\n ";
+		string resultText = "The "+ script.shipName  + " has returned!\nThe Captain would like to report:\n ";
 
 		if (script.resultBias <= 20) {
 			resultText += "DISASTROUS!\n";

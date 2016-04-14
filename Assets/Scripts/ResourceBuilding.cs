@@ -2,62 +2,42 @@
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
-public class ResourceBuilding : MonoBehaviour
+public class ResourceBuilding : Building
 {
-	//Counts up to timeToTick then adds resources to Building
-	int timeSinceTick = 0;
-	public int timeToTick = 1;
-
 	//Stores resources to be collected later up to a Maximum
 	int storedResources = 0, maxResources = 500;
-
-	//Variables for switching the Sprite between empty -> produced
-	SpriteRenderer spriteRnd;
-	Sprite defaultSprite;
-	public Sprite glowSprite;
 
 	//Prefab to display Gained resources upon click
 	public GameObject floatingTextPrefab;
 	FloatText floatText;
 
 	public bool resourcesMaxed = false;
-	public enum resourceType
-	{
-		commodity,
-		luxury
-	}
-	public resourceType type;
+	public int type;
 
-	void Awake()
-	{
-		spriteRnd = GetComponent<SpriteRenderer> ();
-		
-		if (spriteRnd != null)
-			defaultSprite = spriteRnd.sprite;
-	}
+
 
 	// Use this for initialization
 	void Start ()
 	{
-
+		timeSinceTick = 0;
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-		checkProduction ();
+		CheckProduction ();
 	}
-	void OnEnable()
+	protected override void OnEnable()
 	{
 		Game.current.resourceBuildingList.Add (this);
 	}
 
-	void OnDisable()
+	protected override void OnDisable()
 	{
 		Game.current.resourceBuildingList.Remove (this);
 	}
-
-	void OnMouseDown ()
+	
+	protected override void OnMouseDown ()
 	{
 		//If there are any stored resources
 		if (storedResources != 0) {
@@ -81,15 +61,16 @@ public class ResourceBuilding : MonoBehaviour
 			//Add stored resources to player Vault
 			addResource();
 
+			//Reset checking boolean to false
 			resourcesMaxed = false;
 		}
 	}
 	void addResource()
 	{
-		if (type == resourceType.commodity) {
+		if (type == 0) {
 			Game.current.commodities += storedResources;
 		
-		} else if (type == resourceType.luxury) {
+		} else if (type == 1) {
 			Game.current.luxuries += storedResources;
 
 		}
@@ -98,17 +79,17 @@ public class ResourceBuilding : MonoBehaviour
 
 
 
-	public void productionTick(int n)
+	public void ProductionTick()
 	{
-		timeSinceTick += n;
+		timeSinceTick++;
 	}
 
-	void checkProduction()
+	protected override void CheckProduction()
 	{
-		if (timeSinceTick != timeToTick) 
+		if (timeSinceTick < timeToTick) 
 			return;
-		Produce ();
 		timeSinceTick = 0;
+		Produce ();
 	}
 
 
@@ -119,15 +100,37 @@ public class ResourceBuilding : MonoBehaviour
 			return;
 			
 		}
-		if (type == resourceType.commodity) {
+		if (type == 0) {
 			storedResources += Random.Range(50,200);
 			
-		} else if (type == resourceType.luxury) {
+		} else if (type == 1) {
 			storedResources += Random.Range(12,50);
 			
 		}
-		spriteRnd.sprite = glowSprite;
+		spriteRnd.sprite = glowSprite [0];
 
 	}
+
+
+	protected override int GlowSprite
+	{
+		set{
+			spriteRnd.sprite = glowSprite[value];
+			return;
+		}
+		get{
+			int _index = 0;
+			foreach(Sprite spr in glowSprite){
+				if(spr == spriteRnd.sprite)
+				{
+					return _index;
+				}
+				_index++;
+			}
+			return 0;
+		}
+	}
+
+
 
 }

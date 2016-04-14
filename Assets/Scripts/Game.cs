@@ -30,13 +30,11 @@ public class Game : MonoBehaviour
 			shipText.text = currentShips.ToString() + " / "+_maxShips.ToString();
 		}
 	}
-	public List<string> ownedShips = new List<string>();
-
-
-
 	//List of current Buildings
 	public List<ResourceBuilding> resourceBuildingList;
-	
+	public List<Shipyard> shipyardList;
+
+
 	Text commoditiesText, luxuriesText, wealthText, shipText;
 	void Awake(){
 		if (current == null) {
@@ -77,7 +75,7 @@ public class Game : MonoBehaviour
 	void IncrementProductionTicks()
 	{
 		foreach (ResourceBuilding building in resourceBuildingList) {
-			building.productionTick(1);
+			building.ProductionTick();
 		}
 	}
 
@@ -245,13 +243,5 @@ public class Game : MonoBehaviour
 		}
 		return true;
 	}
-
-	public void AddNewShipName()
-	{
-		
-		
-		ownedShips.Add(GameObject.Find("InputField").GetComponent<InputField>().text);
-		Debug.Log(GameObject.Find("InputField").GetComponent<InputField>().text);
-		
-	}
+	
 }

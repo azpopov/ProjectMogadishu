@@ -5,12 +5,10 @@ public class BuildingPlacer : MonoBehaviour {
 
 	bool validPlace = false;
 	Collider2D col;
-	CanvasGroup newShipWindow;
 	// Use this for initialization
 	void Start () {
 		//set UI aplha to visible
 		GameObject.Find ("Esc Text").GetComponent<CanvasGroup> ().alpha = 1;
-		newShipWindow = GameObject.Find ("NewShipPopUp").GetComponent<CanvasGroup> ();
 		//Get the Collider
 		col = GetComponent<Collider2D> ();
 	}
@@ -45,13 +43,10 @@ public class BuildingPlacer : MonoBehaviour {
 			Game.current.SetCurrentlyBuilding(null);
 			if(GetComponent<ResourceBuilding>() != null)
 				GetComponent<ResourceBuilding>().enabled = true;
-			else 
+			else if(GetComponent<Shipyard>() != null)
 			{
-				Game.current.maxShips += 1;
+				GetComponent<Shipyard>().enabled = true;
 
-				newShipWindow.alpha = 1;
-				newShipWindow.interactable = true;
-				newShipWindow.blocksRaycasts = true;
 			}
 			Destroy(GetComponent<Rigidbody2D>());
 			Destroy(this);
