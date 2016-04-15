@@ -180,6 +180,12 @@ public class Factions : MonoBehaviour
 
 		return (int)amountReturned;
 	}
+
+	public TradeMission[] GetTradeMissionList()
+	{
+		return tradeMissions.ToArray ();
+	}
+
 	int DisasterJourney(TradeMission script)
 	{
 		Debug.Log ("disaster not implemented");

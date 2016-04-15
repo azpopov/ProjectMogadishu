@@ -81,7 +81,7 @@ public class Game : MonoBehaviour
 
 	void DecrementSailingShips ()
 	{
-		foreach (TradeMission missionScript in Factions.current.tradeMissions) {
+		foreach (TradeMission missionScript in Factions.current.GetTradeMissionList()) {
 			missionScript.SailTick(1);
 		}
 	}
@@ -93,7 +93,7 @@ public class Game : MonoBehaviour
 			if(building.resourcesMaxed)
 			{
 				Debug.Log("ResourceCheck Failed");
-				toggleCanvasGroup(GameObject.Find("CapacityErrorPanel").GetComponent<CanvasGroup>());
+				toggleCanvasGroup("CapacityErrorPanel");
 				toggleInteractableButton(GameObject.Find("EndTurnButton").GetComponent<Button>());
 				return false;
 			}
@@ -101,7 +101,7 @@ public class Game : MonoBehaviour
 		//Add building costs
 		if (!shipCheck) {
 			Debug.Log("ShipCheckFailed");
-			toggleCanvasGroup(GameObject.Find("ShipErrorPanel").GetComponent<CanvasGroup>());
+			toggleCanvasGroup("ShipErrorPanel");
 			toggleInteractableButton(GameObject.Find("EndTurnButton").GetComponent<Button>());
 		}
 		return true;
@@ -154,9 +154,9 @@ public class Game : MonoBehaviour
 
 	//OTHER METHODS
 
-	public void toggleCanvasGroup (CanvasGroup _canvasgroup)
+	public void toggleCanvasGroup (string _canvasGroupName)
 	{
-
+		CanvasGroup _canvasgroup = GameObject.Find (_canvasGroupName).GetComponent<CanvasGroup> ();
 		_canvasgroup.alpha = (_canvasgroup.alpha + 1) % 2; 
 		_canvasgroup.interactable = !_canvasgroup.interactable;
 		_canvasgroup.blocksRaycasts = !_canvasgroup.blocksRaycasts;

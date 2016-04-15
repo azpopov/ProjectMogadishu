@@ -22,7 +22,7 @@ public class TradeMission : MonoBehaviour
 	//
 	void Start ()
 	{
-		action = new UnityAction (StartSailing);
+		action = new UnityAction (CheckValidityOfSailing);
 		action += Game.current.ShipCheck;
 		button = transform.Find ("SendTradeButton");
 		button.GetComponent<Button> ().onClick.AddListener (action);
@@ -60,24 +60,19 @@ public class TradeMission : MonoBehaviour
 
 	void StartSailing ()
 	{
-		if (!Game.current.ShipAvailable ())
-			return;
-		bool _traded = false;
-		if (type == 0 && !(Game.current.commodities < requestedResources)) {
-			_traded = true;
+		switch (type)
+		{
+		case 0:
 			Game.current.commodities -= requestedResources;
-		}
-		if (type == 1 && !(Game.current.luxuries < requestedResources)) {
-			_traded = true;
+			break;
+		case 1:
 			Game.current.luxuries -= requestedResources;
-		}
-		if (type == 2 && !(Game.current.wealth < requestedResources)) {
-			_traded = true;
+			break;
+		case 2:
 			Game.current.wealth -= requestedResources;
+			break;
 		}
 
-		if (!_traded)
-			return;
 		Game.current.currentShips++;
 		sailing = true;
 		button.GetComponent<Image> ().color = Color.red;
@@ -88,6 +83,24 @@ public class TradeMission : MonoBehaviour
 		button.GetComponent<Button> ().onClick.AddListener (action);
 
 		//((Button)button).onClick.RemoveListener =>
+	} 
+
+	void CheckValidityOfSailing()
+	{
+		Debug.Log("Validity of Sailing");
+		if (!Game.current.ShipAvailable ())
+			return;
+		else
+			Debug.Log("Validity of Sailing Ship Available");
+		if (!(type == 0 && !(Game.current.commodities < requestedResources)) &&
+		    !(type == 2 && !(Game.current.wealth < requestedResources)) &&
+		    !(type == 1 && !(Game.current.luxuries < requestedResources)))
+			return;
+		else
+			Debug.Log("Validity of Sailing Enuf Resources");
+		Game.current.toggleCanvasGroup ("ShipView");
+		Game.current.toggleCanvasGroup ("ShipyardWindow");
+
 	}
 
 	void CancelSailing ()
