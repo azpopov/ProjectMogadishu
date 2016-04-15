@@ -25,22 +25,26 @@ public class BuildingPlacer : MonoBehaviour {
 		mousePos.z = 0;
 		//Whatever this script is attached to, follow mouse.
 		this.transform.position = mousePos;
-		if (transform.name.Equals ("ShipYard(Clone)")) 
-		{
-			if( col.IsTouchingLayers(LayerMask.GetMask("Water")) && !col.IsTouchingLayers(LayerMask.GetMask("Building")) && col.IsTouchingLayers(LayerMask.GetMask("Buildable")))
+		if(!col.IsTouchingLayers(LayerMask.GetMask("Building")) && !col.IsTouchingLayers(LayerMask.GetMask("NonBuildable"))){
+			Debug.Log ("I HAVE REACHED POINAT A");
+		if (transform.name.Equals ("ShipYard(Clone)")) {
+			if( col.IsTouchingLayers(LayerMask.GetMask("Water")) && col.IsTouchingLayers(LayerMask.GetMask("Buildable"))){
 				validPlace = true;
-
-		}
+			}
+			}
 		//As long as it's not touching Water
-		else if( !col.IsTouchingLayers(LayerMask.GetMask("Water")) && !col.IsTouchingLayers(LayerMask.GetMask("Building")))
+		else if(!col.IsTouchingLayers(LayerMask.GetMask("Water")))
 		   {
+				Debug.Log ("I HAVE REACHED POINAT B");
 			validPlace = true;
 
+		}
 		}
 		//If able to place & valid location
 		if (validPlace && Input.GetMouseButtonDown(0)) {
 			//Destroy components
 			Game.current.SetCurrentlyBuilding(null);
+			gameObject.layer = LayerMask.NameToLayer("Building");
 			if(GetComponent<ResourceBuilding>() != null)
 				GetComponent<ResourceBuilding>().enabled = true;
 			else if(GetComponent<Shipyard>() != null)
@@ -56,7 +60,7 @@ public class BuildingPlacer : MonoBehaviour {
 
 	void OnDestroy()
 	{
-		GameObject.Find ("Esc Text").GetComponent<CanvasGroup> ().alpha = 0;
+		GameObject.Find ("Esc Text").GetComponent<CanvasGroup>().alpha = 0;
 
 	}
 }
