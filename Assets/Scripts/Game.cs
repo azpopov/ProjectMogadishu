@@ -243,5 +243,21 @@ public class Game : MonoBehaviour
 		}
 		return true;
 	}
+	public void ShipyardWindowPopulate(TradeMission currentTradeMission)
+	{
+
+		foreach (Shipyard _shipyard in shipyardList) {
+			_shipyard.CreateShipUI(currentTradeMission);
+			                       }
+	}
+
+	public void DestroyShipUIInstances()
+	{
+		GameObject shipyardUI = GameObject.Find ("ShipyardWindow");
+		foreach (Transform child in shipyardUI.transform) {
+			if(child.name.Equals("Ship(Clone)"))
+				Destroy(child.gameObject);
+		}
+	}
 	
 }

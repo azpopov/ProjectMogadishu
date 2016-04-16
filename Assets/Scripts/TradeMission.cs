@@ -58,7 +58,7 @@ public class TradeMission : MonoBehaviour
 	}
 
 
-	void StartSailing ()
+	public void StartSailing ()
 	{
 		switch (type)
 		{
@@ -78,7 +78,8 @@ public class TradeMission : MonoBehaviour
 		button.GetComponent<Image> ().color = Color.red;
 		button.transform.Find ("Text").GetComponent<Text> ().text = "Cancel Ship";
 		button.GetComponent<Button> ().onClick.RemoveListener (action);
-		action -= StartSailing;
+		action -= CheckValidityOfSailing;
+		action -= Game.current.ShipCheck;
 		action += CancelSailing;
 		button.GetComponent<Button> ().onClick.AddListener (action);
 
@@ -87,19 +88,16 @@ public class TradeMission : MonoBehaviour
 
 	void CheckValidityOfSailing()
 	{
-		Debug.Log("Validity of Sailing");
 		if (!Game.current.ShipAvailable ())
 			return;
-		else
-			Debug.Log("Validity of Sailing Ship Available");
 		if (!(type == 0 && !(Game.current.commodities < requestedResources)) &&
 		    !(type == 2 && !(Game.current.wealth < requestedResources)) &&
 		    !(type == 1 && !(Game.current.luxuries < requestedResources)))
 			return;
-		else
-			Debug.Log("Validity of Sailing Enuf Resources");
 		Game.current.toggleCanvasGroup ("ShipView");
 		Game.current.toggleCanvasGroup ("ShipyardWindow");
+		Game.current.ShipyardWindowPopulate (this);
+	
 
 	}
 
