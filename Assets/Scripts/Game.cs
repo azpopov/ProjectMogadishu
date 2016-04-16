@@ -77,8 +77,11 @@ public class Game : MonoBehaviour
 		foreach (ResourceBuilding building in resourceBuildingList) {
 			building.ProductionTick();
 		}
+		foreach (Shipyard _shipyard in shipyardList)
+			_shipyard.ProductionTick ();
 	}
 
+	
 	void DecrementSailingShips ()
 	{
 		foreach (TradeMission missionScript in Factions.current.GetTradeMissionList()) {
@@ -115,6 +118,7 @@ public class Game : MonoBehaviour
 		DecrementSailingShips ();
 
 		ShipCheck ();
+
 
 	}
 	public void ShipCheck()

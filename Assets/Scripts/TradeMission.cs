@@ -58,8 +58,9 @@ public class TradeMission : MonoBehaviour
 	}
 
 
-	public void StartSailing ()
+	public void StartSailing (string _shipname)
 	{
+		shipName = _shipname;
 		switch (type)
 		{
 		case 0:

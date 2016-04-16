@@ -42,6 +42,7 @@ public class Shipyard : Building {
 	public void ProductionTick()
 	{
 		timeSinceTick++;
+		CheckProduction ();
 	}
 	protected override int GlowSprite {
 		get {
@@ -67,7 +68,8 @@ public class Shipyard : Building {
 
 	void GenerateEvent()
 	{
-		throw new System.NotImplementedException ();
+		spriteRnd.sprite = glowSprite [0];
+
 	}
 
 	protected override void OnDisable ()
@@ -104,7 +106,7 @@ public class Shipyard : Building {
 			}
 			else
 			{
-				instanceButton.onClick.AddListener(() => mission.StartSailing());
+				instanceButton.onClick.AddListener(() => mission.StartSailing(_ship.name));
 				instanceButton.onClick.AddListener(() => Game.current.DestroyShipUIInstances());
 			}
 	}
