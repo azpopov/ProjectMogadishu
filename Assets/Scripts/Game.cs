@@ -31,8 +31,7 @@ public class Game : MonoBehaviour
 		}
 	}
 	//List of current Buildings
-	public List<ResourceBuilding> resourceBuildingList;
-	public List<Shipyard> shipyardList;
+	public List<Building> buildingList;
 
 
 	Text commoditiesText, luxuriesText, wealthText, shipText;
@@ -42,7 +41,7 @@ public class Game : MonoBehaviour
 		} else {
 			Destroy (this);
 		}
-		resourceBuildingList = new List<ResourceBuilding> ();
+		buildingList = new List<Building> ();
 		commoditiesText = GameObject.Find ("Commodities").GetComponentInChildren<Text> ();
 		luxuriesText = GameObject.Find ("Luxuries").GetComponentInChildren<Text> ();
 		wealthText = GameObject.Find ("Wealth").GetComponentInChildren<Text> ();
@@ -74,11 +73,9 @@ public class Game : MonoBehaviour
 	//For every building in the resourceBuildingList advance their production by 1
 	void IncrementProductionTicks()
 	{
-		foreach (ResourceBuilding building in resourceBuildingList) {
+		foreach (Building building in buildingList) {
 			building.ProductionTick();
 		}
-		foreach (Shipyard _shipyard in shipyardList)
-			_shipyard.ProductionTick ();
 	}
 
 	
@@ -92,7 +89,7 @@ public class Game : MonoBehaviour
 	//Check all booleans here. Returning true means go ahead with NextTurn
 	bool NextTurnCheck()
 	{
-		foreach (ResourceBuilding building in resourceBuildingList) {
+		foreach (ResourceBuilding building in buildingList) {
 			if(building.resourcesMaxed)
 			{
 				Debug.Log("ResourceCheck Failed");
@@ -219,7 +216,7 @@ public class Game : MonoBehaviour
 
 	public void PassAllResourceChecks()
 	{
-		foreach(ResourceBuilding building in resourceBuildingList)
+		foreach(ResourceBuilding building in buildingList)
 			building.resourcesMaxed = false;
 		NextTurn();
 	}
@@ -250,7 +247,7 @@ public class Game : MonoBehaviour
 	public void ShipyardWindowPopulate(TradeMission currentTradeMission)
 	{
 
-		foreach (Shipyard _shipyard in shipyardList) {
+		foreach (Shipyard _shipyard in buildingList) {
 			_shipyard.CreateShipUI(currentTradeMission);
 			                       }
 	}

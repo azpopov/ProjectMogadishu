@@ -39,7 +39,7 @@ public class Shipyard : Building {
 	}
 
 
-	public void ProductionTick()
+	public override void ProductionTick()
 	{
 		timeSinceTick++;
 		CheckProduction ();
@@ -55,7 +55,7 @@ public class Shipyard : Building {
 
 	protected override void OnEnable ()
 	{
-		Game.current.shipyardList.Add (this);
+		Game.current.buildingList.Add (this);
 		Game.current.maxShips += 1;
 		CanvasGroup newShipWindow = GameObject.Find ("NewShipPopUp").GetComponent<CanvasGroup>();
 		if (newShipWindow == null)
@@ -74,7 +74,7 @@ public class Shipyard : Building {
 
 	protected override void OnDisable ()
 	{
-		Game.current.shipyardList.Remove (this);
+		Game.current.buildingList.Remove (this);
 	}
 
 	protected override void OnMouseDown ()

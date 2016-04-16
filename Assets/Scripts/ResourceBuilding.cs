@@ -29,12 +29,12 @@ public class ResourceBuilding : Building
 	}
 	protected override void OnEnable()
 	{
-		Game.current.resourceBuildingList.Add (this);
+		Game.current.buildingList.Add (this);
 	}
 
 	protected override void OnDisable()
 	{
-		Game.current.resourceBuildingList.Remove (this);
+		Game.current.buildingList.Remove (this);
 	}
 	
 	protected override void OnMouseDown ()
@@ -79,7 +79,7 @@ public class ResourceBuilding : Building
 
 
 
-	public void ProductionTick()
+	public override void ProductionTick()
 	{
 		timeSinceTick++;
 	}

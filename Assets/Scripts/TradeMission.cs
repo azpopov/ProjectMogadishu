@@ -83,8 +83,6 @@ public class TradeMission : MonoBehaviour
 		action -= Game.current.ShipCheck;
 		action += CancelSailing;
 		button.GetComponent<Button> ().onClick.AddListener (action);
-
-		//((Button)button).onClick.RemoveListener =>
 	} 
 
 	void CheckValidityOfSailing()

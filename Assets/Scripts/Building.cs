@@ -37,6 +37,7 @@ public abstract class Building : MonoBehaviour
 		set;
 		get;
 	}
+	public abstract void ProductionTick();
 
 	protected abstract void OnMouseDown();
 
