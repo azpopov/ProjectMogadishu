@@ -57,14 +57,11 @@ public class Shipyard : Building {
 	{
 		Game.current.buildingList.Add (this);
 		Game.current.maxShips += 1;
-		CanvasGroup newShipWindow = GameObject.Find ("NewShipPopUp").GetComponent<CanvasGroup>();
-		if (newShipWindow == null)
-			return;
-		newShipWindow.alpha = 1;
-		newShipWindow.interactable = true;
-		newShipWindow.blocksRaycasts = true;
+       Game.current.toggleCanvasGroup("NewShipPopUp");
+
 		GameObject.Find ("NewShipPopUpButton").GetComponent<Button> ().onClick.AddListener(() => this.CreateShip());
-	}
+	
+}
 
 	void GenerateEvent()
 	{
@@ -84,8 +81,11 @@ public class Shipyard : Building {
 
 	public void CreateShip()
 	{
-		GameObject.Find ("NewShipPopUpButton").GetComponent<Button> ().onClick.RemoveAllListeners();
-		Ship _ship = new Ship (GameObject.Find("InputField").GetComponent<InputField>().text);
+		
+        GameObject ui;
+        Game.current.uiElements.TryGetValue("NewShipPopUp", out ui);
+        ui.GetComponentInChildren<Button> ().onClick.RemoveAllListeners();
+		Ship _ship = new Ship (ui.GetComponentInChildren<InputField>().text);
 
 		this.shipsInShipyard.Add (_ship);
 
@@ -94,7 +94,8 @@ public class Shipyard : Building {
 	public void CreateShipUI(TradeMission mission)
 	{
 
-		GameObject shipyardUI = GameObject.Find ("ShipyardWindow");
+		GameObject shipyardUI;
+        Game.current.uiElements.TryGetValue("ShipyardWindow", out shipyardUI);
 		foreach (Ship _ship in shipsInShipyard) {
 			GameObject instance = Instantiate(shipUIPrefab,new Vector3 (0, 0), Quaternion.identity) as GameObject;
 			instance.transform.SetParent (shipyardUI.transform, false);

@@ -63,6 +63,11 @@ public class ResourceBuilding : Building
 
 			//Reset checking boolean to false
 			resourcesMaxed = false;
+
+            foreach (string e in Game.current.uiElements.Keys)
+            {
+                Debug.Log(e);
+            }
 		}
 	}
 	void addResource()

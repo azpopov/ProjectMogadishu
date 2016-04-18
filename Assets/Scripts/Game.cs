@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class Game : MonoBehaviour
 {
@@ -35,17 +36,36 @@ public class Game : MonoBehaviour
 
 
 	Text commoditiesText, luxuriesText, wealthText, shipText;
+    public Dictionary<string, GameObject> uiElements;
 	void Awake(){
 		if (current == null) {
 			current = this;
 		} else {
 			Destroy (this);
 		}
-		buildingList = new List<Building> ();
-		commoditiesText = GameObject.Find ("Commodities").GetComponentInChildren<Text> ();
-		luxuriesText = GameObject.Find ("Luxuries").GetComponentInChildren<Text> ();
-		wealthText = GameObject.Find ("Wealth").GetComponentInChildren<Text> ();
-		shipText = GameObject.Find ("MaxShips").GetComponentInChildren<Text> ();
+        foreach (Transform child in GameObject.Find("UI").transform)
+        {
+            child.gameObject.SetActive(true);
+        }
+        uiElements = new Dictionary<string, GameObject>();
+        uiElements.Add("BottomToolbar", GameObject.Find("BottomToolbar"));
+        uiElements.Add("TopToolbar", GameObject.Find("TopToolbar"));
+        uiElements.Add("ShipView", GameObject.Find("ShipView"));
+        uiElements.Add("TradeWindow", GameObject.Find("TradeWindow"));
+        uiElements.Add("NewShipPopUp", GameObject.Find("NewShipPopUp"));
+        uiElements.Add("CapacityErrorPanel", GameObject.Find("CapacityErrorPanel"));
+        uiElements.Add("ShipErrorPanel", GameObject.Find("ShipErrorPanel"));
+        uiElements.Add("ShipyardWindow", GameObject.Find("ShipyardWindow"));
+        commoditiesText = GameObject.Find("Commodities").GetComponentInChildren<Text>();
+        luxuriesText = GameObject.Find("Luxuries").GetComponentInChildren<Text>();
+        wealthText = GameObject.Find("Wealth").GetComponentInChildren<Text>();
+        shipText = GameObject.Find("MaxShips").GetComponentInChildren<Text>();
+        foreach(GameObject _target in uiElements.Values)
+        {
+            _target.SetActive(false);
+        }
+        buildingList = new List<Building> ();
+		
 	}
 
 	// Use this for initialization
@@ -157,11 +177,9 @@ public class Game : MonoBehaviour
 
 	public void toggleCanvasGroup (string _canvasGroupName)
 	{
-		CanvasGroup _canvasgroup = GameObject.Find (_canvasGroupName).GetComponent<CanvasGroup> ();
-		_canvasgroup.alpha = (_canvasgroup.alpha + 1) % 2; 
-		_canvasgroup.interactable = !_canvasgroup.interactable;
-		_canvasgroup.blocksRaycasts = !_canvasgroup.blocksRaycasts;
-
+		GameObject _canvasgroup;
+        uiElements.TryGetValue(_canvasGroupName, out _canvasgroup);
+        _canvasgroup.SetActive(!_canvasgroup.activeSelf);
 	}
 
 	public void toggleInteractableButton(Button b)
@@ -170,7 +188,7 @@ public class Game : MonoBehaviour
 	}
 
 
-	public void DestroyGameObject(Object o)
+	public void DestroyGameObject(UnityEngine.Object o)
 	{
 		Destroy (o);
 	}

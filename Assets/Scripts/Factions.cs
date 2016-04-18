@@ -23,6 +23,10 @@ public class Factions : MonoBehaviour
 
 	public Sprite[] insignias;
 	float refreshTimer = 5f;
+    void Awake() { 
+    
+    }
+
 
 	// Use this for initialization
 	void Start ()
@@ -37,7 +41,7 @@ public class Factions : MonoBehaviour
 		resourceTypes.Add (0, "Commodities");
 		resourceTypes.Add (1, "Luxuries");
 		resourceTypes.Add (2, "Wealth");
-		tradeWindow = GameObject.Find ("TradeWindow").gameObject;
+        Game.current.uiElements.TryGetValue("TradeWindow", out tradeWindow);
 		for (int i = 0; i < 5; i++) 
 		{
 			CreateTradeRoute ();
