@@ -41,7 +41,14 @@ public class Factions : MonoBehaviour
 		resourceTypes.Add (0, "Commodities");
 		resourceTypes.Add (1, "Luxuries");
 		resourceTypes.Add (2, "Wealth");
-        Game.current.uiElements.TryGetValue("TradeWindow", out tradeWindow);
+        GameObject shipViewUI;
+        Game.current.uiElements.TryGetValue("ShipView", out shipViewUI);
+        shipViewUI.SetActive(true);
+        foreach(Transform child in shipViewUI.transform){
+            if (String.Equals(child.name, "TradeWindow"))
+                tradeWindow = child.gameObject;
+        }
+        shipViewUI.SetActive(false);
 		for (int i = 0; i < 5; i++) 
 		{
 			CreateTradeRoute ();

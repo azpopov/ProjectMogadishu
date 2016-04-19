@@ -16,6 +16,7 @@ public class Game : MonoBehaviour
 		buildingPrefabs;
 	public Sprite[] resourceSprites;
 
+
 	//ShipManagement
 	int _maxShips = 0;
 	int _currentShips = 0;
@@ -37,12 +38,16 @@ public class Game : MonoBehaviour
 
 	Text commoditiesText, luxuriesText, wealthText, shipText;
     public Dictionary<string, GameObject> uiElements;
+    public List<string> uiElementsContentsString;
+    public List<GameObject> uiElementsContentsGameObject;
 	void Awake(){
 		if (current == null) {
 			current = this;
 		} else {
 			Destroy (this);
 		}
+        uiElementsContentsGameObject = new List<GameObject>();
+        uiElementsContentsString = new List<string>();
         foreach (Transform child in GameObject.Find("UI").transform)
         {
             child.gameObject.SetActive(true);
@@ -51,7 +56,6 @@ public class Game : MonoBehaviour
         uiElements.Add("BottomToolbar", GameObject.Find("BottomToolbar"));
         uiElements.Add("TopToolbar", GameObject.Find("TopToolbar"));
         uiElements.Add("ShipView", GameObject.Find("ShipView"));
-        uiElements.Add("TradeWindow", GameObject.Find("TradeWindow"));
         uiElements.Add("NewShipPopUp", GameObject.Find("NewShipPopUp"));
         uiElements.Add("CapacityErrorPanel", GameObject.Find("CapacityErrorPanel"));
         uiElements.Add("ShipErrorPanel", GameObject.Find("ShipErrorPanel"));
@@ -77,6 +81,12 @@ public class Game : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+        uiElementsContentsGameObject.Clear();
+        uiElementsContentsString.Clear();
+        foreach (GameObject _object in uiElements.Values)
+            uiElementsContentsGameObject.Add(_object);
+        foreach(string _string in uiElements.Keys)
+            uiElementsContentsString.Add(_string);
 		//If presses Escape while holding bUilding, cancel it.
 		if (Input.GetKeyDown (KeyCode.Escape))
 			CancelBuild ();	
@@ -178,7 +188,15 @@ public class Game : MonoBehaviour
 	public void toggleCanvasGroup (string _canvasGroupName)
 	{
 		GameObject _canvasgroup;
-        uiElements.TryGetValue(_canvasGroupName, out _canvasgroup);
+        try
+        {
+            if (uiElements.ContainsKey("ShipyardWindow")) ;
+            uiElements.TryGetValue(_canvasGroupName.Trim(), out _canvasgroup);
+        }
+        catch (NullReferenceException e)
+        {
+            _canvasgroup = GameObject.Find(_canvasGroupName);
+        }
         _canvasgroup.SetActive(!_canvasgroup.activeSelf);
 	}
 
@@ -272,7 +290,8 @@ public class Game : MonoBehaviour
 
 	public void DestroyShipUIInstances()
 	{
-		GameObject shipyardUI = GameObject.Find ("ShipyardWindow");
+        GameObject shipyardUI;
+        Game.current.uiElements.TryGetValue("ShipyardWindow", out shipyardUI);
 		foreach (Transform child in shipyardUI.transform) {
 			if(child.name.Equals("Ship(Clone)"))
 				Destroy(child.gameObject);

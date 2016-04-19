@@ -94,7 +94,7 @@ public class Shipyard : Building {
 	public void CreateShipUI(TradeMission mission)
 	{
 
-		GameObject shipyardUI;
+		GameObject shipyardUI = new GameObject();
         Game.current.uiElements.TryGetValue("ShipyardWindow", out shipyardUI);
 		foreach (Ship _ship in shipsInShipyard) {
 			GameObject instance = Instantiate(shipUIPrefab,new Vector3 (0, 0), Quaternion.identity) as GameObject;
