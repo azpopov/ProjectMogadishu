@@ -46,6 +46,14 @@ public class Game : MonoBehaviour
 		} else {
 			Destroy (this);
 		}
+        InitializeDictionary();
+       
+        buildingList = new List<Building> ();
+		
+	}
+
+    void InitializeDictionary()
+    {
         uiElementsContentsGameObject = new List<GameObject>();
         uiElementsContentsString = new List<string>();
         foreach (Transform child in GameObject.Find("UI").transform)
@@ -64,14 +72,18 @@ public class Game : MonoBehaviour
         luxuriesText = GameObject.Find("Luxuries").GetComponentInChildren<Text>();
         wealthText = GameObject.Find("Wealth").GetComponentInChildren<Text>();
         shipText = GameObject.Find("MaxShips").GetComponentInChildren<Text>();
-        foreach(GameObject _target in uiElements.Values)
+        foreach (GameObject _target in uiElements.Values)
         {
             _target.SetActive(false);
         }
-        buildingList = new List<Building> ();
-		
-	}
-
+        GameObject _object;
+        uiElements.TryGetValue("TopToolbar", out _object);
+        _object.gameObject.SetActive(true);
+        uiElements.TryGetValue("BottomToolbar", out _object);
+        _object.gameObject.SetActive(true);
+        
+    }
+    
 	// Use this for initialization
 	void Start ()
 	{
@@ -119,8 +131,8 @@ public class Game : MonoBehaviour
 	//Check all booleans here. Returning true means go ahead with NextTurn
 	bool NextTurnCheck()
 	{
-		foreach (ResourceBuilding building in buildingList) {
-			if(building.resourcesMaxed)
+		foreach (Building building in buildingList) {
+			if(building.GetType() == Type.GetType("Building") && ((ResourceBuilding)building).resourcesMaxed)
 			{
 				Debug.Log("ResourceCheck Failed");
 				toggleCanvasGroup("CapacityErrorPanel");
@@ -133,6 +145,7 @@ public class Game : MonoBehaviour
 			Debug.Log("ShipCheckFailed");
 			toggleCanvasGroup("ShipErrorPanel");
 			toggleInteractableButton(GameObject.Find("EndTurnButton").GetComponent<Button>());
+            return false;
 		}
 		return true;
 	}
@@ -283,8 +296,9 @@ public class Game : MonoBehaviour
 	public void ShipyardWindowPopulate(TradeMission currentTradeMission)
 	{
 
-		foreach (Shipyard _shipyard in buildingList) {
-			_shipyard.CreateShipUI(currentTradeMission);
+		foreach (Building _shipyard in buildingList) {
+            if(_shipyard.GetType().Equals(Type.GetType("Shipyard")))
+			((Shipyard)_shipyard).CreateShipUI(currentTradeMission);
 			                       }
 	}
 
