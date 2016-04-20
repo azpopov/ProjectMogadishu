@@ -82,8 +82,11 @@ public class Shipyard : Building {
 	public void CreateShip()
 	{
 		
-        GameObject ui;
-        Game.current.uiElements.TryGetValue("NewShipPopUp", out ui);
+        
+	//	Game.current.toggleCanvasGroup ("NewShipPopUp", true);
+		GameObject ui;
+	//		ui =  = GameObject.Find("NewShipPopUp");
+		ui = Game.current.uiElements["NewShipPopUp"];
         ui.GetComponentInChildren<Button> ().onClick.RemoveAllListeners();
 		Ship _ship = new Ship (ui.GetComponentInChildren<InputField>().text);
 

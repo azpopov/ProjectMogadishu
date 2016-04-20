@@ -37,7 +37,7 @@ public class Game : MonoBehaviour
 
 
 	Text commoditiesText, luxuriesText, wealthText, shipText;
-    public Dictionary<string, GameObject> uiElements;
+    public ConcurrentDictionary<string, GameObject> uiElements;
     public List<string> uiElementsContentsString;
     public List<GameObject> uiElementsContentsGameObject;
 	void Awake(){
@@ -84,6 +84,29 @@ public class Game : MonoBehaviour
         
     }
     
+	private object _sync = new object();
+	
+	public object GetInstance(string key) {
+		object instance = null;
+		bool found;
+		lock (_sync) {
+			found = uiElements.TryGetValue(key, out instance);
+		}
+		if (!found) {
+			instance = uiElements(key);
+			lock (_sync) {
+				object current;
+				if (Instances.TryGetValue(key, out current)) {
+					// some other thread already loaded the object, so we use that instead
+					instance = current;
+				} else {
+					Instances[key] = instance;
+				}
+			}
+		}
+		return instance;
+	}
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -210,6 +233,19 @@ public class Game : MonoBehaviour
             _canvasgroup = GameObject.Find(_canvasGroupName);
         }
         _canvasgroup.SetActive(!_canvasgroup.activeSelf);
+	}
+
+	public void toggleCanvasGroup (string _canvasGroupName, bool desireBool){
+		GameObject _canvasgroup;
+		try
+		{
+			uiElements.TryGetValue(_canvasGroupName.Trim(), out _canvasgroup);
+		}
+		catch (NullReferenceException e)
+		{
+			_canvasgroup = GameObject.Find(_canvasGroupName);
+		}
+		_canvasgroup.SetActive(desireBool);
 	}
 
 	public void toggleInteractableButton(Button b)
