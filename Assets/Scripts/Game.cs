@@ -60,7 +60,7 @@ public class Game : MonoBehaviour
         {
             child.gameObject.SetActive(true);
         }
-        uiElements = new Dictionary<string, GameObject>();
+        uiElements = new ConcurrentDictionary<string, GameObject>();
         uiElements.Add("BottomToolbar", GameObject.Find("BottomToolbar"));
         uiElements.Add("TopToolbar", GameObject.Find("TopToolbar"));
         uiElements.Add("ShipView", GameObject.Find("ShipView"));
@@ -72,40 +72,19 @@ public class Game : MonoBehaviour
         luxuriesText = GameObject.Find("Luxuries").GetComponentInChildren<Text>();
         wealthText = GameObject.Find("Wealth").GetComponentInChildren<Text>();
         shipText = GameObject.Find("MaxShips").GetComponentInChildren<Text>();
-        foreach (GameObject _target in uiElements.Values)
+        foreach (GameObject _target in uiElements.GetValuesArray())
         {
             _target.SetActive(false);
         }
         GameObject _object;
-        uiElements.TryGetValue("TopToolbar", out _object);
+		_object = uiElements["TopToolbar"];
         _object.gameObject.SetActive(true);
-        uiElements.TryGetValue("BottomToolbar", out _object);
+		_object= uiElements["BottomToolbar"];
         _object.gameObject.SetActive(true);
         
     }
     
-	private object _sync = new object();
-	
-	public object GetInstance(string key) {
-		object instance = null;
-		bool found;
-		lock (_sync) {
-			found = uiElements.TryGetValue(key, out instance);
-		}
-		if (!found) {
-			instance = uiElements(key);
-			lock (_sync) {
-				object current;
-				if (Instances.TryGetValue(key, out current)) {
-					// some other thread already loaded the object, so we use that instead
-					instance = current;
-				} else {
-					Instances[key] = instance;
-				}
-			}
-		}
-		return instance;
-	}
+
 
 	// Use this for initialization
 	void Start ()
@@ -118,9 +97,9 @@ public class Game : MonoBehaviour
 	{
         uiElementsContentsGameObject.Clear();
         uiElementsContentsString.Clear();
-        foreach (GameObject _object in uiElements.Values)
+        foreach (GameObject _object in uiElements.GetValuesArray())
             uiElementsContentsGameObject.Add(_object);
-        foreach(string _string in uiElements.Keys)
+        foreach(string _string in uiElements.GetKeysArray())
             uiElementsContentsString.Add(_string);
 		//If presses Escape while holding bUilding, cancel it.
 		if (Input.GetKeyDown (KeyCode.Escape))
@@ -226,7 +205,7 @@ public class Game : MonoBehaviour
 		GameObject _canvasgroup;
         try
         {
-           uiElements.TryGetValue(_canvasGroupName.Trim(), out _canvasgroup);
+			_canvasgroup = uiElements[_canvasGroupName.Trim()];
         }
         catch (NullReferenceException e)
         {
@@ -239,7 +218,7 @@ public class Game : MonoBehaviour
 		GameObject _canvasgroup;
 		try
 		{
-			uiElements.TryGetValue(_canvasGroupName.Trim(), out _canvasgroup);
+			_canvasgroup= uiElements[_canvasGroupName.Trim()];
 		}
 		catch (NullReferenceException e)
 		{
@@ -340,7 +319,7 @@ public class Game : MonoBehaviour
 	public void DestroyShipUIInstances()
 	{
         GameObject shipyardUI;
-        Game.current.uiElements.TryGetValue("ShipyardWindow", out shipyardUI);
+		shipyardUI = Game.current.uiElements["ShipyardWindow"];
 		foreach (Transform child in shipyardUI.transform) {
 			if(child.name.Equals("Ship(Clone)"))
 				Destroy(child.gameObject);

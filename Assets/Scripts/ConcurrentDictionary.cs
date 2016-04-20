@@ -53,4 +53,5 @@ public class ConcurrentDictionary<tkey, tvalue>{
 	}
 	
 	public tkey[] GetKeysArray() { lock(syncLock) { tkey[] result = new tkey[dict.Keys.Count]; dict.Keys.CopyTo(result, 0); return result; } }
+	public tvalue[] GetValuesArray() { lock(syncLock) { tvalue[] result = new tvalue[dict.Keys.Count]; dict.Values.CopyTo(result, 0); return result; } }
 }

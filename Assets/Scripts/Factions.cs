@@ -42,7 +42,7 @@ public class Factions : MonoBehaviour
 		resourceTypes.Add (1, "Luxuries");
 		resourceTypes.Add (2, "Wealth");
         GameObject shipViewUI;
-        Game.current.uiElements.TryGetValue("ShipView", out shipViewUI);
+		shipViewUI = Game.current.uiElements["ShipView"];
         shipViewUI.SetActive(true);
         foreach(Transform child in shipViewUI.transform){
             if (String.Equals(child.name, "TradeWindow"))
