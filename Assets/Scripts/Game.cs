@@ -38,8 +38,7 @@ public class Game : MonoBehaviour
 
 	Text commoditiesText, luxuriesText, wealthText, shipText;
     public ConcurrentDictionary<string, GameObject> uiElements;
-    public List<string> uiElementsContentsString;
-    public List<GameObject> uiElementsContentsGameObject;
+
 	void Awake(){
 		if (current == null) {
 			current = this;
@@ -54,8 +53,7 @@ public class Game : MonoBehaviour
 
     void InitializeDictionary()
     {
-        uiElementsContentsGameObject = new List<GameObject>();
-        uiElementsContentsString = new List<string>();
+
         foreach (Transform child in GameObject.Find("UI").transform)
         {
             child.gameObject.SetActive(true);
@@ -64,9 +62,6 @@ public class Game : MonoBehaviour
         uiElements.Add("BottomToolbar", GameObject.Find("BottomToolbar"));
         uiElements.Add("TopToolbar", GameObject.Find("TopToolbar"));
         uiElements.Add("ShipView", GameObject.Find("ShipView"));
-        uiElements.Add("NewShipPopUp", GameObject.Find("NewShipPopUp"));
-        uiElements.Add("CapacityErrorPanel", GameObject.Find("CapacityErrorPanel"));
-        uiElements.Add("ShipErrorPanel", GameObject.Find("ShipErrorPanel"));
         uiElements.Add("ShipyardWindow", GameObject.Find("ShipyardWindow"));
         commoditiesText = GameObject.Find("Commodities").GetComponentInChildren<Text>();
         luxuriesText = GameObject.Find("Luxuries").GetComponentInChildren<Text>();
@@ -95,12 +90,6 @@ public class Game : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-        uiElementsContentsGameObject.Clear();
-        uiElementsContentsString.Clear();
-        foreach (GameObject _object in uiElements.GetValuesArray())
-            uiElementsContentsGameObject.Add(_object);
-        foreach(string _string in uiElements.GetKeysArray())
-            uiElementsContentsString.Add(_string);
 		//If presses Escape while holding bUilding, cancel it.
 		if (Input.GetKeyDown (KeyCode.Escape))
 			CancelBuild ();	
@@ -137,7 +126,7 @@ public class Game : MonoBehaviour
 			if(building.GetType() == Type.GetType("Building") && ((ResourceBuilding)building).resourcesMaxed)
 			{
 				Debug.Log("ResourceCheck Failed");
-				enableUI("CapacityErrorPanel");
+				EventSystem.OccurEvent("CapacityErrorPanel");
 				toggleInteractableButton(GameObject.Find("EndTurnButton").GetComponent<Button>());
 				return false;
 			}
@@ -145,7 +134,7 @@ public class Game : MonoBehaviour
 		//Add building costs
 		if (!shipCheck) {
 			Debug.Log("ShipCheckFailed");
-			enableUI("ShipErrorPanel");
+			EventSystem.OccurEvent("ShipErrorPanel");
 			toggleInteractableButton(GameObject.Find("EndTurnButton").GetComponent<Button>());
             return false;
 		}
@@ -210,6 +199,7 @@ public class Game : MonoBehaviour
         catch (NullReferenceException e)
         {
             _uiGameObject = GameObject.Find(_uiName);
+			Debug.Log(e.Message);
         }
         _uiGameObject.SetActive(!_uiGameObject.activeSelf);
 	}
@@ -223,6 +213,7 @@ public class Game : MonoBehaviour
 		catch (NullReferenceException e)
 		{
 			_uiGameObject = GameObject.Find(_uiName);
+			Debug.Log(e.Message);
 		}
 		_uiGameObject.SetActive(desireBool);
 	}
@@ -237,6 +228,10 @@ public class Game : MonoBehaviour
 	{
 		Destroy (o);
 	}
+    public void DestroyGameObject(UnityEngine.Object o, float time)
+    {
+        Destroy(o, time);
+    }
 
 	//RESOURCE MANAGEMENT METHODS
 

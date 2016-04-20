@@ -58,8 +58,7 @@ public class Shipyard : Building {
 	{
 		Game.current.buildingList.Add (this);
 		Game.current.maxShips += 1;
-       Game.current.enableUI("NewShipPopUp");
-
+        EventSystem.OccurEvent("NewShipPopUp");
 		newShipPopUpButton = GameObject.Find ("NewShipPopUpButton").GetComponent<Button> ();
 		newShipPopUpButton.onClick.AddListener(() => this.CreateShip());
 	
