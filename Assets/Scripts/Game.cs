@@ -203,8 +203,7 @@ public class Game : MonoBehaviour
 		GameObject _canvasgroup;
         try
         {
-            if (uiElements.ContainsKey("ShipyardWindow")) ;
-            uiElements.TryGetValue(_canvasGroupName.Trim(), out _canvasgroup);
+           uiElements.TryGetValue(_canvasGroupName.Trim(), out _canvasgroup);
         }
         catch (NullReferenceException e)
         {
