@@ -43,7 +43,6 @@ public class Shipyard : Building {
 
 	public override void ProductionTick()
 	{
-		timeSinceTick++;
 		CheckProduction ();
 	}
 	protected override int GlowSprite {
@@ -59,7 +58,7 @@ public class Shipyard : Building {
 	{
 		Game.current.buildingList.Add (this);
 		Game.current.maxShips += 1;
-       Game.current.toggleCanvasGroup("NewShipPopUp");
+       Game.current.enableUI("NewShipPopUp");
 
 		newShipPopUpButton = GameObject.Find ("NewShipPopUpButton").GetComponent<Button> ();
 		newShipPopUpButton.onClick.AddListener(() => this.CreateShip());
@@ -87,9 +86,9 @@ public class Shipyard : Building {
 		
         
 		newShipPopUpButton.onClick.RemoveAllListeners();
-		Game.current.toggleCanvasGroup (newShipPopUpButton.transform.parent.name, true);
+		Game.current.enableUI (newShipPopUpButton.transform.parent.name, true);
 		Ship _ship = new Ship (newShipPopUpButton.transform.parent.GetComponentInChildren<InputField>().text);
-		Game.current.toggleCanvasGroup (newShipPopUpButton.transform.parent.name, false);
+		Game.current.enableUI (newShipPopUpButton.transform.parent.name, false);
 
 		this.shipsInShipyard.Add (_ship);
 
@@ -111,7 +110,7 @@ public class Shipyard : Building {
 			}
 			else
 			{
-				instanceButton.onClick.AddListener(() => mission.StartSailing(_ship.name));
+				instanceButton.onClick.AddListener(() => mission.StartSailing(_ship));
 				instanceButton.onClick.AddListener(() => Game.current.DestroyShipUIInstances());
 			}
 	}

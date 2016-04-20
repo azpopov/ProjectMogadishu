@@ -137,7 +137,7 @@ public class Game : MonoBehaviour
 			if(building.GetType() == Type.GetType("Building") && ((ResourceBuilding)building).resourcesMaxed)
 			{
 				Debug.Log("ResourceCheck Failed");
-				toggleCanvasGroup("CapacityErrorPanel");
+				enableUI("CapacityErrorPanel");
 				toggleInteractableButton(GameObject.Find("EndTurnButton").GetComponent<Button>());
 				return false;
 			}
@@ -145,7 +145,7 @@ public class Game : MonoBehaviour
 		//Add building costs
 		if (!shipCheck) {
 			Debug.Log("ShipCheckFailed");
-			toggleCanvasGroup("ShipErrorPanel");
+			enableUI("ShipErrorPanel");
 			toggleInteractableButton(GameObject.Find("EndTurnButton").GetComponent<Button>());
             return false;
 		}
@@ -200,31 +200,31 @@ public class Game : MonoBehaviour
 
 	//OTHER METHODS
 
-	public void toggleCanvasGroup (string _canvasGroupName)
+	public void enableUI (string _uiName)
 	{
-		GameObject _canvasgroup;
+		GameObject _uiGameObject;
         try
         {
-			_canvasgroup = uiElements[_canvasGroupName.Trim()];
+			_uiGameObject = uiElements[_uiName.Trim()];
         }
         catch (NullReferenceException e)
         {
-            _canvasgroup = GameObject.Find(_canvasGroupName);
+            _uiGameObject = GameObject.Find(_uiName);
         }
-        _canvasgroup.SetActive(!_canvasgroup.activeSelf);
+        _uiGameObject.SetActive(!_uiGameObject.activeSelf);
 	}
 
-	public void toggleCanvasGroup (string _canvasGroupName, bool desireBool){
-		GameObject _canvasgroup;
+	public void enableUI (string _uiName, bool desireBool){
+		GameObject _uiGameObject;
 		try
 		{
-			_canvasgroup= uiElements[_canvasGroupName.Trim()];
+			_uiGameObject= uiElements[_uiName.Trim()];
 		}
 		catch (NullReferenceException e)
 		{
-			_canvasgroup = GameObject.Find(_canvasGroupName);
+			_uiGameObject = GameObject.Find(_uiName);
 		}
-		_canvasgroup.SetActive(desireBool);
+		_uiGameObject.SetActive(desireBool);
 	}
 
 	public void toggleInteractableButton(Button b)

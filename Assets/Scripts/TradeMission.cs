@@ -58,9 +58,9 @@ public class TradeMission : MonoBehaviour
 	}
 
 
-	public void StartSailing (string _shipname)
+	public void StartSailing (Shipyard.Ship _ship)
 	{
-		shipName = _shipname;
+		
 		switch (type)
 		{
 		case 0:
@@ -73,7 +73,9 @@ public class TradeMission : MonoBehaviour
 			Game.current.wealth -= requestedResources;
 			break;
 		}
-
+        shipName = _ship.name;
+        _ship.onMission = true;
+        _ship.theMission = this;
 		Game.current.currentShips++;
 		sailing = true;
 		button.GetComponent<Image> ().color = Color.red;
@@ -93,8 +95,8 @@ public class TradeMission : MonoBehaviour
 		    !(type == 2 && !(Game.current.wealth < requestedResources)) &&
 		    !(type == 1 && !(Game.current.luxuries < requestedResources)))
 			return;
-		Game.current.toggleCanvasGroup ("ShipView");
-		Game.current.toggleCanvasGroup ("ShipyardWindow");
+		Game.current.enableUI ("ShipView");
+		Game.current.enableUI ("ShipyardWindow");
 		Game.current.ShipyardWindowPopulate (this);
 	
 

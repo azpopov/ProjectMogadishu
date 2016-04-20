@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 
+//Class Provided by Kiel369 from forum.unity3d.com with slight modifications
 public class ConcurrentDictionary<tkey, tvalue>{
 	private readonly object syncLock = new object();
 	private Dictionary<tkey, tvalue> dict;
