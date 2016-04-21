@@ -126,11 +126,10 @@ public class Game : MonoBehaviour
 	bool NextTurnCheck()
 	{
 		foreach (Building building in buildingList) {
-			if(building.GetType() == Type.GetType("Building") && ((ResourceBuilding)building).resourcesMaxed)
+			if(building.GetType() == Type.GetType("ResourceBuilding") && ((ResourceBuilding)building).resourcesMaxed)
 			{
 				Debug.Log("ResourceCheck Failed");
 				EventSystem.OccurEvent("CapacityErrorPanel");
-				toggleInteractableButton(GameObject.Find("EndTurnButton").GetComponent<Button>());
 				return false;
 			}
 		}
@@ -138,7 +137,6 @@ public class Game : MonoBehaviour
 		if (!shipCheck) {
 			Debug.Log("ShipCheckFailed");
 			EventSystem.OccurEvent("ShipErrorPanel");
-			toggleInteractableButton(GameObject.Find("EndTurnButton").GetComponent<Button>());
             return false;
 		}
 		return true;

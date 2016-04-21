@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class ResourceBuilding : Building
 {
 	//Stores resources to be collected later up to a Maximum
-	int storedResources = 0, maxResources = 500;
+	public int storedResources = 0, maxResources = 500;
 
 	//Prefab to display Gained resources upon click
 	public GameObject floatingTextPrefab;
