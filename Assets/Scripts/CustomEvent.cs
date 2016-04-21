@@ -28,6 +28,7 @@ public class CustomEvent : MonoBehaviour
 
 	public virtual void OnDisable(){
 		endTurnButton.interactable = true;
+		EventSystem.eventPresent = false;
 		Destroy (gameObject, 5.0f);
 	}
 	

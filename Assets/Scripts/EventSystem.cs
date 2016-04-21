@@ -3,10 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 public class EventSystem : MonoBehaviour {
 
-    int head = 0;
+    static int head = 0;
 
     static int MAX_PENDING = 10;
-    public static int numPending;
+    public static int tail;
 
 
 
@@ -15,17 +15,18 @@ public class EventSystem : MonoBehaviour {
 	public static bool eventPresent;
 
     static Dictionary<string, int> eventDic;
-
+	public string[] eventsLoaded;
     public GameObject[] events; 
     void Awake()
     {
         eventPresent = false;
-        numPending = 0;
-        head = 0;
+        tail = 0;
         eventDic = new Dictionary<string, int>();
 		int i = 0;
+		eventsLoaded = new string[events.Length];
 		foreach (GameObject _event in events) {
 			eventDic.Add(_event.name, i);
+			eventsLoaded[i] = _event.name;
 			i++;
 		}
     }   
@@ -36,10 +37,10 @@ public class EventSystem : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void Update () {
-        if (!eventPresent && numPending > 0)
+        if (!eventPresent && head != tail)
         {
 			CreateEvent(pending[head]);
-            numPending--;
+            
             eventPresent = true;
 			head = (head + 1) % MAX_PENDING;
         }
@@ -59,8 +60,10 @@ public class EventSystem : MonoBehaviour {
     }
 
    public static void OccurEvent(int eventID) {
-       if (numPending >= MAX_PENDING) return;
-       pending[numPending] = eventID;
-       numPending++;
+		for (int i = head; i != tail; i = (i + 1) % MAX_PENDING)
+			if (pending[i] == eventID) return;
+       if (tail >= MAX_PENDING) return;
+       pending[tail] = eventID;
+		tail = (tail + 1) % MAX_PENDING;
     }
 }
