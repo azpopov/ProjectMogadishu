@@ -43,13 +43,12 @@ public class EventSystem : MonoBehaviour {
             eventPresent = true;
 			head = (head + 1) % MAX_PENDING;
         }
-    
     }
 
     GameObject CreateEvent(int eventID)
     {
         GameObject uiEvent = Instantiate(events[eventID], new Vector3(0, 0), Quaternion.identity) as GameObject;
-        uiEvent.transform.SetParent(GameObject.Find("UI").transform, false);
+		uiEvent.transform.SetParent (GameObject.Find ("UI").transform, false);
         uiEvent.SetActive(true);
         return uiEvent;
     }
@@ -58,6 +57,7 @@ public class EventSystem : MonoBehaviour {
         int eventID = eventDic[eventName];
         OccurEvent(eventID);
     }
+
    public static void OccurEvent(int eventID) {
        if (numPending >= MAX_PENDING) return;
        pending[numPending] = eventID;

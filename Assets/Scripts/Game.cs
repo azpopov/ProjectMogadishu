@@ -17,6 +17,8 @@ public class Game : MonoBehaviour
 	public Sprite[] resourceSprites;
 
 
+	public static GameObject uiMain;
+
 	//ShipManagement
 	int _maxShips = 0;
 	int _currentShips = 0;
@@ -45,6 +47,7 @@ public class Game : MonoBehaviour
 		} else {
 			Destroy (this);
 		}
+		uiMain = GameObject.Find ("UI");
         InitializeDictionary();
        
         buildingList = new List<Building> ();
@@ -54,7 +57,7 @@ public class Game : MonoBehaviour
     void InitializeDictionary()
     {
 
-        foreach (Transform child in GameObject.Find("UI").transform)
+        foreach (Transform child in uiMain.transform)
         {
             child.gameObject.SetActive(true);
         }
@@ -199,7 +202,7 @@ public class Game : MonoBehaviour
         catch (NullReferenceException e)
         {
             _uiGameObject = GameObject.Find(_uiName);
-			Debug.Log(e.Message);
+			Debug.Log(e.Message + " \nuiElement requiested " +_uiName);
         }
         _uiGameObject.SetActive(!_uiGameObject.activeSelf);
 	}

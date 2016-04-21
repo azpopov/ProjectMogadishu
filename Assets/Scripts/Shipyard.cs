@@ -20,17 +20,23 @@ public class Shipyard : Building {
 
 	public GameObject shipUIPrefab;
 
+	public float lived;
+
 	Button newShipPopUpButton;
 	// Use this for initialization
 	void Start () {
 		shipsInShipyard = new List<Ship> ();
+		lived = 0.0f;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
 	}
-
+	void FixedUpdate()
+	{
+		lived += Time.deltaTime;
+	}
 	protected override void CheckProduction ()
 	{
 		foreach (Ship _ship in shipsInShipyard) {
@@ -59,8 +65,7 @@ public class Shipyard : Building {
 		Game.current.buildingList.Add (this);
 		Game.current.maxShips += 1;
         EventSystem.OccurEvent("NewShipPopUp");
-		newShipPopUpButton = GameObject.Find ("NewShipPopUpButton").GetComponent<Button> ();
-		newShipPopUpButton.onClick.AddListener(() => this.CreateShip());
+
 	
 }
 
@@ -79,20 +84,10 @@ public class Shipyard : Building {
 	{
 
 	}
-
-	public void CreateShip()
-	{
-		
-        
-		newShipPopUpButton.onClick.RemoveAllListeners();
-		Game.current.enableUI (newShipPopUpButton.transform.parent.name, true);
-		Ship _ship = new Ship (newShipPopUpButton.transform.parent.GetComponentInChildren<InputField>().text);
-		Game.current.enableUI (newShipPopUpButton.transform.parent.name, false);
-
+	public void CreateShip(string _name){
+		Shipyard.Ship _ship = new Ship (_name);
 		this.shipsInShipyard.Add (_ship);
-
 	}
-
 	public void CreateShipUI(TradeMission mission)
 	{
 
@@ -101,7 +96,7 @@ public class Shipyard : Building {
 		foreach (Ship _ship in shipsInShipyard) {
 			GameObject instance = Instantiate(shipUIPrefab,new Vector3 (0, 0), Quaternion.identity) as GameObject;
 			instance.transform.SetParent (shipyardUI.transform, false);
-			instance.GetComponentInChildren<Text>().text = _ship.name + this.transform.localPosition;
+			instance.GetComponentInChildren<Text>().text = _ship.name;
 			Button instanceButton = instance.GetComponentInChildren<Button>();
 			if(_ship.onMission)
 			{
