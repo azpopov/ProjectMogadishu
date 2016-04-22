@@ -9,8 +9,8 @@ public class Factions : MonoBehaviour
 
 	public static Factions current = null;
 	public List<TradeMission> tradeMissions = new List<TradeMission> ();
-	GameObject tradeWindow, completeTradeWindow;
-	public GameObject tradePrefab, completeTradeWindowPrefab;
+	GameObject tradeWindow;
+	public GameObject tradePrefab;
 	
 	public enum faction
 	{
@@ -18,8 +18,7 @@ public class Factions : MonoBehaviour
 		Omani
 	}
 	;
-	Dictionary<faction, float> factionBiases = new Dictionary<faction, float> ();
-	Dictionary<int, string> resourceTypes = new Dictionary<int,string>();
+	public static Dictionary<faction, float> factionBiases = new Dictionary<faction, float> ();
 
 	public Sprite[] insignias;
 	float refreshTimer = 5f;
@@ -38,9 +37,6 @@ public class Factions : MonoBehaviour
 		
 		factionBiases.Add (faction.Celestial, 1.5f);
 		factionBiases.Add (faction.Omani, 0.8f);
-		resourceTypes.Add (0, "Commodities");
-		resourceTypes.Add (1, "Luxuries");
-		resourceTypes.Add (2, "Wealth");
         GameObject shipViewUI;
 		shipViewUI = Game.current.uiElements["ShipView"];
         shipViewUI.SetActive(true);
@@ -129,7 +125,6 @@ public class Factions : MonoBehaviour
 		} else {
 			baseValue = UnityEngine.Random.Range (50, 150);
 		}
-
 		baseValue = (int)((float)baseValue * _factionBias);
 		return baseValue;
 	}
@@ -142,71 +137,14 @@ public class Factions : MonoBehaviour
 
 
 
-	public void CompleteJourney(TradeMission script)
-	{
-		script.resultBias += UnityEngine.Random.Range (0, 100);
 
-		completeTradeWindow = (GameObject)Instantiate (completeTradeWindowPrefab, new Vector3 (0, 0), Quaternion.identity);
-		completeTradeWindow.transform.SetParent (GameObject.Find("UI").transform, false);
-
-		int amountReceived = 0;
-		string resultText = "The "+ script.shipName  + " has returned!\nThe Captain would like to report:\n ";
-
-		if (script.resultBias <= 20) {
-			resultText += "DISASTROUS!\n";
-			amountReceived = DisasterJourney (script);
-			resultText += "You haven't received anything sadly";
-		} else if (script.resultBias <= 80) {
-			resultText += "SUCCESSFUL!\n ";
-			amountReceived = SuccessfulJourney (script);
-			resultText += "Resources Sent: "+script.requestedResources.ToString() + resourceTypes[script.type]+"\n";
-			resultText += "Resources Received: "+amountReceived.ToString() + resourceTypes[script.targetType]+"\n";
-		
-		} else {
-			resultText += "AMAZINGLY SUCCESSFUL!\n";
-			amountReceived = AmazingJourney (script);
-
-		}
-
-
-		completeTradeWindow.transform.FindChild ("TradeCompleteText").GetComponent<Text> ().text = resultText;
-		Game.current.addToResource (script.targetType, amountReceived);
-
-	}
-	int SuccessfulJourney(TradeMission script)
-	{
-		float amountReturned = (float)script.requestedResources;
-		amountReturned *= factionBiases[script.f];
-
-		if (script.type == 0 && script.targetType == 1) {
-			amountReturned /= 2f;
-		} else if (script.type == 0 && script.targetType == 2) {
-			amountReturned /= 6f;
-		} else if (script.type == 1 && script.targetType == 2) {
-			amountReturned *= 0.6f;
-		} else if (script.type == 1 && script.targetType == 0) {
-			amountReturned *= 2.2f;
-		} else if (script.type == script.targetType)
-			amountReturned *= 1.7f;
-
-		return (int)amountReturned;
-	}
 
 	public TradeMission[] GetTradeMissionList()
 	{
 		return tradeMissions.ToArray ();
 	}
 
-	int DisasterJourney(TradeMission script)
-	{
-		Debug.Log ("disaster not implemented");
-		return 0;
-	}
-	int AmazingJourney(TradeMission script)
-	{
-		Debug.Log ("Amazing not implemented");
-		return 0;	
-	}
+
 
 }
 	

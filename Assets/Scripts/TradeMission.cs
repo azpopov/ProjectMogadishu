@@ -51,7 +51,8 @@ public class TradeMission : MonoBehaviour
 			timeToDest -= n;
 			destText.text = "Arriving Back in " + Math.Round (timeToDest).ToString () + " Turns";
 			if (timeToDest < float.Epsilon) {
-				Factions.current.CompleteJourney (this);
+				EventSystem.pendingMissions.Add(this);
+				EventSystem.OccurEvent ("TradeComplete");
 				CancelSailing ();
 			}
 		}
@@ -107,7 +108,6 @@ public class TradeMission : MonoBehaviour
 		button.GetComponent<Button> ().onClick.RemoveListener (action);
 		sailing = false;
 		action -= CancelSailing;
-		Factions.current.RemoveTradeMission (this);
 		Destroy (gameObject);
 
 	}

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 public class EventSystem : MonoBehaviour {
 
-    static int head = 0;
+    public static int head = 0;
 
     static int MAX_PENDING = 10;
     public static int tail;
@@ -11,15 +11,17 @@ public class EventSystem : MonoBehaviour {
 
 
     static int[] pending = new int[MAX_PENDING];
+	public static List<TradeMission> pendingMissions;
 
-	public static bool eventPresent;
+	public static GameObject eventPresent;
 
     static Dictionary<string, int> eventDic;
 	public string[] eventsLoaded;
     public GameObject[] events; 
     void Awake()
     {
-        eventPresent = false;
+		pendingMissions = new List<TradeMission> ();
+        eventPresent = null;
         tail = 0;
         eventDic = new Dictionary<string, int>();
 		int i = 0;
@@ -37,11 +39,10 @@ public class EventSystem : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void Update () {
-        if (!eventPresent && head != tail)
+        if (eventPresent == null && head != tail)
         {
-			CreateEvent(pending[head]);
-            
-            eventPresent = true;
+			Debug.Log(pendingMissions.Count);
+			eventPresent = CreateEvent(pending[head]);
 			head = (head + 1) % MAX_PENDING;
         }
     }

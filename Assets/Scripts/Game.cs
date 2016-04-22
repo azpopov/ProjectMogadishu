@@ -10,14 +10,19 @@ public class Game : MonoBehaviour
 	static public Game current;
 	public GameObject currentlyBuilding;
 
-
-	[SerializeField]
+	
 	public GameObject[]
 		buildingPrefabs;
 	public Sprite[] resourceSprites;
 
 
 	public static GameObject uiMain;
+
+	public enum ResourceType{
+		Commodity,
+		Luxury,
+		Wealth
+	}
 
 	//ShipManagement
 	int _maxShips = 0;
@@ -88,14 +93,18 @@ public class Game : MonoBehaviour
 	void Start ()
 	{
 
+
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
 		//If presses Escape while holding bUilding, cancel it.
-		if (Input.GetKeyDown (KeyCode.Escape))
+		if (Input.GetKeyDown (KeyCode.Escape)) {
 			CancelBuild ();	
+			EventSystem.OccurEvent ("ShipErrorPanel");
+			EventSystem.OccurEvent ("ShipErrorPanel");
+		}
 	}
 
 	void CancelBuild ()
@@ -200,7 +209,6 @@ public class Game : MonoBehaviour
         catch (NullReferenceException e)
         {
             _uiGameObject = GameObject.Find(_uiName);
-			Debug.Log(e.Message + " \nuiElement requiested " +_uiName);
         }
         _uiGameObject.SetActive(!_uiGameObject.activeSelf);
 	}
