@@ -41,7 +41,6 @@ public class EventSystem : MonoBehaviour {
 	void Update () {
         if (eventPresent == null && head != tail)
         {
-			Debug.Log(pendingMissions.Count);
 			eventPresent = CreateEvent(pending[head]);
 			head = (head + 1) % MAX_PENDING;
         }
@@ -61,8 +60,8 @@ public class EventSystem : MonoBehaviour {
     }
 
    public static void OccurEvent(int eventID) {
-		for (int i = head; i != tail; i = (i + 1) % MAX_PENDING)
-			if (pending[i] == eventID) return;
+//		for (int i = head; i != tail; i = (i + 1) % MAX_PENDING)
+//			if (pending[i] == eventID) return;
        if (tail >= MAX_PENDING) return;
        pending[tail] = eventID;
 		tail = (tail + 1) % MAX_PENDING;

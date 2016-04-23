@@ -73,6 +73,7 @@ public class TradeCompleteScript : CustomEvent {
 	{
 		EventSystem.pendingMissions.RemoveAt(0);
 		Factions.current.RemoveTradeMission (this.tradeComplete);
+        Destroy(tradeComplete);
 		base.OnDisable ();
 
 	}

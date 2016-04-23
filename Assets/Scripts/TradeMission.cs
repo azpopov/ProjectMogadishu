@@ -24,6 +24,7 @@ public class TradeMission : MonoBehaviour
 	{
 		action = new UnityAction (CheckValidityOfSailing);
 		action += Game.current.ShipCheck;
+        
 		button = transform.Find ("SendTradeButton");
 		button.GetComponent<Button> ().onClick.AddListener (action);
 		
@@ -75,8 +76,6 @@ public class TradeMission : MonoBehaviour
 			break;
 		}
         shipName = _ship.name;
-        _ship.onMission = true;
-        _ship.theMission = this;
 		Game.current.currentShips++;
 		sailing = true;
 		button.GetComponent<Image> ().color = Color.red;
@@ -108,8 +107,6 @@ public class TradeMission : MonoBehaviour
 		button.GetComponent<Button> ().onClick.RemoveListener (action);
 		sailing = false;
 		action -= CancelSailing;
-		Destroy (gameObject);
-
 	}
 	
 }
