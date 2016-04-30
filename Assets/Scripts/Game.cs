@@ -102,8 +102,6 @@ public class Game : MonoBehaviour
 		//If presses Escape while holding bUilding, cancel it.
 		if (Input.GetKeyDown (KeyCode.Escape)) {
 			CancelBuild ();	
-			EventSystem.OccurEvent ("ShipErrorPanel");
-			EventSystem.OccurEvent ("ShipErrorPanel");
 		}
 	}
 
