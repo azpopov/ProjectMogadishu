@@ -50,6 +50,7 @@ public class BuildingPlacer : MonoBehaviour {
 				GetComponent<Shipyard>().enabled = true;
 
 			}
+			//col.isTrigger = false;
 			Destroy(GetComponent<Rigidbody2D>());
 			Destroy(this);
 			
@@ -61,4 +62,12 @@ public class BuildingPlacer : MonoBehaviour {
 		GameObject.Find ("Esc Text").GetComponent<CanvasGroup>().alpha = 0;
 
 	}
+
+	void LateUpdate()
+	{
+		gameObject.GetComponent<SpriteRenderer>().sortingOrder = -Mathf.RoundToInt(transform.position.y);
+	}
+
+
+
 }
