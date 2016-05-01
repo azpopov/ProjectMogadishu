@@ -9,84 +9,87 @@ public class Game : MonoBehaviour
 	//Singleton
 	static public Game current;
 	public GameObject currentlyBuilding;
-
-	
 	public GameObject[]
 		buildingPrefabs;
 	public Sprite[] resourceSprites;
-
-
 	public static GameObject uiMain;
 
-	public enum ResourceType{
+	public enum ResourceType
+	{
 		Commodity,
 		Luxury,
 		Wealth
 	}
 
+	static Hashtable buildingHashtable;
+
 	//ShipManagement
 	int _maxShips = 0;
 	int _currentShips = 0;
-	public int currentShips
-	{
-		get{
+
+	public int currentShips {
+		get {
 			return _currentShips;
 		}
-		set
-		{
+		set {
 			_currentShips = value;
-			ShipCheck();
-			shipText.text = currentShips.ToString() + " / "+_maxShips.ToString();
+			ShipCheck ();
+			shipText.text = currentShips.ToString () + " / " + _maxShips.ToString ();
 		}
 	}
 	//List of current Buildings
 	public List<Building> buildingList;
-
-
 	Text commoditiesText, luxuriesText, wealthText, shipText;
-    public ConcurrentDictionary<string, GameObject> uiElements;
+	public ConcurrentDictionary<string, GameObject> uiElements;
 
-	void Awake(){
+	void Awake ()
+	{
 		if (current == null) {
 			current = this;
 		} else {
 			Destroy (this);
 		}
 		uiMain = GameObject.Find ("UI");
-        InitializeDictionary();
-       
-        buildingList = new List<Building> ();
+		InitializeDictionary ();
+		InitializeBuildingHashtable ();
+
+		buildingList = new List<Building> ();
 		
 	}
 
-    void InitializeDictionary()
-    {
+	void InitializeDictionary ()
+	{
 
-        foreach (Transform child in uiMain.transform)
-        {
-            child.gameObject.SetActive(true);
-        }
-        uiElements = new ConcurrentDictionary<string, GameObject>();
-        uiElements.Add("BottomToolbar", GameObject.Find("BottomToolbar"));
-        uiElements.Add("TopToolbar", GameObject.Find("TopToolbar"));
-        uiElements.Add("ShipView", GameObject.Find("ShipView"));
-        uiElements.Add("ShipyardWindow", GameObject.Find("ShipyardWindow"));
-        commoditiesText = GameObject.Find("Commodities").GetComponentInChildren<Text>();
-        luxuriesText = GameObject.Find("Luxuries").GetComponentInChildren<Text>();
-        wealthText = GameObject.Find("Wealth").GetComponentInChildren<Text>();
-        shipText = GameObject.Find("MaxShips").GetComponentInChildren<Text>();
-        foreach (GameObject _target in uiElements.GetValuesArray())
-        {
-            _target.SetActive(false);
-        }
-        GameObject _object;
-		_object = uiElements["TopToolbar"];
-        _object.gameObject.SetActive(true);
-		_object= uiElements["BottomToolbar"];
-        _object.gameObject.SetActive(true);
+		foreach (Transform child in uiMain.transform) {
+			child.gameObject.SetActive (true);
+		}
+		uiElements = new ConcurrentDictionary<string, GameObject> ();
+		uiElements.Add ("BottomToolbar", GameObject.Find ("BottomToolbar"));
+		uiElements.Add ("TopToolbar", GameObject.Find ("TopToolbar"));
+		uiElements.Add ("ShipView", GameObject.Find ("ShipView"));
+		uiElements.Add ("ShipyardWindow", GameObject.Find ("ShipyardWindow"));
+		commoditiesText = GameObject.Find ("Commodities").GetComponentInChildren<Text> ();
+		luxuriesText = GameObject.Find ("Luxuries").GetComponentInChildren<Text> ();
+		wealthText = GameObject.Find ("Wealth").GetComponentInChildren<Text> ();
+		shipText = GameObject.Find ("MaxShips").GetComponentInChildren<Text> ();
+		foreach (GameObject _target in uiElements.GetValuesArray()) {
+			_target.SetActive (false);
+		}
+		GameObject _object;
+		_object = uiElements ["TopToolbar"];
+		_object.gameObject.SetActive (true);
+		_object = uiElements ["BottomToolbar"];
+		_object.gameObject.SetActive (true);
         
-    }
-    
+	}
+
+	void InitializeBuildingHashtable ()
+	{
+		buildingHashtable = new Hashtable ();
+		foreach (GameObject _object in buildingPrefabs) {
+			buildingHashtable [_object.name] = _object;
+		}
+	}
 
 
 	// Use this for initialization
@@ -114,42 +117,41 @@ public class Game : MonoBehaviour
 		}
 	}
 	//For every building in the resourceBuildingList advance their production by 1
-	void IncrementProductionTicks()
+	void IncrementProductionTicks ()
 	{
 		foreach (Building building in buildingList) {
-			building.ProductionTick();
+			building.ProductionTick ();
 		}
 	}
-
 	
 	void DecrementSailingShips ()
 	{
 		foreach (TradeMission missionScript in Factions.current.GetTradeMissionList()) {
-			missionScript.SailTick(1);
+			missionScript.SailTick (1);
 		}
 	}
+
 	bool shipCheck = true;
 	//Check all booleans here. Returning true means go ahead with NextTurn
-	bool NextTurnCheck()
+	bool NextTurnCheck ()
 	{
 		foreach (Building building in buildingList) {
-			if(building.GetType() == Type.GetType("ResourceBuilding") && ((ResourceBuilding)building).resourcesMaxed)
-			{
-				Debug.Log("ResourceCheck Failed");
-				EventSystem.OccurEvent("CapacityErrorPanel");
+			if (building.GetType () == Type.GetType ("ResourceBuilding") && ((ResourceBuilding)building).resourcesMaxed) {
+				Debug.Log ("ResourceCheck Failed");
+				EventSystem.OccurEvent ("CapacityErrorPanel");
 				return false;
 			}
 		}
 		//Add building costs
 		if (!shipCheck) {
-			Debug.Log("ShipCheckFailed");
-			EventSystem.OccurEvent("ShipErrorPanel");
-            return false;
+			Debug.Log ("ShipCheckFailed");
+			EventSystem.OccurEvent ("ShipErrorPanel");
+			return false;
 		}
 		return true;
 	}
 	//Perform all between methods here
-	public void NextTurn()
+	public void NextTurn ()
 	{
 		if (!NextTurnCheck ())
 			return;
@@ -160,17 +162,19 @@ public class Game : MonoBehaviour
 
 
 	}
-	public void ShipCheck()
+
+	public void ShipCheck ()
 	{
-		shipCheck = !ShipAvailable();
-	}
-	public void NextTurnForce()
-	{
-		IncrementProductionTicks();
-		DecrementSailingShips();
+		shipCheck = !ShipAvailable ();
 	}
 
-	public void SetShipCheck(bool b)
+	public void NextTurnForce ()
+	{
+		IncrementProductionTicks ();
+		DecrementSailingShips ();
+	}
+
+	public void SetShipCheck (bool b)
 	{
 		shipCheck = b;
 	}
@@ -182,16 +186,14 @@ public class Game : MonoBehaviour
 
 		currentlyBuilding = _currentlyBuilding;
 	}
-	
 
-	public void StartBuilding (int _buildIndex)
+	public void StartBuilding (string _building)
 	{
 		CancelBuild ();
 		Vector3 currentMousePosition = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 		currentMousePosition.z = 0;
-		GameObject instance = (GameObject)Instantiate (buildingPrefabs [_buildIndex], currentMousePosition, Quaternion.identity);
+		GameObject instance = (GameObject)Instantiate (buildingHashtable [_building] as UnityEngine.Object, currentMousePosition, Quaternion.identity);
 		SetCurrentlyBuilding (instance);
-
 	}
 
 
@@ -200,45 +202,40 @@ public class Game : MonoBehaviour
 	public void enableUI (string _uiName)
 	{
 		GameObject _uiGameObject;
-        try
-        {
-			_uiGameObject = uiElements[_uiName.Trim()];
-        }
-        catch (NullReferenceException e)
-        {
-            _uiGameObject = GameObject.Find(_uiName);
-        }
-        _uiGameObject.SetActive(!_uiGameObject.activeSelf);
+		try {
+			_uiGameObject = uiElements [_uiName.Trim ()];
+		} catch (NullReferenceException e) {
+			_uiGameObject = GameObject.Find (_uiName);
+		}
+		_uiGameObject.SetActive (!_uiGameObject.activeSelf);
 	}
 
-	public void enableUI (string _uiName, bool desireBool){
+	public void enableUI (string _uiName, bool desireBool)
+	{
 		GameObject _uiGameObject;
-		try
-		{
-			_uiGameObject= uiElements[_uiName.Trim()];
+		try {
+			_uiGameObject = uiElements [_uiName.Trim ()];
+		} catch (NullReferenceException e) {
+			_uiGameObject = GameObject.Find (_uiName);
+			Debug.Log (e.Message);
 		}
-		catch (NullReferenceException e)
-		{
-			_uiGameObject = GameObject.Find(_uiName);
-			Debug.Log(e.Message);
-		}
-		_uiGameObject.SetActive(desireBool);
+		_uiGameObject.SetActive (desireBool);
 	}
 
-	public void toggleInteractableButton(Button b)
+	public void toggleInteractableButton (Button b)
 	{
 		b.interactable = !b.interactable;
 	}
 
-
-	public void DestroyGameObject(UnityEngine.Object o)
+	public void DestroyGameObject (UnityEngine.Object o)
 	{
 		Destroy (o);
 	}
-    public void DestroyGameObject(UnityEngine.Object o, float time)
-    {
-        Destroy(o, time);
-    }
+
+	public void DestroyGameObject (UnityEngine.Object o, float time)
+	{
+		Destroy (o, time);
+	}
 
 	//RESOURCE MANAGEMENT METHODS
 
@@ -247,28 +244,30 @@ public class Game : MonoBehaviour
 	int _wealth = 500;
 
 	public int commodities {
-		get {return _commodities;}
-		set{
-			_commodities = value ;
-			commoditiesText.text =  ":"+_commodities.ToString();
+		get { return _commodities;}
+		set {
+			_commodities = value;
+			commoditiesText.text = ":" + _commodities.ToString ();
 		}
 	}
-	public int luxuries
-	{
-		get {return _luxuries;}
-		set{ _luxuries = value;
-			luxuriesText.text =  ":"+_luxuries.ToString();}
-	}
-	public int wealth
-	{
-		get {return _wealth;}
-		set{ _wealth = value ;
-			wealthText.text = ":"+_wealth.ToString();}
-	}
-	
 
+	public int luxuries {
+		get { return _luxuries;}
+		set {
+			_luxuries = value;
+			luxuriesText.text = ":" + _luxuries.ToString ();
+		}
+	}
 
-	public void addToResource(int _type, int _amount)
+	public int wealth {
+		get { return _wealth;}
+		set {
+			_wealth = value;
+			wealthText.text = ":" + _wealth.ToString ();
+		}
+	}
+
+	public void addToResource (int _type, int _amount)
 	{
 		if (_type == 0) {
 			commodities += _amount;
@@ -278,53 +277,50 @@ public class Game : MonoBehaviour
 			wealth += _amount;
 	}
 
-
-	public void PassAllResourceChecks()
+	public void PassAllResourceChecks ()
 	{
-		foreach(ResourceBuilding building in buildingList)
+		foreach (ResourceBuilding building in buildingList)
 			building.resourcesMaxed = false;
-		NextTurn();
+		NextTurn ();
 	}
 
 	//SHIP MANAGEMENT METHODS
 
-	public int maxShips
-	{
-		get
-		{
+	public int maxShips {
+		get {
 			return _maxShips;
 		}
-		set
-		{
+		set {
 			_maxShips = value;
-			ShipCheck();
-			shipText.text = currentShips.ToString() + " / "+_maxShips.ToString();
+			ShipCheck ();
+			shipText.text = currentShips.ToString () + " / " + _maxShips.ToString ();
 		}
 	}
 
-	public bool ShipAvailable()
+	public bool ShipAvailable ()
 	{
 		if (currentShips >= maxShips) {
 			return false;
 		}
 		return true;
 	}
-	public void ShipyardWindowPopulate(TradeMission currentTradeMission)
+
+	public void ShipyardWindowPopulate (TradeMission currentTradeMission)
 	{
 
 		foreach (Building _shipyard in buildingList) {
-            if(_shipyard.GetType().Equals(Type.GetType("Shipyard")))
-			((Shipyard)_shipyard).CreateShipUI(currentTradeMission);
-			                       }
+			if (_shipyard.GetType ().Equals (Type.GetType ("Shipyard")))
+				((Shipyard)_shipyard).CreateShipUI (currentTradeMission);
+		}
 	}
 
-	public void DestroyShipUIInstances()
+	public void DestroyShipUIInstances ()
 	{
-        GameObject shipyardUI;
-		shipyardUI = Game.current.uiElements["ShipyardWindow"];
+		GameObject shipyardUI;
+		shipyardUI = Game.current.uiElements ["ShipyardWindow"];
 		foreach (Transform child in shipyardUI.transform) {
-			if(child.name.Equals("Ship(Clone)"))
-				Destroy(child.gameObject);
+			if (child.name.Equals ("Ship(Clone)"))
+				Destroy (child.gameObject);
 		}
 	}
 	
