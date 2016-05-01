@@ -14,6 +14,9 @@ public class Game : MonoBehaviour
 	public Sprite[] resourceSprites;
 	public static GameObject uiMain;
 
+	//Checks for Tutorial Info
+	public bool embassyTut = true;
+
 	public enum ResourceType
 	{
 		Commodity,
