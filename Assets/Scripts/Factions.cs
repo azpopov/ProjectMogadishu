@@ -14,6 +14,7 @@ public class Factions : MonoBehaviour
 	
 	public enum faction
 	{
+		Unassigned,
 		Celestial,
 		Omani
 	}
@@ -137,7 +138,10 @@ public class Factions : MonoBehaviour
 
 
 
-
+//	public Image GetFactionInsignia(faction _f)
+//	{
+//
+//	}
 
 	public TradeMission[] GetTradeMissionList()
 	{
