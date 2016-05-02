@@ -15,7 +15,7 @@ public class TradeMission : MonoBehaviour
 	Text destText;
 	bool sailing = false;
 	private UnityAction action;
-	public Factions.faction f;
+	public Faction f;
 	public int resultBias = 0;
 	public string shipName;
 

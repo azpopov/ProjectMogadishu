@@ -11,17 +11,8 @@ public class Factions : MonoBehaviour
 	public List<TradeMission> tradeMissions = new List<TradeMission> ();
 	GameObject tradeWindow;
 	public GameObject tradePrefab;
-	
-	public enum faction
-	{
-		Unassigned,
-		Celestial,
-		Omani
-	}
-	;
-	public static Dictionary<faction, float> factionBiases = new Dictionary<faction, float> ();
-
-	public Sprite[] insignias;
+	static System.Random rndGen = new System.Random();
+	public List<Faction> factionList = new List<Faction>();
 	float refreshTimer = 5f;
     void Awake() { 
     
@@ -35,9 +26,10 @@ public class Factions : MonoBehaviour
 			current = this;
 		else
 			Destroy (this);
-		
-		factionBiases.Add (faction.Celestial, 1.5f);
-		factionBiases.Add (faction.Omani, 0.8f);
+		factionList.Add (new Faction ("Celestial Empire", 1.5f, new bool[]{false, true, true}, 4, 7));
+		factionList.Add (new Faction ("Oman", 0.6f, new bool[]{true, true, true}, 1, 5));
+//		factionBiases.Add (faction.Celestial, 1.5f);
+//		factionBiases.Add (faction.Omani, 0.8f);
         GameObject shipViewUI;
 		shipViewUI = Game.current.uiElements["ShipView"];
         shipViewUI.SetActive(true);
@@ -74,40 +66,35 @@ public class Factions : MonoBehaviour
 
 	GameObject CreateTradeRoute ()
 	{
-		faction rndFaction = GetRandomEnum<faction> ();
-
+		int rndFaction = rndGen.Next(factionList.Count);
 		GameObject instance = (GameObject)Instantiate (tradePrefab, new Vector3 (0, 0), Quaternion.identity);
 		instance.transform.SetParent (tradeWindow.transform, false);
 		TradeMission tradeMissionScript = instance.GetComponent<TradeMission> ();
-		int resourceType = 0, targetType = 0;
+		tradeMissionScript.insignia = factionList[rndFaction].insignia;
+		tradeMissionScript.originalTime = UnityEngine.Random.Range (factionList[rndFaction].minDistance, 
+		                                                            factionList[rndFaction].maxDistance);
+		tradeMissionScript.type = GetRandomTrueResourceType(factionList[rndFaction]);
+		tradeMissionScript.targetType = GetRandomTrueResourceType(factionList[rndFaction]);
+		tradeMissionScript.f = factionList[rndFaction]; //!!!
+		tradeMissionScript.requestedResources = GetResourceAmount(factionList[rndFaction].tradeBias, tradeMissionScript.type);
 
 
-
-		switch (rndFaction) {
-		case faction.Celestial:
-			tradeMissionScript.insignia = insignias [0];
-			tradeMissionScript.originalTime = UnityEngine.Random.Range (2, 6);
-			resourceType = UnityEngine.Random.Range (1, 3);
-			targetType = UnityEngine.Random.Range (2,3);
-			break;
-		case faction.Omani:
-			tradeMissionScript.insignia = insignias [1];
-			tradeMissionScript.originalTime = UnityEngine.Random.Range (5, 8);
-			resourceType = UnityEngine.Random.Range (0, 3);
-			targetType = UnityEngine.Random.Range(0,3);
-
-			break;
-		default:
-			break;
-		}
-
-		tradeMissionScript.f = rndFaction;
-		tradeMissionScript.requestedResources = GetResourceAmount(factionBiases[rndFaction], resourceType);
-		tradeMissionScript.targetType = targetType;
-		tradeMissionScript.type = resourceType;
 		tradeMissions.Add (tradeMissionScript);
 		return instance;
 	}
+
+	int GetRandomTrueResourceType(Faction _f)
+	{
+		int rndType;
+		while(true)
+		{
+			rndType = rndGen.Next(_f.tradeResourceTypes.Length);
+			if(_f.tradeResourceTypes[rndType])
+				break;
+		}
+		return rndType;
+	}
+
 
 	static T GetRandomEnum<T> ()
 	{

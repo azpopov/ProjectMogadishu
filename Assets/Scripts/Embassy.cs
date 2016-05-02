@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class Embassy : Building
 {
-	Factions.faction f;
+	Faction f;
 	public GameObject embassyManagementPrefab, factionSelectWindowPrefab, factionElementPrefab;
 	GameObject embassyUI, instaceFactionSelectWindow;
 	Image embassyInsig;
@@ -38,23 +38,25 @@ public class Embassy : Building
 	void SelectFaction(){
 		instaceFactionSelectWindow = Instantiate (factionSelectWindowPrefab, new Vector3 (0, 0), Quaternion.identity) as GameObject;
 		instaceFactionSelectWindow.transform.SetParent (GameObject.Find ("UI").transform);
-		foreach (Factions.faction _f in System.Enum.GetValues(typeof(Factions.faction))) {
+		foreach (Faction _f in Factions.current.factionList) {
 			GameObject instance = Instantiate (factionElementPrefab, new Vector3 (0, 0), Quaternion.identity) as GameObject;
 			instance.transform.SetParent (instaceFactionSelectWindow.transform, false);
 			instance.GetComponentInChildren<Text> ().text = _f.ToString();
 			Button instanceButton = instance.GetComponentInChildren<Button> ();
 			instanceButton.onClick.AddListener (() => SetFaction(_f));
 			instanceButton.onClick.AddListener (() => Destroy(instaceFactionSelectWindow, 0.2f));
+			instanceButton.onClick.AddListener (() => SetInterals());
 		}
 	}
-	void SetFaction(Factions.faction _f)
+	void SetFaction(Faction _f)
 	{
 		f = _f;
 	}
 			                                   
 	void SetInterals()
 	{
-		embassyInsig.sprite = Factions.current.insignias [0];
+		embassyInsig.sprite = f.insignia;
+
 	}
 
 //	public void CreateShipUI (TradeMission mission)

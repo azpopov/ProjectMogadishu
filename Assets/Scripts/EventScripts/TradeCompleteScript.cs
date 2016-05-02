@@ -43,7 +43,7 @@ public class TradeCompleteScript : CustomEvent {
 	int SuccessfulJourney(TradeMission tradeComplete)
 	{
 		float amountReturned = (float)tradeComplete.requestedResources;
-		amountReturned *= Factions.factionBiases[tradeComplete.f];
+		amountReturned *= tradeComplete.f.tradeBias;
 		
 		if (tradeComplete.type == 0 && tradeComplete.targetType == 1) {
 			amountReturned /= 2f;
