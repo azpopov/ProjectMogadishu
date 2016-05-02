@@ -50,6 +50,10 @@ public class BuildingPlacer : MonoBehaviour {
 				GetComponent<Shipyard>().enabled = true;
 
 			}
+			else if(GetComponent<Building>()  != null)
+			{
+				GetComponent<Building>().enabled = true;
+			}
 			//col.isTrigger = false;
 			Destroy(GetComponent<Rigidbody2D>());
 			Destroy(this);
