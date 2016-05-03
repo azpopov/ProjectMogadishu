@@ -21,13 +21,11 @@ public class Shipyard : Building
 	public List<Ship>
 		shipsInShipyard;
 	public GameObject shipUIPrefab;
-	public float lived;
 	Button newShipPopUpButton;
 	// Use this for initialization
 	void Start ()
 	{
 		shipsInShipyard = new List<Ship> ();
-		lived = 0.0f;
 	}
 	
 	// Update is called once per frame
@@ -38,7 +36,6 @@ public class Shipyard : Building
 
 	void FixedUpdate ()
 	{
-		lived += Time.deltaTime;
 	}
 
 	protected override void CheckProduction ()

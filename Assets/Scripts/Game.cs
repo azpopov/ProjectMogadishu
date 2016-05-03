@@ -15,8 +15,8 @@ public class Game : MonoBehaviour
 	public static GameObject uiMain;
 
 	//Checks for Tutorial Info
-	public bool embassyTut = true;
-
+	public bool embassyTut;
+	
 	public enum ResourceType
 	{
 		Commodity,
@@ -52,6 +52,7 @@ public class Game : MonoBehaviour
 		} else {
 			Destroy (this);
 		}
+		embassyTut = false;
 		uiMain = GameObject.Find ("UI");
 		InitializeDictionary ();
 		InitializeBuildingHashtable ();
@@ -181,6 +182,7 @@ public class Game : MonoBehaviour
 	{
 		shipCheck = b;
 	}
+	
 
 	//BUILDER METHODS
 	//Set method for currentlyBuilding

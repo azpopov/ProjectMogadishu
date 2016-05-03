@@ -56,6 +56,7 @@ public class BuildingPlacer : MonoBehaviour {
 			}
 			//col.isTrigger = false;
 			Destroy(GetComponent<Rigidbody2D>());
+
 			Destroy(this);
 			
 		}

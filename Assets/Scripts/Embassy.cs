@@ -9,10 +9,11 @@ public class Embassy : Building
 	GameObject embassyUI, instaceFactionSelectWindow;
 	Image embassyInsig;
 	Text influencePointsText;
-
+	CanvasGroup cnvGroup;
 	Button changeFactionBtn, receiveEnvoyBtn;
 
 	float influenceBonus_;
+	static System.Random rndGen = new System.Random();
 	public float influenceBonus{
 		get{
 			return influenceBonus_;
@@ -26,6 +27,8 @@ public class Embassy : Building
 	{
 		embassyUI = Instantiate(embassyManagementPrefab, new Vector3(0, 0), Quaternion.identity) as GameObject;
 		embassyUI.transform.SetParent (GameObject.Find ("UI").transform, false);
+		cnvGroup = embassyUI.GetComponent<CanvasGroup> ();
+		cnvGroup.blocksRaycasts = false;
 		embassyUI.SetActive (false);
 		embassyInsig = embassyUI.transform.FindChild("Insignia").GetComponent<Image>();
 		influencePointsText = embassyUI.transform.FindChild ("Influence Points").GetComponent<Text> ();
@@ -33,19 +36,22 @@ public class Embassy : Building
 		receiveEnvoyBtn = embassyUI.transform.FindChild ("ReceiveEnvoyButton").GetComponent<Button> ();
 		embassyUI.transform.FindChild ("CloseButton").GetComponent<Button>().onClick.AddListener(() => embassyUI.SetActive(false));
 		changeFactionBtn.onClick.AddListener (() => SelectFaction ());
+
+		timeToTick = 2;
 	}
 
 
 	// Use this for initialization
 	void Start ()
 	{
-		
+		if (spriteRnd == null)
+			spriteRnd = GetComponent<SpriteRenderer> ();
 	}
 	
 	// Update is called once per frame
-	void Update ()
+	void FixedUpdate ()
 	{
-	
+		CheckProduction ();
 	}
 
 	void SelectFaction(){
@@ -71,33 +77,16 @@ public class Embassy : Building
 	{
 		embassyInsig.sprite = f.insignia;
 	}
-	
 
-//	public void CreateShipUI (TradeMission mission)
-//	{
-//		
-//		GameObject shipyardUI;
-//		shipyardUI = Game.current.uiElements ["ShipyardWindow"];
-//		foreach (Ship _ship in shipsInShipyard) {
-//			GameObject instance = Instantiate (shipUIPrefab, new Vector3 (0, 0), Quaternion.identity) as GameObject;
-//			instance.transform.SetParent (shipyardUI.transform, false);
-//			instance.GetComponentInChildren<Text> ().text = _ship.name;
-//			Button instanceButton = instance.GetComponentInChildren<Button> ();
-//			if (_ship.theMission != null) {
-//				instanceButton.interactable = false;
-//			} else {
-//				instanceButton.onClick.AddListener (() => mission.StartSailing (_ship));
-//				instanceButton.onClick.AddListener (() => SetMission (_ship, mission));
-//				instanceButton.onClick.AddListener (() => Game.current.DestroyShipUIInstances ());
-//			}
-//		}
-//		
-//		
-//	}
 
 	protected override void CheckProduction ()
 	{
-		throw new System.NotImplementedException ();
+		if (timeSinceTick >= timeToTick) 
+		{
+
+			if(rndGen.Next(5) == 4)
+				spriteRnd.sprite = glowSprite[0];
+		}
 	}
 
 	protected override int GlowSprite {
@@ -116,19 +105,29 @@ public class Embassy : Building
 
 	protected override void OnEnable ()
 	{
+		Game.current.buildingList.Add (this);
+		StartCoroutine (GetComponent<Building>().IgnoreMouseDownSec());
 		if (Game.current.embassyTut) {
 			EventSystem.OccurEvent ("FirstEmbassyEvent");
 			Game.current.embassyTut = false;
 		}
+
 	}
+
+	
 
 	protected override void OnMouseDown ()
 	{
-		embassyUI.SetActive (true);
+		if (!gameObject.activeSelf  && EventSystem.eventPresent != null)
+			return;
+		embassyUI.SetActive (!embassyUI.activeSelf);
+		cnvGroup.blocksRaycasts = embassyUI.activeSelf;
+		cnvGroup.interactable = embassyUI.activeSelf;
+
 	}
 
 	public override void ProductionTick ()
 	{
-		throw new System.NotImplementedException ();
+		timeSinceTick++;
 	}
 }

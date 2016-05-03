@@ -12,6 +12,8 @@ public abstract class Building : MonoBehaviour
 	internal Sprite defaultSprite;
 	public Sprite[] glowSprite;
 
+
+
 	void Awake()
 	{
 		spriteRnd = GetComponent<SpriteRenderer> ();
@@ -31,7 +33,21 @@ public abstract class Building : MonoBehaviour
 	{
 
 	}
-	
+	float ignoreTime =0.5f;
+	internal IEnumerator IgnoreMouseDownSec()
+	{
+
+		float timer = 0.0f;
+		gameObject.layer = LayerMask.NameToLayer ("Ignore Raycast");
+		//while we still have animation time
+		while (timer <= ignoreTime) {
+			//add time passed so far
+			timer += Time.deltaTime;
+			//wait till next frame
+			yield return null;
+		}
+		gameObject.layer = LayerMask.NameToLayer ("Building");
+	}
 
 	protected abstract int GlowSprite {
 		set;
@@ -46,5 +62,7 @@ public abstract class Building : MonoBehaviour
 	protected abstract void OnEnable();
 
 	protected abstract void OnDisable();
+
+	public abstract Resource GetBuildCost()
 }
 
