@@ -104,14 +104,14 @@ public class Game : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update ()
-	{
-		//If presses Escape while holding bUilding, cancel it.
-		if (Input.GetKeyDown (KeyCode.Escape)) {
-			CancelBuild ();	
-		}
-	}
-
+    void Update()
+    {
+        //If presses Escape while holding bUilding, cancel it.
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            CancelBuild();
+        }
+    }
 	void CancelBuild ()
 	{
 		//if holding building, destroy it and set the variable to null

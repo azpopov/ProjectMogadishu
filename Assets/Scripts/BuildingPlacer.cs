@@ -13,6 +13,11 @@ public class BuildingPlacer : MonoBehaviour {
 		col = GetComponent<Collider2D> ();
 	}
 
+    void OnEnable()
+    {
+        GameObject.Find("background").gameObject.layer = LayerMask.NameToLayer("Buildable");
+        GameObject.Find("Water").gameObject.layer = LayerMask.NameToLayer("Water");
+    }
 
 
 	// Update is called once per frame
@@ -65,6 +70,8 @@ public class BuildingPlacer : MonoBehaviour {
 	void OnDestroy()
 	{
 		GameObject.Find ("Esc Text").GetComponent<CanvasGroup>().alpha = 0;
+        GameObject.Find("background").gameObject.layer = 2;
+        GameObject.Find("Water").gameObject.layer = 2;
 
 	}
 

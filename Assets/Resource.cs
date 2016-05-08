@@ -39,7 +39,6 @@ public class ResourceBundle
 			break;
 		default:
 			return;
-			break;
 		}
 	}
 }

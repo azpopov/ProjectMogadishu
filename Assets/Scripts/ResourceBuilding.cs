@@ -39,6 +39,7 @@ public class ResourceBuilding : Building
 	
 	protected override void OnMouseDown ()
 	{
+        Debug.Log("called");
 		//If there are any stored resources
 		if (storedResources != 0) {
 			///Instantiate the floating text
