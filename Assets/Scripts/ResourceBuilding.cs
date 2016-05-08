@@ -131,6 +131,10 @@ public class ResourceBuilding : Building
 			return 0;
 		}
 	}
+	public override ResourceBundle GetBuildCost ()
+	{
+		return new ResourceBundle ("", 0);
+	}
 
 
 

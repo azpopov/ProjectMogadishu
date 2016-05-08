@@ -63,6 +63,6 @@ public abstract class Building : MonoBehaviour
 
 	protected abstract void OnDisable();
 
-	public abstract Resource GetBuildCost()
+	public abstract ResourceBundle GetBuildCost();
 }
 

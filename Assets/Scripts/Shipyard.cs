@@ -75,6 +75,10 @@ public class Shipyard : Building
 		spriteRnd.sprite = glowSprite [0];
 
 	}
+	public override ResourceBundle GetBuildCost ()
+	{
+		return new ResourceBundle ("", 0);
+	}
 
 	protected override void OnDisable ()
 	{

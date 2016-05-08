@@ -47,7 +47,12 @@ public class Embassy : Building
 		if (spriteRnd == null)
 			spriteRnd = GetComponent<SpriteRenderer> ();
 	}
-	
+
+	public override ResourceBundle GetBuildCost ()
+	{
+		return new ResourceBundle ("", 0);
+	}
+
 	// Update is called once per frame
 	void FixedUpdate ()
 	{
