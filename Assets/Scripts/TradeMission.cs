@@ -66,13 +66,13 @@ public class TradeMission : MonoBehaviour
 		switch (type)
 		{
 		case 0:
-			Game.current.commodities -= requestedResources;
+            Game.current.addToResource(0, -requestedResources);
 			break;
 		case 1:
-			Game.current.luxuries -= requestedResources;
+            Game.current.addToResource(1, -requestedResources);
 			break;
 		case 2:
-			Game.current.wealth -= requestedResources;
+            Game.current.addToResource(2, -requestedResources);
 			break;
 		}
         shipName = _ship.name;
@@ -91,9 +91,9 @@ public class TradeMission : MonoBehaviour
 	{
 		if (!Game.current.ShipAvailable ())
 			return;
-		if (!(type == 0 && !(Game.current.commodities < requestedResources)) &&
-		    !(type == 2 && !(Game.current.wealth < requestedResources)) &&
-		    !(type == 1 && !(Game.current.luxuries < requestedResources)))
+		if (!(type == 0 && !(Game.EnoughResourceCheck(0, requestedResources))) &&
+		    !(type == 2 && !(Game.EnoughResourceCheck(1, requestedResources))) &&
+		    !(type == 1 && !(Game.EnoughResourceCheck(2, requestedResources))))
 			return;
 		Game.current.enableUI ("ShipView");
 		Game.current.enableUI ("ShipyardWindow");

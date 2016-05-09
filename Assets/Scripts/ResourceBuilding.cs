@@ -70,10 +70,10 @@ public class ResourceBuilding : Building
 	void addResource()
 	{
 		if (type == 0) {
-			Game.current.commodities += storedResources;
+			Game.current.addToResource(0,storedResources);
 		
 		} else if (type == 1) {
-			Game.current.luxuries += storedResources;
+            Game.current.addToResource(1, storedResources);
 
 		}
 		storedResources = 0;

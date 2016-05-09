@@ -16,13 +16,6 @@ public class Game : MonoBehaviour
 
 	//Checks for Tutorial Info
 	public bool embassyTut;
-	
-	public enum ResourceType
-	{
-		Commodity,
-		Luxury,
-		Wealth
-	}
 
 	static Hashtable buildingHashtable;
 
@@ -242,45 +235,33 @@ public class Game : MonoBehaviour
 		Destroy (o, time);
 	}
 
-	//RESOURCE MANAGEMENT METHODS
-
-	int _commodities = 500;
-	int _luxuries = 500;
-	int _wealth = 500;
-
-	public int commodities {
-		get { return _commodities;}
-		set {
-			_commodities = value;
-			commoditiesText.text = ":" + _commodities.ToString ();
-		}
-	}
-
-	public int luxuries {
-		get { return _luxuries;}
-		set {
-			_luxuries = value;
-			luxuriesText.text = ":" + _luxuries.ToString ();
-		}
-	}
-
-	public int wealth {
-		get { return _wealth;}
-		set {
-			_wealth = value;
-			wealthText.text = ":" + _wealth.ToString ();
-		}
-	}
-
+    static ResourceBundle resourcesMain = new ResourceBundle(500, 500, 500);
 	public void addToResource (int _type, int _amount)
 	{
 		if (_type == 0) {
-			commodities += _amount;
+			resourcesMain.StringAdd("Commodity", _amount);
+            commoditiesText.text = ":" + resourcesMain.commodity.ToString();
 		} else if (_type == 1) {
-			luxuries += _amount;
+            resourcesMain.StringAdd("Luxury", _amount);
+            luxuriesText.text = ":" + resourcesMain.luxury.ToString();
 		} else
-			wealth += _amount;
+            resourcesMain.StringAdd("Wealth", _amount);
+        wealthText.text = ":" + resourcesMain.wealth.ToString();
 	}
+
+    public static bool EnoughResourceCheck(int _type, int _amount)
+    {
+        if (_type == 0 &&
+            resourcesMain.commodity >= _amount)
+            return true;
+        else if (_type == 1 &&
+            resourcesMain.luxury >= _amount)
+            return true;
+        else if (_type == 2 &&
+            resourcesMain.wealth >= _amount)
+            return true;
+        return false;
+    }
 
 	public void PassAllResourceChecks ()
 	{
