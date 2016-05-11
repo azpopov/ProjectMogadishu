@@ -135,7 +135,7 @@ public class Factions : MonoBehaviour
 	public void RemoveTradeMission(TradeMission _removedTrader)
 	{
 		tradeMissions.Remove (_removedTrader);
-		Game.current.currentShips--;
+		Game.current.model.currentShips--;
 	}
 
 

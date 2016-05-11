@@ -65,6 +65,8 @@ public class Building : MonoBehaviour
 
     protected virtual void OnEnable()
     {
+		Game.current.model.buildingList.Add (this);
+		GameModel.resourcesMain -= GetBuildCost();
     }
 
     protected virtual void OnDisable(){

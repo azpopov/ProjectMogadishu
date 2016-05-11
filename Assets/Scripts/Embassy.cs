@@ -105,12 +105,11 @@ public class Embassy : Building
 
 	protected override void OnEnable ()
 	{
-		Game.current.buildingList.Add (this);
-        Game.resourcesMain -= GetBuildCost();
+		base.OnEnable ();
 		StartCoroutine (GetComponent<Building>().IgnoreMouseDownSec());
-		if (Game.current.embassyTut) {
+		if (Game.current.model.embassyTut) {
 			EventSystem.OccurEvent ("FirstEmbassyEvent");
-			Game.current.embassyTut = false;
+			Game.current.model.embassyTut = false;
 		}
 
 	}

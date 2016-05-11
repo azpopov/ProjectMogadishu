@@ -28,14 +28,12 @@ public class ResourceBuilding : Building
 	}
 	protected override void OnEnable()
 	{
-		Game.current.buildingList.Add (this);
-        Game.resourcesMain -= GetBuildCost();
-	
+		base.OnEnable ();
     }
 
 	protected override void OnDisable()
 	{
-		Game.current.buildingList.Remove (this);
+		Game.current.model.buildingList.Remove (this);
 	}
 	
 	protected override void OnMouseDown ()
@@ -71,10 +69,10 @@ public class ResourceBuilding : Building
 	void addResource()
 	{
 		if (type == 0) {
-			Game.current.addToResource(0,storedResources);
+			Game.current.model.addToResource(0,storedResources);
 		
 		} else if (type == 1) {
-            Game.current.addToResource(1, storedResources);
+            Game.current.model.addToResource(1, storedResources);
 
 		}
 		storedResources = 0;
