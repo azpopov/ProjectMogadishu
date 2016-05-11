@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public abstract class Building : MonoBehaviour
+public class Building : MonoBehaviour
 {
 	//Counts up to timeToTick then adds resources to Building
 	protected int timeSinceTick = 0;
@@ -12,7 +12,6 @@ public abstract class Building : MonoBehaviour
 	internal SpriteRenderer spriteRnd;
 	internal Sprite defaultSprite;
 	public Sprite[] glowSprite;
-
 
 
 	void Awake()
@@ -26,7 +25,6 @@ public abstract class Building : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-
     }
 	
 	// Update is called once per frame
@@ -50,21 +48,31 @@ public abstract class Building : MonoBehaviour
 		gameObject.layer = LayerMask.NameToLayer ("Building");
 	}
 
-	protected abstract int GlowSprite {
+	protected virtual int GlowSprite {
 		set;
 		get;
 	}
-	public abstract void ProductionTick();
+    public virtual void ProductionTick(){
+    }
 
-	protected abstract void OnMouseDown();
+    protected virtual void OnMouseDown()
+    {
+    }
 
-	protected abstract void CheckProduction ();
+    protected virtual void CheckProduction()
+    {
+    }
 
-	protected abstract void OnEnable();
+    protected virtual void OnEnable()
+    {
+    }
 
-	protected abstract void OnDisable();
-
-    public abstract ResourceBundle GetBuildCost();
+    protected virtual void OnDisable(){
+    }
+    public virtual ResourceBundle GetBuildCost()
+    {
+        return null;
+    }
 
     
 
