@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-public class GameModel : GameElement
+public class ManagerModel : GameElement
 {
 
 	public GameObject currentlyBuilding;

@@ -64,7 +64,7 @@ public class Shipyard : Building
 	protected override void OnEnable ()
 	{
 		base.OnEnable ();
-		Game.current.model.maxShips += 1;
+		Game.current.model.manager.maxShips += 1;
 		EventSystem.OccurEvent ("NewShipPopUp");
 
 	
@@ -78,7 +78,7 @@ public class Shipyard : Building
 
 	protected override void OnDisable ()
 	{
-		Game.current.model.buildingList.Remove (this);
+		Game.current.model.manager.buildingList.Remove (this);
 	}
 
 	protected override void OnMouseDown ()
@@ -107,7 +107,7 @@ public class Shipyard : Building
 			} else {
 				instanceButton.onClick.AddListener (() => mission.StartSailing (_ship));
 				instanceButton.onClick.AddListener (() => SetMission (_ship, mission));
-				instanceButton.onClick.AddListener (() => Game.current.view.DestroyShipUIInstances ());
+				instanceButton.onClick.AddListener (() => Game.current.view.manager.DestroyShipUIInstances ());
                 instanceButton.onClick.AddListener(() => GameObject.Find("ShipyardWindow").gameObject.SetActive(!GameObject.Find("ShipyardWindow").gameObject.activeSelf));
 			}
 		}

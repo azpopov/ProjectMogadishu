@@ -33,7 +33,7 @@ public class ResourceBuilding : Building
 
 	protected override void OnDisable()
 	{
-		Game.current.model.buildingList.Remove (this);
+		Game.current.model.manager.buildingList.Remove (this);
 	}
 	
 	protected override void OnMouseDown ()
@@ -69,10 +69,10 @@ public class ResourceBuilding : Building
 	void addResource()
 	{
 		if (type == 0) {
-			Game.current.model.addToResource(0,storedResources);
+			Game.current.model.manager.addToResource(0,storedResources);
 		
 		} else if (type == 1) {
-            Game.current.model.addToResource(1, storedResources);
+            Game.current.model.manager.addToResource(1, storedResources);
 
 		}
 		storedResources = 0;

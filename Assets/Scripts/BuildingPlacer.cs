@@ -46,7 +46,7 @@ public class BuildingPlacer : MonoBehaviour {
 		//If able to place & valid location
 		if (validPlace && Input.GetMouseButtonDown(0)) {
 			//Destroy components
-			Game.current.model.SetCurrentlyBuilding(null);
+			Game.current.model.manager.SetCurrentlyBuilding(null);
 			gameObject.layer = LayerMask.NameToLayer("Building");
 			if(GetComponent<ResourceBuilding>() != null)
 				GetComponent<ResourceBuilding>().enabled = true;

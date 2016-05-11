@@ -47,8 +47,8 @@ public class TradeMission : MonoBehaviour
 		insigiaComp.sprite = insignia;
 		destText = transform.Find ("TripLength").GetComponent<Text> ();
         transform.Find("ResourcesRequested").Find("ResourceText").GetComponent<Text>().text = requestResource.ReturnMax().ToString();
-		transform.Find ("ResourcesRequested").Find ("ResourceImage").GetComponent<Image> ().sprite = Game.current.view.resourceSprites [requestResource.ReturnTypeofMax()];
-		transform.Find ("ResourcesRequested").Find ("TargetResourceImage").GetComponent<Image> ().sprite = Game.current.view.resourceSprites [targetResource.ReturnTypeofMax()];
+		transform.Find ("ResourcesRequested").Find ("ResourceImage").GetComponent<Image> ().sprite = Game.current.view.manager.resourceSprites [requestResource.ReturnTypeofMax()];
+		transform.Find ("ResourcesRequested").Find ("TargetResourceImage").GetComponent<Image> ().sprite = Game.current.view.manager.resourceSprites [targetResource.ReturnTypeofMax()];
 		timeToDest = originalTime;
 
 		destText.text = "Est Trip Length: " + Math.Round (timeToDest).ToString () + " Turns";
@@ -79,17 +79,17 @@ public class TradeMission : MonoBehaviour
         switch (requestResource.ReturnTypeofMax())
 		{
 		case 0:
-                Game.current.model.addToResource(0, -requestResource.ReturnMax());
+                Game.current.model.manager.addToResource(0, -requestResource.ReturnMax());
 			break;
 		case 1:
-			Game.current.model.addToResource(1, -requestResource.ReturnMax());
+			Game.current.model.manager.addToResource(1, -requestResource.ReturnMax());
 			break;
 		case 2:
-			Game.current.model.addToResource(2, -requestResource.ReturnMax());
+			Game.current.model.manager.addToResource(2, -requestResource.ReturnMax());
 			break;
 		}
         shipName = _ship.name;
-		Game.current.model.currentShips++;
+		Game.current.model.manager.currentShips++;
 		sailing = true;
 		button.GetComponent<Image> ().color = Color.red;
 		button.transform.Find ("Text").GetComponent<Text> ().text = "Cancel Ship";
@@ -102,13 +102,13 @@ public class TradeMission : MonoBehaviour
     void CheckValidityOfSailing()
     {
 
-        if (!Game.current.controller.ShipAvailable())
+        if (!Game.current.controller.manager.ShipAvailable())
             return;
         Debug.Log("ReachedCheckValiditySailing");
-        if (!GameModel.resourcesMain.CompareBundle(requestResource)) return;
+        if (!ManagerModel.resourcesMain.CompareBundle(requestResource)) return;
         shipView.SetActive(true);
         shipyardWindow.SetActive(true);
-        Game.current.view.ShipyardWindowPopulate(this);
+        Game.current.view.manager.ShipyardWindowPopulate(this);
     }
 
 	void CancelSailing ()

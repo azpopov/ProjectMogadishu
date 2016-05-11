@@ -28,7 +28,7 @@ public class NewShipNaming : CustomEvent
 	public override void OnEnable()
 	{
 		base.OnEnable();
-		senderShipyard = Game.current.model.buildingList[Game.current.model.buildingList.Count-1] as Shipyard;
+		senderShipyard = Game.current.model.manager.buildingList[Game.current.model.manager.buildingList.Count-1] as Shipyard;
 		base.disableButton.onClick.AddListener (() => AddToShipyard ());
 	}
 

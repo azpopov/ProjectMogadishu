@@ -135,15 +135,8 @@ public class Factions : MonoBehaviour
 	public void RemoveTradeMission(TradeMission _removedTrader)
 	{
 		tradeMissions.Remove (_removedTrader);
-		Game.current.model.currentShips--;
+		Game.current.model.manager.currentShips--;
 	}
-
-
-
-//	public Image GetFactionInsignia(faction _f)
-//	{
-//
-//	}
 
 	public TradeMission[] GetTradeMissionList()
 	{

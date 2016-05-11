@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class GameView : GameElement
+public class ManagerView : GameElement
 {
 	Text commoditiesText, luxuriesText, wealthText, shipText;
 	public Sprite[] resourceSprites;
@@ -26,7 +26,7 @@ public class GameView : GameElement
 	{
 		if (Input.GetKeyDown(KeyCode.Escape))
 		{
-			app.model.CancelBuild();
+			app.model.manager.CancelBuild();
 		}
 	}
 	void FixedUpdate()
@@ -35,7 +35,7 @@ public class GameView : GameElement
 	}
 	void UpdateShipCapacityText()
 	{
-		shipText.text = app.model.currentShips.ToString () + " / " + app.model.maxShips.ToString ();
+		shipText.text = app.model.manager.currentShips.ToString () + " / " + app.model.manager.maxShips.ToString ();
 	}
 
 	public void DestroyShipUIInstances ()
@@ -50,15 +50,15 @@ public class GameView : GameElement
 
 	public void UpdateResourceText()
 	{
-		commoditiesText.text = ":" + GameModel.resourcesMain.commodity.ToString();
-		luxuriesText.text = ":" + GameModel.resourcesMain.luxury.ToString();
-		wealthText.text = ":" + GameModel.resourcesMain.wealth.ToString();
+		commoditiesText.text = ":" + ManagerModel.resourcesMain.commodity.ToString();
+		luxuriesText.text = ":" + ManagerModel.resourcesMain.luxury.ToString();
+		wealthText.text = ":" + ManagerModel.resourcesMain.wealth.ToString();
 	}
 
 	public void ShipyardWindowPopulate (TradeMission currentTradeMission)
 	{
 		
-		foreach (Building _shipyard in app.model.buildingList) {
+		foreach (Building _shipyard in app.model.manager.buildingList) {
 			if (_shipyard.GetType ().Equals (Type.GetType ("Shipyard")))
 				((Shipyard)_shipyard).CreateShipUI (currentTradeMission);
 		}
