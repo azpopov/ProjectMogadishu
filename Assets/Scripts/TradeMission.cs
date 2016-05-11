@@ -8,7 +8,7 @@ public class TradeMission : MonoBehaviour
 {
 
 	public float timeToDest, originalTime;
-	public int type, targetType, requestedResources;
+    public ResourceBundle requestResource, targetResource;
 	public Sprite insignia;
 	Image insigiaComp;
 	Transform button;
@@ -19,7 +19,21 @@ public class TradeMission : MonoBehaviour
 	public int resultBias = 0;
 	public string shipName;
 
-	//
+
+    public GameObject shipView, shipyardWindow;
+
+    void Awake()
+    {
+        var _object = GameObject.Find("UI").GetComponentsInChildren(typeof(Transform), true);
+        foreach(Component lookUp in _object){
+            if (lookUp.gameObject.name.Equals("ShipView"))
+                shipView = lookUp.gameObject;
+            if (lookUp.gameObject.name.Equals("ShipyardWindow"))
+                shipyardWindow = lookUp.gameObject;
+        }
+        
+    }
+
 	void Start ()
 	{
 		action = new UnityAction (CheckValidityOfSailing);
@@ -32,10 +46,9 @@ public class TradeMission : MonoBehaviour
 
 		insigiaComp.sprite = insignia;
 		destText = transform.Find ("TripLength").GetComponent<Text> ();
-
-		transform.Find ("ResourcesRequested").Find ("ResourceText").GetComponent<Text> ().text = requestedResources.ToString ();
-		transform.Find ("ResourcesRequested").Find ("ResourceImage").GetComponent<Image> ().sprite = Game.current.resourceSprites [type];
-		transform.Find ("ResourcesRequested").Find ("TargetResourceImage").GetComponent<Image> ().sprite = Game.current.resourceSprites [targetType];
+        transform.Find("ResourcesRequested").Find("ResourceText").GetComponent<Text>().text = requestResource.ReturnMax().ToString();
+		transform.Find ("ResourcesRequested").Find ("ResourceImage").GetComponent<Image> ().sprite = Game.current.resourceSprites [requestResource.ReturnTypeofMax()];
+		transform.Find ("ResourcesRequested").Find ("TargetResourceImage").GetComponent<Image> ().sprite = Game.current.resourceSprites [targetResource.ReturnTypeofMax()];
 		timeToDest = originalTime;
 
 		destText.text = "Est Trip Length: " + Math.Round (timeToDest).ToString () + " Turns";
@@ -62,17 +75,17 @@ public class TradeMission : MonoBehaviour
 
 	public void StartSailing (Shipyard.Ship _ship)
 	{
-		
-		switch (type)
+
+        switch (requestResource.ReturnTypeofMax())
 		{
 		case 0:
-            Game.current.addToResource(0, -requestedResources);
+                Game.current.addToResource(0, -requestResource.ReturnMax());
 			break;
 		case 1:
-            Game.current.addToResource(1, -requestedResources);
+            Game.current.addToResource(1, -requestResource.ReturnMax());
 			break;
 		case 2:
-            Game.current.addToResource(2, -requestedResources);
+            Game.current.addToResource(2, -requestResource.ReturnMax());
 			break;
 		}
         shipName = _ship.name;
@@ -85,22 +98,19 @@ public class TradeMission : MonoBehaviour
 		action -= Game.current.ShipCheck;
 		action += CancelSailing;
 		button.GetComponent<Button> ().onClick.AddListener (action);
-	} 
-
-	void CheckValidityOfSailing()
-	{
-		if (!Game.current.ShipAvailable ())
-			return;
-		if (!(type == 0 && !(Game.EnoughResourceCheck(0, requestedResources))) &&
-		    !(type == 2 && !(Game.EnoughResourceCheck(1, requestedResources))) &&
-		    !(type == 1 && !(Game.EnoughResourceCheck(2, requestedResources))))
-			return;
-		Game.current.enableUI ("ShipView");
-		Game.current.enableUI ("ShipyardWindow");
-		Game.current.ShipyardWindowPopulate (this);
-	
-
 	}
+
+    void CheckValidityOfSailing()
+    {
+
+        if (!Game.current.ShipAvailable())
+            return;
+        Debug.Log("ReachedCheckValiditySailing");
+        if (!Game.resourcesMain.CompareBundle(requestResource)) return;
+        shipView.SetActive(true);
+        shipyardWindow.SetActive(true);
+        Game.current.ShipyardWindowPopulate(this);
+    }
 
 	void CancelSailing ()
 	{

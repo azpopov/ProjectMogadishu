@@ -36,24 +36,32 @@ public class TradeCompleteScript : CustomEvent {
 		resultText += "We Received "+ amountReceived.ToString ();
 		
 		transform.FindChild ("TradeCompleteText").GetComponent<Text> ().text = resultText;
-		Game.current.addToResource (tradeComplete.targetType, amountReceived);
+		Game.current.addToResource (tradeComplete.targetResource.ReturnTypeofMax(), amountReceived);
 
 
 	}
 	int SuccessfulJourney(TradeMission tradeComplete)
 	{
-		float amountReturned = (float)tradeComplete.requestedResources;
+        float amountReturned = (float)tradeComplete.requestResource.ReturnMax();
 		amountReturned *= tradeComplete.f.tradeBias;
 		
-		if (tradeComplete.type == 0 && tradeComplete.targetType == 1) {
+		if (tradeComplete.requestResource.ReturnTypeofMax() == 0
+            && tradeComplete.targetResource.ReturnTypeofMax() == 1) {
 			amountReturned /= 2f;
-		} else if (tradeComplete.type == 0 && tradeComplete.targetType == 2) {
+		} else if (tradeComplete.requestResource.ReturnTypeofMax() == 0 
+            && tradeComplete.targetResource.ReturnTypeofMax() == 2) {
 			amountReturned /= 6f;
-		} else if (tradeComplete.type == 1 && tradeComplete.targetType == 2) {
+		} else if (tradeComplete.requestResource.ReturnTypeofMax() == 1
+            && tradeComplete.targetResource.ReturnTypeofMax() == 2)
+        {
 			amountReturned *= 0.6f;
-		} else if (tradeComplete.type == 1 && tradeComplete.targetType == 0) {
+		} else if (tradeComplete.requestResource.ReturnTypeofMax() == 1
+            && tradeComplete.targetResource.ReturnTypeofMax() == 0)
+        {
 			amountReturned *= 2.2f;
-		} else if (tradeComplete.type == tradeComplete.targetType)
+        }
+        else if (tradeComplete.requestResource.ReturnTypeofMax() == 
+            tradeComplete.targetResource.ReturnTypeofMax())
 			amountReturned *= 1.7f;
 		
 		return (int)amountReturned;

@@ -12,7 +12,6 @@ public class Game : MonoBehaviour
 	public GameObject[]
 		buildingPrefabs;
 	public Sprite[] resourceSprites;
-	public static GameObject uiMain;
 
 	//Checks for Tutorial Info
 	public bool embassyTut;
@@ -22,7 +21,6 @@ public class Game : MonoBehaviour
 	//ShipManagement
 	int _maxShips = 0;
 	int _currentShips = 0;
-
 	public int currentShips {
 		get {
 			return _currentShips;
@@ -35,7 +33,7 @@ public class Game : MonoBehaviour
 	}
 	//List of current Buildings
 	public List<Building> buildingList;
-	Text commoditiesText, luxuriesText, wealthText, shipText;
+
 	public ConcurrentDictionary<string, GameObject> uiElements;
 
 	void Awake ()
@@ -46,38 +44,14 @@ public class Game : MonoBehaviour
 			Destroy (this);
 		}
 		embassyTut = false;
-		uiMain = GameObject.Find ("UI");
-		InitializeDictionary ();
 		InitializeBuildingHashtable ();
+        commoditiesText = GameObject.Find("Commodities").GetComponentInChildren<Text>();
+        luxuriesText = GameObject.Find("Luxuries").GetComponentInChildren<Text>();
+        wealthText = GameObject.Find("Wealth").GetComponentInChildren<Text>();
+        shipText = GameObject.Find("MaxShips").GetComponentInChildren<Text>();
 
 		buildingList = new List<Building> ();
 		
-	}
-
-	void InitializeDictionary ()
-	{
-
-		foreach (Transform child in uiMain.transform) {
-			child.gameObject.SetActive (true);
-		}
-		uiElements = new ConcurrentDictionary<string, GameObject> ();
-		uiElements.Add ("BottomToolbar", GameObject.Find ("BottomToolbar"));
-		uiElements.Add ("TopToolbar", GameObject.Find ("TopToolbar"));
-		uiElements.Add ("ShipView", GameObject.Find ("ShipView"));
-		uiElements.Add ("ShipyardWindow", GameObject.Find ("ShipyardWindow"));
-		commoditiesText = GameObject.Find ("Commodities").GetComponentInChildren<Text> ();
-		luxuriesText = GameObject.Find ("Luxuries").GetComponentInChildren<Text> ();
-		wealthText = GameObject.Find ("Wealth").GetComponentInChildren<Text> ();
-		shipText = GameObject.Find ("MaxShips").GetComponentInChildren<Text> ();
-		foreach (GameObject _target in uiElements.GetValuesArray()) {
-			_target.SetActive (false);
-		}
-		GameObject _object;
-		_object = uiElements ["TopToolbar"];
-		_object.gameObject.SetActive (true);
-		_object = uiElements ["BottomToolbar"];
-		_object.gameObject.SetActive (true);
-        
 	}
 
 	void InitializeBuildingHashtable ()
@@ -87,12 +61,11 @@ public class Game : MonoBehaviour
 			buildingHashtable [_object.name] = _object;
 		}
 	}
-
+   
 
 	// Use this for initialization
 	void Start ()
 	{
-
 
 	}
 	
@@ -104,6 +77,11 @@ public class Game : MonoBehaviour
         {
             CancelBuild();
         }
+    }
+
+    void FixedUpdate()
+    {
+        UpdateResourceText();
     }
 	void CancelBuild ()
 	{
@@ -188,37 +166,16 @@ public class Game : MonoBehaviour
 	public void StartBuilding (string _building)
 	{
 		CancelBuild ();
+        ResourceBundle buildCost = ((GameObject)buildingHashtable[_building]).GetComponent<Building>().GetBuildCost();
+        if (!resourcesMain.CompareBundle(buildCost)) return;// check to make sure build costs satisfy
+        //resourcesMain -= ((Building)buildingHashtable[_building]).GetBuildCost();
 		Vector3 currentMousePosition = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 		currentMousePosition.z = 0;
 		GameObject instance = (GameObject)Instantiate (buildingHashtable [_building] as UnityEngine.Object, currentMousePosition, Quaternion.identity);
 		SetCurrentlyBuilding (instance);
 	}
 
-
 	//OTHER METHODS
-
-	public void enableUI (string _uiName)
-	{
-		GameObject _uiGameObject;
-		try {
-			_uiGameObject = uiElements [_uiName.Trim ()];
-		} catch (NullReferenceException e) {
-			_uiGameObject = GameObject.Find (_uiName);
-		}
-		_uiGameObject.SetActive (!_uiGameObject.activeSelf);
-	}
-
-	public void enableUI (string _uiName, bool desireBool)
-	{
-		GameObject _uiGameObject;
-		try {
-			_uiGameObject = uiElements [_uiName.Trim ()];
-		} catch (NullReferenceException e) {
-			_uiGameObject = GameObject.Find (_uiName);
-			Debug.Log (e.Message);
-		}
-		_uiGameObject.SetActive (desireBool);
-	}
 
 	public void toggleInteractableButton (Button b)
 	{
@@ -235,19 +192,25 @@ public class Game : MonoBehaviour
 		Destroy (o, time);
 	}
 
-    static ResourceBundle resourcesMain = new ResourceBundle(500, 500, 500);
+    Text commoditiesText, luxuriesText, wealthText, shipText;
+    public static ResourceBundle resourcesMain = new ResourceBundle(1000, 1000, 1000);
 	public void addToResource (int _type, int _amount)
 	{
 		if (_type == 0) {
 			resourcesMain.StringAdd("Commodity", _amount);
-            commoditiesText.text = ":" + resourcesMain.commodity.ToString();
 		} else if (_type == 1) {
             resourcesMain.StringAdd("Luxury", _amount);
-            luxuriesText.text = ":" + resourcesMain.luxury.ToString();
 		} else
             resourcesMain.StringAdd("Wealth", _amount);
-        wealthText.text = ":" + resourcesMain.wealth.ToString();
+        UpdateResourceText();
 	}
+
+    public void UpdateResourceText()
+    {
+        commoditiesText.text = ":" + resourcesMain.commodity.ToString();
+        luxuriesText.text = ":" + resourcesMain.luxury.ToString();
+        wealthText.text = ":" + resourcesMain.wealth.ToString();
+    }
 
     public static bool EnoughResourceCheck(int _type, int _amount)
     {
@@ -303,7 +266,7 @@ public class Game : MonoBehaviour
 	public void DestroyShipUIInstances ()
 	{
 		GameObject shipyardUI;
-		shipyardUI = Game.current.uiElements ["ShipyardWindow"];
+		shipyardUI = GameObject.Find("ShipyardWindow");
 		foreach (Transform child in shipyardUI.transform) {
 			if (child.name.Equals ("Ship(Clone)"))
 				Destroy (child.gameObject);

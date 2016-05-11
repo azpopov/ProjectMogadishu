@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ResourceBundle" Collapsed="true">
+    <Position X="13.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAIwAEARAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\ResourceBundle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Building" Collapsed="true">
+    <Position X="2.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQEAAAAACABAAQAAACAAAAQAAAAgAAJIAAAkAAACMA=</HashCode>
+      <FileName>Assets\Scripts\Building.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuildingPlacer" Collapsed="true">
+    <Position X="9.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQBAAAAACAAAAAAAAAAIQAAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Assets\Scripts\BuildingPlacer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConcurrentDictionary&lt;tkey, tvalue&gt;" Collapsed="true">
+    <Position X="11.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAICAAAAAAAEEAAACAAABAwAAAACAAAAAAAAAABAAAA=</HashCode>
+      <FileName>Assets\Scripts\ConcurrentDictionary.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Embassy" Collapsed="true">
+    <Position X="0.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAIAQiAAgACAAAAAEAQQAAAgCEQcIAAEUAIACMA=</HashCode>
+      <FileName>Assets\Scripts\Embassy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CheckErrorScript" Collapsed="true">
+    <Position X="2.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\EventScripts\CheckErrorScript.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CustomEvent" Collapsed="true">
+    <Position X="3.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAIAAQAACEA=</HashCode>
+      <FileName>Assets\Scripts\EventScripts\CustomEvent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EventSystem" Collapsed="true">
+    <Position X="13.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AARgAiAAgCAAAAAAAAAAAAAAAAAAAAIAgIAEAAAAAmA=</HashCode>
+      <FileName>Assets\Scripts\EventScripts\EventSystem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JourneyCompletedEvent" Collapsed="true">
+    <Position X="7.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\EventScripts\JourneyCompletedEvent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NewShipNaming" Collapsed="true">
+    <Position X="0.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACQAAAAEACAAAAAAAAAAAAAAACAAAAAAAAAAAAAACEA=</HashCode>
+      <FileName>Assets\Scripts\EventScripts\NewShipNaming.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ShipNamePopUp" Collapsed="true">
+    <Position X="15" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\EventScripts\ShipNamePopUp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TradeCompleteScript" Collapsed="true">
+    <Position X="5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAEAAABAAAAAAAAAAAACAIAAAgAAAACAA=</HashCode>
+      <FileName>Assets\Scripts\EventScripts\TradeCompleteScript.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Factions" Collapsed="true">
+    <Position X="15" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABQAEgAAACAAAAAAAABAAAAAgBAgAEAAAAACAAQgEEA=</HashCode>
+      <FileName>Assets\Scripts\Factions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FloatText" Collapsed="true">
+    <Position X="9.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACBAAACACAAAJAgBAACAAQAAAAAAAAAAAAACAAgAAA=</HashCode>
+      <FileName>Assets\Scripts\FloatText.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Game" Collapsed="true">
+    <Position X="11.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABwBIEAAgCBAFQAEEAgADjCAiIgItIAARAgJAAQAgFA=</HashCode>
+      <FileName>Assets\Scripts\Game.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ResourceBuilding" Collapsed="true">
+    <Position X="2.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAQAAAAAAKAQABAAAAAAAAAQAAABCAAIIAAAEAEACIA=</HashCode>
+      <FileName>Assets\Scripts\ResourceBuilding.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Shipyard" Collapsed="true">
+    <Position X="5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAiAAAAAAQAAAAgAQAIgAAAAIYAAgEAAAKIA=</HashCode>
+      <FileName>Assets\Scripts\Shipyard.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tooltip" Collapsed="true">
+    <Position X="9.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAABAAAAAEAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Tooltip.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TooltipManager" Collapsed="true">
+    <Position X="11.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAiAAAAAAAAAAAAAAgABAAAAAAAAAAAAACEA=</HashCode>
+      <FileName>Assets\Scripts\TooltipManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TradeMission" Collapsed="true">
+    <Position X="13.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQQABABAAKAAAAAAAABgABACUAABAAAQAIAIAAQgAAA=</HashCode>
+      <FileName>Assets\Scripts\TradeMission.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UIManager" Collapsed="true">
+    <Position X="15" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\UIManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ViewPointHandler" Collapsed="true">
+    <Position X="11.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\ViewPoint Handler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="unityColliderBug" Collapsed="true">
+    <Position X="9.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Assets\unityColliderBug.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Faction" Collapsed="true">
+    <Position X="9.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABQAAAAAhAAAAAAAAAAAAAAAEAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>Assets\Faction.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

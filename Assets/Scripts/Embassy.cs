@@ -48,11 +48,6 @@ public class Embassy : Building
 			spriteRnd = GetComponent<SpriteRenderer> ();
 	}
 
-	public override ResourceBundle GetBuildCost ()
-	{
-		return new ResourceBundle ("", 0);
-	}
-
 	// Update is called once per frame
 	void FixedUpdate ()
 	{
@@ -111,6 +106,7 @@ public class Embassy : Building
 	protected override void OnEnable ()
 	{
 		Game.current.buildingList.Add (this);
+        Game.resourcesMain -= GetBuildCost();
 		StartCoroutine (GetComponent<Building>().IgnoreMouseDownSec());
 		if (Game.current.embassyTut) {
 			EventSystem.OccurEvent ("FirstEmbassyEvent");
@@ -135,4 +131,9 @@ public class Embassy : Building
 	{
 		timeSinceTick++;
 	}
+
+    public override ResourceBundle GetBuildCost()
+    {
+        return new ResourceBundle(300, 200, 200);
+    }
 }

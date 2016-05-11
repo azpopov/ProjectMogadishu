@@ -14,8 +14,19 @@ public class Factions : MonoBehaviour
 	static System.Random rndGen = new System.Random();
 	public List<Faction> factionList = new List<Faction>();
 	float refreshTimer = 5f;
-    void Awake() { 
-    
+    void Awake() {
+        var _object = GameObject.Find("UI").GetComponentsInChildren(typeof(Transform), true);
+        foreach (Component lookUp in _object)
+        {
+            if (lookUp.gameObject.name.Equals("TradeWindow"))
+            {
+                tradeWindow = lookUp.gameObject;
+                var shipView = tradeWindow.transform.parent.gameObject;
+                GameObject.Find("MaxShips").GetComponent<Button>().onClick.AddListener(() => shipView.SetActive(!shipView.activeSelf));
+                return;
+            }
+
+        }
     }
 
 
@@ -28,16 +39,6 @@ public class Factions : MonoBehaviour
 			Destroy (this);
 		factionList.Add (new Faction ("Celestial Empire", 1.5f, new bool[]{false, true, true}, 4, 7));
 		factionList.Add (new Faction ("Oman", 0.6f, new bool[]{true, true, true}, 1, 5));
-//		factionBiases.Add (faction.Celestial, 1.5f);
-//		factionBiases.Add (faction.Omani, 0.8f);
-        GameObject shipViewUI;
-		shipViewUI = Game.current.uiElements["ShipView"];
-        shipViewUI.SetActive(true);
-        foreach(Transform child in shipViewUI.transform){
-            if (String.Equals(child.name, "TradeWindow"))
-                tradeWindow = child.gameObject;
-        }
-        shipViewUI.SetActive(false);
 		for (int i = 0; i < 5; i++) 
 		{
 			CreateTradeRoute ();
@@ -73,26 +74,40 @@ public class Factions : MonoBehaviour
 		tradeMissionScript.insignia = factionList[rndFaction].insignia;
 		tradeMissionScript.originalTime = UnityEngine.Random.Range (factionList[rndFaction].minDistance, 
 		                                                            factionList[rndFaction].maxDistance);
-		tradeMissionScript.type = GetRandomTrueResourceType(factionList[rndFaction]);
-		tradeMissionScript.targetType = GetRandomTrueResourceType(factionList[rndFaction]);
+        tradeMissionScript.requestResource = GetRandomTrueResourceRequest(factionList[rndFaction]);
+        tradeMissionScript.targetResource = GetRandomTrueResourceRequest(factionList[rndFaction]);
 		tradeMissionScript.f = factionList[rndFaction]; //!!!
-		tradeMissionScript.requestedResources = GetResourceAmount(factionList[rndFaction].tradeBias, tradeMissionScript.type);
-
-
 		tradeMissions.Add (tradeMissionScript);
 		return instance;
 	}
-
-	int GetRandomTrueResourceType(Faction _f)
+	ResourceBundle GetRandomTrueResourceRequest(Faction _f)
 	{
-		int rndType;
-		while(true)
-		{
-			rndType = rndGen.Next(_f.tradeResourceTypes.Length);
-			if(_f.tradeResourceTypes[rndType])
-				break;
-		}
-		return rndType;
+        int rndType;
+        while (true)
+        {
+            rndType = rndGen.Next(_f.tradeResourceTypes.Length);
+            if (_f.tradeResourceTypes[rndType])
+                break;
+        }
+        int baseValue = 0;
+
+        switch (rndType)
+        { 
+            case 0:
+                baseValue = UnityEngine.Random.Range(300, 600);
+                baseValue = (int)((float)baseValue * _f.tradeBias);
+                return new ResourceBundle("Commodity", baseValue);
+            case 1:
+                baseValue = UnityEngine.Random.Range(100, 300);
+                baseValue = (int)((float)baseValue * _f.tradeBias);
+                return new ResourceBundle("Luxury", baseValue);
+            case 2:
+                baseValue = UnityEngine.Random.Range(100, 200);
+                baseValue = (int)((float)baseValue * _f.tradeBias);
+                return new ResourceBundle("Wealth", baseValue);
+            default:
+                return null;
+        }
 	}
 
 

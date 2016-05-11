@@ -15,7 +15,6 @@ public class ResourceBuilding : Building
 	public int type;
 
 
-
 	// Use this for initialization
 	void Start ()
 	{
@@ -30,7 +29,9 @@ public class ResourceBuilding : Building
 	protected override void OnEnable()
 	{
 		Game.current.buildingList.Add (this);
-	}
+        Game.resourcesMain -= GetBuildCost();
+	
+    }
 
 	protected override void OnDisable()
 	{
@@ -132,11 +133,13 @@ public class ResourceBuilding : Building
 			return 0;
 		}
 	}
-	public override ResourceBundle GetBuildCost ()
-	{
-		return new ResourceBundle ("", 0);
-	}
 
+
+    public override ResourceBundle GetBuildCost()
+    {
+        return new ResourceBundle(400, 0, 0); //Farm
+       // buildCosts.Add(new ResourceBundle(1000, 100, 0)); //Hunters Lodge
+    }
 
 
 }

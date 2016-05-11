@@ -63,6 +63,7 @@ public class Shipyard : Building
 
 	protected override void OnEnable ()
 	{
+        Game.resourcesMain -= GetBuildCost();
 		Game.current.buildingList.Add (this);
 		Game.current.maxShips += 1;
 		EventSystem.OccurEvent ("NewShipPopUp");
@@ -74,10 +75,6 @@ public class Shipyard : Building
 	{
 		spriteRnd.sprite = glowSprite [0];
 
-	}
-	public override ResourceBundle GetBuildCost ()
-	{
-		return new ResourceBundle ("", 0);
 	}
 
 	protected override void OnDisable ()
@@ -100,7 +97,7 @@ public class Shipyard : Building
 	{
 
 		GameObject shipyardUI;
-		shipyardUI = Game.current.uiElements ["ShipyardWindow"];
+        shipyardUI = GameObject.Find("ShipyardWindow");
 		foreach (Ship _ship in shipsInShipyard) {
 			GameObject instance = Instantiate (shipUIPrefab, new Vector3 (0, 0), Quaternion.identity) as GameObject;
 			instance.transform.SetParent (shipyardUI.transform, false);
@@ -112,6 +109,7 @@ public class Shipyard : Building
 				instanceButton.onClick.AddListener (() => mission.StartSailing (_ship));
 				instanceButton.onClick.AddListener (() => SetMission (_ship, mission));
 				instanceButton.onClick.AddListener (() => Game.current.DestroyShipUIInstances ());
+                instanceButton.onClick.AddListener(() => GameObject.Find("ShipyardWindow").gameObject.SetActive(!GameObject.Find("ShipyardWindow").gameObject.activeSelf));
 			}
 		}
 
@@ -122,4 +120,12 @@ public class Shipyard : Building
 	{
 		_ship.theMission = _mission;
 	}
+
+
+    public override ResourceBundle GetBuildCost()
+    {
+
+        return new ResourceBundle(300, 200, 0);
+    }
+    
 }

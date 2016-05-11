@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public abstract class Building : MonoBehaviour
 {
@@ -25,8 +26,8 @@ public abstract class Building : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-	
-	}
+
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -63,6 +64,10 @@ public abstract class Building : MonoBehaviour
 
 	protected abstract void OnDisable();
 
-	public abstract ResourceBundle GetBuildCost();
+    public abstract ResourceBundle GetBuildCost();
+
+    
+
+
 }
 
