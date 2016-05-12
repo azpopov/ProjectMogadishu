@@ -12,7 +12,7 @@ public class CheckErrorScript : CustomEvent {
 			if(_child.name.Equals("ForceTurnButton"))
 			{
 				forceTurn = _child.GetComponent<Button>();
-				forceTurn.onClick.AddListener(()=> Game.current.controller.manager.NextTurnForce());
+				forceTurn.onClick.AddListener(()=> app.controller.manager.NextTurnForce());
 				forceTurn.onClick.AddListener(() => gameObject.SetActive(false));
 			}
 		}

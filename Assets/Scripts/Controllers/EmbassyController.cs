@@ -6,7 +6,6 @@ public class EmbassyController : BuildingController {
 
 
     float influenceBonus_;
-    static System.Random rndGen = new System.Random();
     Button changeFactionBtn, receiveEnvoyBtn;
     public float influenceBonus
     {
@@ -26,12 +25,12 @@ public class EmbassyController : BuildingController {
         CheckProduction();
     }
 
-    void Awake()
+    void Start()
     {
-
         changeFactionBtn = gameObject.GetComponent<EmbassyView>().embassyUI.transform.FindChild("ChangeFactionButton").GetComponent<Button>();
         receiveEnvoyBtn = gameObject.GetComponent<EmbassyView>().embassyUI.transform.FindChild("ReceiveEnvoyButton").GetComponent<Button>();
         changeFactionBtn.onClick.AddListener(() => gameObject.GetComponent<EmbassyView>().SelectFaction());
+        
     }
 
     protected override void CheckProduction()
@@ -48,10 +47,10 @@ public class EmbassyController : BuildingController {
     {
         base.OnEnable();
         StartCoroutine(GetComponent<BuildingController>().IgnoreMouseDownSec());
-        if (Game.current.model.manager.embassyTut)
+        if (app.model.manager.embassyTut)
         {
             EventSystem.OccurEvent("FirstEmbassyEvent");
-            Game.current.model.manager.embassyTut = false;
+            app.model.manager.embassyTut = false;
         }
 
     }
@@ -59,7 +58,7 @@ public class EmbassyController : BuildingController {
     {
         if (!gameObject.activeSelf && EventSystem.eventPresent != null)
             return;
-        app.Notify(GameNotification.ShowEmbassy, gameObject.GetComponent<EmbassyController>(), this);
+        app.Notify(GameNotification.EmbassyShow, gameObject.GetComponent<EmbassyController>(), this);
       
 
     }
@@ -74,15 +73,17 @@ public class EmbassyController : BuildingController {
     public override void OnNotification(string p_event_path, object p_target, params object[] p_data)
     {
         base.OnNotification(p_event_path, p_target, p_data);
+        if (p_target != this) return;
         switch (p_event_path)
         {
-            case GameNotification.ShowEmbassy:
+            case GameNotification.EmbassyShow:
                 gameObject.GetComponent<EmbassyView>().embassyUI.SetActive(!gameObject.GetComponent<EmbassyView>().embassyUI.activeSelf);
                 gameObject.GetComponent<EmbassyView>().cnvGroup.blocksRaycasts 
                     = gameObject.GetComponent<EmbassyView>().embassyUI.activeSelf;
                 gameObject.GetComponent<EmbassyView>().cnvGroup.interactable 
                     = gameObject.GetComponent<EmbassyView>().embassyUI.activeSelf;
                 break;
+              
         }
     }
 }

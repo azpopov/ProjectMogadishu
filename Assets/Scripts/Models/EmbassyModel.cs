@@ -14,7 +14,7 @@ public class EmbassyModel : BuildingModel {
         timeToTick = 2;
     }
 
-    void SetFaction(Faction _f)
+    public void SetFaction(Faction _f)
     {
         f = _f;
     }
@@ -22,6 +22,6 @@ public class EmbassyModel : BuildingModel {
 
     public override ResourceBundle GetBuildCost()
     {
-        return new ResourceBundle(300, 200, 200);
+        return BuildingCosts.embassy; 
     }
 }

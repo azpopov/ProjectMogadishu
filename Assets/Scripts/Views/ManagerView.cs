@@ -32,6 +32,7 @@ public class ManagerView : GameElement
 	void FixedUpdate()
 	{
 		UpdateResourceText ();
+        UpdateShipCapacityText();
 	}
 	void UpdateShipCapacityText()
 	{
@@ -58,9 +59,9 @@ public class ManagerView : GameElement
 	public void ShipyardWindowPopulate (TradeMission currentTradeMission)
 	{
 		
-		foreach (Building _shipyard in app.model.manager.buildingList) {
-			if (_shipyard.GetType ().Equals (Type.GetType ("Shipyard")))
-				((Shipyard)_shipyard).CreateShipUI (currentTradeMission);
+		foreach (BuildingController _shipyard in app.controller.buildings) {
+            if (_shipyard.GetType().Equals(Type.GetType("ShipyardController")))
+                app.Notify(GameNotification.ShipyardCreateShipUI, _shipyard, currentTradeMission);
 		}
 	}
 }

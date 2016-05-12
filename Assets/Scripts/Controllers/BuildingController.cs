@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Text;
 
-public class BuildingController : GameController
+public class BuildingController : GameElement
 {
     public virtual void ProductionTick()
     {
@@ -20,16 +20,19 @@ public class BuildingController : GameController
     protected virtual void OnEnable()
     {
         app.controller.buildings.Add(this);
-        ManagerModel.resourcesMain -= GetBuildCost();
+        ManagerModel.resourcesMain -= GetComponent<BuildingModel>().GetBuildCost();
     }
 
-    protected virtual void OnDisable()
+    protected virtual void OnDestroy()
     {
+        try
+        {
+            if (app.controller.buildings.Contains(this))
+                app.controller.buildings.Remove(this);
+        }
+        catch { }
     }
-    public virtual ResourceBundle GetBuildCost()
-    {
-        return null;
-    }
+
     internal System.Collections.IEnumerator IgnoreMouseDownSec()
     {
 

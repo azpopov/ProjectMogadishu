@@ -17,20 +17,19 @@ public class GameController : GameElement {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-	
-	}
-
-    public virtual void OnNotification(string p_event_path, System.Object p_target, params object[] p_data)
+    void Update()
     {
-        if (p_target != this) return;
+
     }
 
-    public GameController[] GetAll()
+    
+
+    public List<GameElement> GetAll()
     {
-        return new GameController[]{
-            manager,
-        };
+        List<GameElement> controllers = new List<GameElement>();
+        controllers.AddRange(buildings.ToArray());
+        controllers.Add(manager);
+        return controllers;
 
     }
 }

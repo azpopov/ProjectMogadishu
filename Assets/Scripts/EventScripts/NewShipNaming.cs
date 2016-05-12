@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 public class NewShipNaming : CustomEvent
 {
-	Shipyard senderShipyard;
+	ShipyardController senderShipyard;
 	InputField inputField;
 	public override void Awake()
 	{
@@ -28,7 +28,7 @@ public class NewShipNaming : CustomEvent
 	public override void OnEnable()
 	{
 		base.OnEnable();
-		senderShipyard = Game.current.model.manager.buildingList[Game.current.model.manager.buildingList.Count-1] as Shipyard;
+		senderShipyard = app.controller.buildings[app.controller.buildings.Count-1] as ShipyardController;
 		base.disableButton.onClick.AddListener (() => AddToShipyard ());
 	}
 

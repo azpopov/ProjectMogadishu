@@ -14,30 +14,25 @@ public class ManagerModel : GameElement
 	
 	public static Hashtable buildingHashtable;
 	
-	//ShipManagement
-	int _maxShips = 0;
-	int _currentShips = 0;
-	
-	bool shipCheck = true;
 	//List of current Buildings
 	public List<Building> buildingList;
 	public static ResourceBundle resourcesMain = new ResourceBundle(1000, 1000, 1000);
-	public int currentShips { get { return _currentShips; } set { _currentShips = value; } }
-	public int maxShips {get {return _maxShips;}set {_maxShips = value;	}}
-
+    public int currentShips;
+    public int maxShips;
+    public Hashtable buildingCostsReferences;
 	void Awake()
 	{
+        buildingCostsReferences = new Hashtable();
+        buildingCostsReferences.Add("embassy", BuildingCosts.embassy);
+        buildingCostsReferences.Add("shipyard", BuildingCosts.shipyard);
+        buildingCostsReferences.Add("huntersLodge", BuildingCosts.huntersLodge);
+        buildingCostsReferences.Add("farm", BuildingCosts.farm);
 		embassyTut = false;
 		buildingList = new List<Building> ();
 		buildingHashtable = new Hashtable ();
 		foreach (GameObject _object in buildingPrefabs) {
 			buildingHashtable [_object.name] = _object;
 		}
-	}
-
-	public void SetShipCheck (bool b)
-	{
-		shipCheck = b;
 	}
 	
 	

@@ -4,7 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Factions : MonoBehaviour
+public class Factions : GameElement
 {
 
 	public static Factions current = null;
@@ -135,7 +135,7 @@ public class Factions : MonoBehaviour
 	public void RemoveTradeMission(TradeMission _removedTrader)
 	{
 		tradeMissions.Remove (_removedTrader);
-		Game.current.model.manager.currentShips--;
+		app.model.manager.currentShips--;
 	}
 
 	public TradeMission[] GetTradeMissionList()

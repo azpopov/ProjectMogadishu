@@ -1,24 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BuildingView : MonoBehaviour {
-    protected virtual int GlowSprite
-    {
-        set;
-        get;
-    }
+public class BuildingView : GameElement {
+
     //Variables for switching the Sprite between empty -> produced
     internal SpriteRenderer spriteRnd;
+    [SerializeField]
     internal Sprite defaultSprite;
-    public Sprite[] glowSprite;
+    public Sprite glowSprite;
 
 
     void Awake()
     {
         spriteRnd = GetComponent<SpriteRenderer>();
-
-        if (spriteRnd != null)
-            defaultSprite = spriteRnd.sprite;
+        if (spriteRnd == null) 
+            Debug.Log("Sprite Renderer Not Found");
+        defaultSprite = spriteRnd.sprite;
     }
 	// Use this for initialization
 	void Start () {
@@ -29,4 +26,14 @@ public class BuildingView : MonoBehaviour {
 	void Update () {
 	
 	}
+
+    public void SetDefaultSprite()
+    {
+        spriteRnd.sprite = defaultSprite;
+    }
+
+    public void SetGlowSprite()
+    {
+        spriteRnd.sprite = glowSprite;
+    }
 }

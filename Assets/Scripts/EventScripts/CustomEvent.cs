@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 
-public class CustomEvent : MonoBehaviour
+public class CustomEvent : GameElement
 {
 	protected Button endTurnButton, disableButton;
 

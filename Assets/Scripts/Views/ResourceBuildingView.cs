@@ -1,15 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ResourceBuildingView : MonoBehaviour {
+public class ResourceBuildingView : BuildingView {
+    //Prefab to display Gained resources upon click
+    public GameObject floatingTextPrefab;
+    FloatText floatText;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }

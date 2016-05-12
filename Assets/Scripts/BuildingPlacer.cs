@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
-public class BuildingPlacer : MonoBehaviour {
+public class BuildingPlacer : GameElement {
 
 	bool validPlace = false;
 	Collider2D col;
@@ -31,7 +31,7 @@ public class BuildingPlacer : MonoBehaviour {
 		//Whatever this script is attached to, follow mouse.
 		this.transform.position = mousePos;
 		if(!col.IsTouchingLayers(LayerMask.GetMask("Building")) && !col.IsTouchingLayers(LayerMask.GetMask("NonBuildable"))){
-		if (transform.name.Equals ("ShipYard(Clone)")) {
+		if (transform.name.Equals ("shipyard(Clone)")) {
 			if( col.IsTouchingLayers(LayerMask.GetMask("Water")) && col.IsTouchingLayers(LayerMask.GetMask("Buildable"))){
 				validPlace = true;
 			}
@@ -46,20 +46,19 @@ public class BuildingPlacer : MonoBehaviour {
 		//If able to place & valid location
 		if (validPlace && Input.GetMouseButtonDown(0)) {
 			//Destroy components
-			Game.current.model.manager.SetCurrentlyBuilding(null);
+			app.model.manager.SetCurrentlyBuilding(null);
 			gameObject.layer = LayerMask.NameToLayer("Building");
-			if(GetComponent<ResourceBuilding>() != null)
-				GetComponent<ResourceBuilding>().enabled = true;
-			else if(GetComponent<Shipyard>() != null)
+            if (GetComponent<ResourceBuildingController>() != null)
+                GetComponent<ResourceBuildingController>().enabled = true;
+			else if(GetComponent<ShipyardController>() != null)
 			{
-				GetComponent<Shipyard>().enabled = true;
+                GetComponent<ShipyardController>().enabled = true;
 
 			}
-			else if(GetComponent<Building>()  != null)
+			else if(GetComponent<BuildingController>()  != null)
 			{
-				GetComponent<Building>().enabled = true;
+                GetComponent<BuildingController>().enabled = true;
 			}
-			//col.isTrigger = false;
 			Destroy(GetComponent<Rigidbody2D>());
 
 			Destroy(this);

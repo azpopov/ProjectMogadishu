@@ -36,7 +36,7 @@ public class TradeCompleteScript : CustomEvent {
 		resultText += "We Received "+ amountReceived.ToString ();
 		
 		transform.FindChild ("TradeCompleteText").GetComponent<Text> ().text = resultText;
-		Game.current.model.manager.addToResource (tradeComplete.targetResource.ReturnTypeofMax(), amountReceived);
+		app.model.manager.addToResource (tradeComplete.targetResource.ReturnTypeofMax(), amountReceived);
 
 
 	}

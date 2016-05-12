@@ -3,11 +3,13 @@ using UnityEngine.UI;
 using System.Collections;
 using System;
 
-public class ManagerController : GameController
+public class ManagerController : GameElement
 {
+
+    Hashtable buildingCostsReferences;
 	void IncrementProductionTicks ()
 	{
-		foreach (Building building in app.model.manager.buildingList) {
+		foreach (BuildingController building in app.controller.buildings) {
 			building.ProductionTick ();
 		}
 	}
@@ -21,15 +23,18 @@ public class ManagerController : GameController
 
 	bool NextTurnCheck ()
 	{
-		foreach (Building building in app.model.manager.buildingList) {
-			if (building.GetType () == Type.GetType ("ResourceBuilding") && ((ResourceBuilding)building).resourcesMaxed) {
-				Debug.Log ("ResourceCheck Failed");
-				EventSystem.OccurEvent ("CapacityErrorPanel");
-				return false;
+		foreach (BuildingController building in app.controller.buildings) {
+			if (building.GetType () == Type.GetType ("ResourceBuildingController")) {
+                if (building.GetComponent<ResourceBuildingModel>().resourcesMaxed)
+                {
+                    Debug.Log("ResourceCheck Failed");
+                    EventSystem.OccurEvent("CapacityErrorPanel");
+                    return false;
+                }
 			}
 		}
 		//Add building costs
-		if (!ShipAvailable()) {
+		if (ShipAvailable()) {
 			EventSystem.OccurEvent ("ShipErrorPanel");
 			return false;
 		}
@@ -42,8 +47,6 @@ public class ManagerController : GameController
 			return;
 		IncrementProductionTicks ();
 		DecrementSailingShips ();
-		
-		
 	}
 	
 	public void NextTurnForce ()
@@ -51,12 +54,10 @@ public class ManagerController : GameController
 		IncrementProductionTicks ();
 		DecrementSailingShips ();
 	}
-
 	public void StartBuilding (string _building)
 	{
 		app.model.manager.CancelBuild ();
-		GameObject theBuilding = ManagerModel.buildingHashtable [_building] as GameObject;
-		ResourceBundle buildCost = theBuilding.gameObject.GetComponent<Building>().GetBuildCost();
+        ResourceBundle buildCost = app.model.manager.buildingCostsReferences[_building] as ResourceBundle;
 		if (!ManagerModel.resourcesMain.CompareBundle(buildCost)) return;// check to make sure build costs satisfy
 		Vector3 currentMousePosition = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 		currentMousePosition.z = 0;
@@ -80,14 +81,14 @@ public class ManagerController : GameController
 
 	public void PassAllResourceChecks ()
 	{
-		foreach (ResourceBuilding building in app.model.manager.buildingList)
-			building.resourcesMaxed = false;
+		foreach (ResourceBuildingController building in app.controller.buildings)
+			building.GetComponent<ResourceBuildingModel>().resourcesMaxed = false;
 		NextTurn ();
 	}
 
 	public bool ShipAvailable ()
 	{
-		if (app.model.manager.currentShips < app.model.manager.maxShips) {return false;}
+		if (app.model.manager.currentShips == app.model.manager.maxShips) {return false;}
 		return true;
 	}
 }

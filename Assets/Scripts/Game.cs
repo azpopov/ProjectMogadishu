@@ -15,15 +15,16 @@ public class Game : MonoBehaviour
 
     public void Notify(string p_event_path, System.Object p_target, params object[] p_data)
     {
-        GameController[] controller_list = GetAllControllers();
-        foreach (GameController c in controller_list)
+        List<GameElement> controller_list = new List<GameElement>();
+        controller_list = GetAllControllers();
+        foreach (GameElement c in controller_list)
         {
             c.OnNotification(p_event_path, p_target, p_data);
         }
     }
 
     // Fetches all scene Controllers.
-    public GameController[] GetAllControllers() { return controller.GetAll() ; }
+    public List<GameElement> GetAllControllers() { return controller.GetAll() ; }
 
 	void Awake()
 	{
