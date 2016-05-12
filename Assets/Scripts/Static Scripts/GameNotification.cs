@@ -7,4 +7,5 @@ public static class GameNotification{
     public const string ShipyardCreateShipUI = "shipyard.create.ship.ui";
     public const string ResourcePickup = "resource.pickup.mouse";
     public const string ShipTravelEvent = "shipyard.ship.travel.event";
+    public const string ShipOnMission = "shipyard.ship.mission.set";
 }

@@ -10,7 +10,8 @@ public class ShipyardView : BuildingView {
 
 	public void CreateShipUI (TradeMission mission)
 	{
-
+        
+        
 		GameObject shipyardUI;
         shipyardUI = GameObject.Find("ShipyardWindow");
 		foreach (ShipyardModel.Ship _ship in gameObject.GetComponent<ShipyardModel>().shipsInShipyard) {
@@ -18,11 +19,12 @@ public class ShipyardView : BuildingView {
 			instance.transform.SetParent (shipyardUI.transform, false);
 			instance.GetComponentInChildren<Text> ().text = _ship.name;
 			Button instanceButton = instance.GetComponentInChildren<Button> ();
+            var shipyardModel = gameObject.GetComponent<ShipyardModel>();
 			if (_ship.theMission != null) {
 				instanceButton.interactable = false;
 			} else {
 				instanceButton.onClick.AddListener (() => mission.StartSailing(_ship));
-				instanceButton.onClick.AddListener (() => gameObject.GetComponent<ShipyardModel>().SetMission (_ship, mission));
+				instanceButton.onClick.AddListener (() => app.Notify(GameNotification.ShipOnMission, GetComponent<ShipyardController>(), new object[]{mission, _ship}));
 				instanceButton.onClick.AddListener (() => app.view.manager.DestroyShipUIInstances ());
                 instanceButton.onClick.AddListener(() => GameObject.Find("ShipyardWindow").gameObject.SetActive(!GameObject.Find("ShipyardWindow").gameObject.activeSelf));
 			}

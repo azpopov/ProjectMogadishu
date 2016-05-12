@@ -58,7 +58,7 @@ public class ManagerView : GameElement
 
 	public void ShipyardWindowPopulate (TradeMission currentTradeMission)
 	{
-		
+
 		foreach (ShipyardController _shipyard in app.controller.buildings) {
                 app.Notify(GameNotification.ShipyardCreateShipUI, _shipyard, currentTradeMission);
 		}
