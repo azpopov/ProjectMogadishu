@@ -6,4 +6,5 @@ public static class GameNotification{
     public const string EmbassyFactionChange = "embassy.faction.change";
     public const string ShipyardCreateShipUI = "shipyard.create.ship.ui";
     public const string ResourcePickup = "resource.pickup.mouse";
+    public const string ShipTravelEvent = "shipyard.ship.travel.event";
 }

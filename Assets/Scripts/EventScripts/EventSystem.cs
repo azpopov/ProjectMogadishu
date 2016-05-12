@@ -11,6 +11,7 @@ public class EventSystem : MonoBehaviour {
 
 
     static int[] pending = new int[MAX_PENDING];
+    static object[] pending_data = new object[MAX_PENDING];
 	public static List<TradeMission> pendingMissions;
 
 	public static GameObject eventPresent;
@@ -41,29 +42,32 @@ public class EventSystem : MonoBehaviour {
 	void Update () {
         if (eventPresent == null && head != tail)
         {
-			eventPresent = CreateEvent(pending[head]);
+			eventPresent = CreateEvent(pending[head], pending_data[head]);
 			head = (head + 1) % MAX_PENDING;
         }
     }
 
-    GameObject CreateEvent(int eventID)
+    GameObject CreateEvent(int eventID, params object[] p_data)
     {
         GameObject uiEvent = Instantiate(events[eventID], new Vector3(0, 0), Quaternion.identity) as GameObject;
 		uiEvent.transform.SetParent (GameObject.Find ("UI").transform, false);
+        if (p_data != null) uiEvent.GetComponent<CustomEvent>().data = p_data;
         uiEvent.SetActive(true);
         return uiEvent;
     }
-    public static void OccurEvent(string eventName)
+    public static void OccurEvent(string eventName, params object[] p_data)
     {
         int eventID = eventDic[eventName];
-        OccurEvent(eventID);
+        OccurEvent(eventID, p_data);
     }
 
-   public static void OccurEvent(int eventID) {
+    public static void OccurEvent(int eventID, params object[] p_data)
+    {
 //		for (int i = head; i != tail; i = (i + 1) % MAX_PENDING)
 //			if (pending[i] == eventID) return;
        if (tail >= MAX_PENDING) return;
        pending[tail] = eventID;
+       if (p_data != null) pending_data[tail] = p_data;
 		tail = (tail + 1) % MAX_PENDING;
     }
 }

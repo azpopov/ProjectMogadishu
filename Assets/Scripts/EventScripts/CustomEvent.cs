@@ -6,6 +6,7 @@ public class CustomEvent : GameElement
 {
 	protected Button endTurnButton, disableButton;
 
+    public object[] data;
 	public virtual void Awake()
 	{
 		endTurnButton = GameObject.Find ("EndTurnButton").GetComponentInChildren<Button> ();

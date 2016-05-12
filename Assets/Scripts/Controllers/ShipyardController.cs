@@ -9,8 +9,9 @@ public class ShipyardController : BuildingController {
 	protected override void CheckProduction ()
 	{
 		foreach (ShipyardModel.Ship _ship in gameObject.GetComponent<ShipyardModel>().shipsInShipyard) {
-			if (_ship.theMission != null && Random.Range (0, 10) < 3) {
-				GenerateEvent ();
+			if (_ship.theMission != null && Random.Range (0, 10) < 8) {
+                
+				GenerateEvent (_ship);
 			}
 		}
 	}
@@ -34,9 +35,9 @@ public class ShipyardController : BuildingController {
     }
 
 
-	void GenerateEvent ()
+	void GenerateEvent (ShipyardModel.Ship _ship)
 	{
-        gameObject.GetComponent<ShipyardView>().spriteRnd.sprite = gameObject.GetComponent<ShipyardView>().glowSprite;
+        app.Notify(GameNotification.ShipTravelEvent, this, _ship);
 
 	}
     public override void OnNotification(string p_event_path, object p_target, params object[] p_data)
@@ -47,6 +48,9 @@ public class ShipyardController : BuildingController {
         {
             case GameNotification.ShipyardCreateShipUI:
                 GetComponent<ShipyardView>().CreateShipUI(p_data[0] as TradeMission);
+                return;
+            case GameNotification.ShipTravelEvent:
+                EventSystem.OccurEvent("TravelEventStorm", p_data);
                 return;
         }
     }

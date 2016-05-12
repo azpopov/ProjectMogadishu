@@ -32,6 +32,7 @@ public class BuildingPlacer : GameElement {
 		this.transform.position = mousePos;
 		if(!col.IsTouchingLayers(LayerMask.GetMask("Building")) && !col.IsTouchingLayers(LayerMask.GetMask("NonBuildable"))){
 		if (transform.name.Equals ("shipyard(Clone)")) {
+          
 			if( col.IsTouchingLayers(LayerMask.GetMask("Water")) && col.IsTouchingLayers(LayerMask.GetMask("Buildable"))){
 				validPlace = true;
 			}
