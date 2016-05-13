@@ -58,8 +58,8 @@ public class ManagerView : GameElement
 
 	public void ShipyardWindowPopulate (TradeMission currentTradeMission)
 	{
-
-		foreach (ShipyardController _shipyard in app.controller.buildings) {
+		foreach (BuildingController _shipyard in app.controller.buildings) {
+            if (_shipyard is ShipyardController)
                 app.Notify(GameNotification.ShipyardCreateShipUI, _shipyard, currentTradeMission);
 		}
 	}

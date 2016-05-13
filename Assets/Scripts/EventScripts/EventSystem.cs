@@ -11,7 +11,7 @@ public class EventSystem : MonoBehaviour {
 
 
     static int[] pending = new int[MAX_PENDING];
-    static object[] pending_data = new object[MAX_PENDING];
+    static object[][] pending_data = new object[MAX_PENDING][];
 	public static List<TradeMission> pendingMissions;
 
 	public static GameObject eventPresent;
@@ -61,7 +61,7 @@ public class EventSystem : MonoBehaviour {
         OccurEvent(eventID, p_data);
     }
 
-    public static void OccurEvent(int eventID, params object[] p_data)
+    static void OccurEvent(int eventID, params object[] p_data)
     {
 //		for (int i = head; i != tail; i = (i + 1) % MAX_PENDING)
 //			if (pending[i] == eventID) return;

@@ -19,8 +19,6 @@ public class ResourceBuildingController : BuildingController {
             app.Notify(GameNotification.ResourcePickup, this, this);
     }
 
-
-
     public override void ProductionTick()
     {
         gameObject.GetComponent<ResourceBuildingModel>().timeSinceTick++;

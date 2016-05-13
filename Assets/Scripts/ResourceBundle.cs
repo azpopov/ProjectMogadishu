@@ -61,6 +61,11 @@ public class ResourceBundle
         return new ResourceBundle(_bundle1.commodity - _bundle2.commodity, _bundle1.luxury - _bundle2.luxury, _bundle1.wealth - _bundle2.wealth);
     }
 
+        public static ResourceBundle operator *(ResourceBundle _bundle1, float _number)
+        {
+            return new ResourceBundle((int)(_bundle1.commodity * _number), (int)(_bundle1.luxury * _number), (int)(_bundle1.wealth * _number));
+        }
+
         public int ReturnTypeofMax()
         {
 
