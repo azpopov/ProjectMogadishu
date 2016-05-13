@@ -50,7 +50,9 @@ public class ShipyardController : BuildingController {
                 GetComponent<ShipyardView>().CreateShipUI(p_data[0] as TradeMission);
                 return;
             case GameNotification.ShipTravelEvent:
-                EventSystem.OccurEvent("TravelEventStormPrefab", p_data);
+                string eventName = EventSystem.RandomTravelEvent();
+                if (eventName.Equals("none loaded")) return;
+                EventSystem.OccurEvent(eventName, p_data);
                 return;
             case GameNotification.ShipOnMission:
                 int index = GetComponent<ShipyardModel>().shipsInShipyard.IndexOf((ShipyardModel.Ship)p_data[1]);

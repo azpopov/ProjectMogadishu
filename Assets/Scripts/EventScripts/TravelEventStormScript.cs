@@ -21,9 +21,5 @@ public class TravelEventStormScript : CustomEvent {
             }
         ship.theMission.targetResource *= (1 - (((float)rndRandom) / 10));
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	}
 
 }

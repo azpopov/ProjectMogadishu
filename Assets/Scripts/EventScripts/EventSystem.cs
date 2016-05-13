@@ -19,6 +19,7 @@ public class EventSystem : MonoBehaviour {
     static Dictionary<string, int> eventDic;
 	public string[] eventsLoaded;
     public GameObject[] events; 
+
     void Awake()
     {
 		pendingMissions = new List<TradeMission> ();
@@ -69,5 +70,19 @@ public class EventSystem : MonoBehaviour {
        pending[tail] = eventID;
        if (p_data != null) pending_data[tail] = p_data;
 		tail = (tail + 1) % MAX_PENDING;
+    }
+
+    public string RandomTravelEvent()
+    {
+        int i = 0;
+        var newDic = eventDic.Keys;
+
+        while (i < 1000)
+        {
+            int rndNum = Random.Range(0, events.Length);
+            if (events[rndNum].name.Contains("TravelEvent")) return events[rndNum].name;
+            i++;
+        }
+        return "none loaded";
     }
 }
