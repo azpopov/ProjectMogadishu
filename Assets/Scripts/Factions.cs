@@ -37,7 +37,7 @@ public class Factions : GameElement
 			current = this;
 		else
 			Destroy (this);
-		factionList.Add (new Faction ("Celestial Empire", 1.5f, new bool[]{false, true, true}, 4, 7));
+		factionList.Add (new Faction ("The Celestial Empire", 1.5f, new bool[]{false, true, true}, 4, 7));
 		factionList.Add (new Faction ("Oman", 0.6f, new bool[]{true, true, true}, 1, 5));
 		for (int i = 0; i < 5; i++) 
 		{

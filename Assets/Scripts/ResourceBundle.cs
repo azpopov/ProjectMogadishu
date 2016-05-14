@@ -25,6 +25,36 @@ public class ResourceBundle
 		luxury = _luxuries;
 		wealth = _wealth;
 	}
+    public ResourceBundle(int type, int amount)
+    {
+        string _type = TypeToString(type);
+        StringAdd(_type, amount);
+    }
+
+    public static string TypeToString(int type)
+    {
+        
+        if (type == 0)
+            return "Commodity";
+        else if (type == 1)
+            return "Luxury";
+        else if (type == 2)
+            return "Wealth";
+        return "Commodity";
+
+    }
+    public static string TypePluralToString(int type)
+    {
+
+        if (type == 0)
+            return "Commodities";
+        else if (type == 1)
+            return "Luxuries";
+        else if (type == 2)
+            return "Wealth";
+        return "Commodity";
+
+    }
 
 	public void StringAdd (string type, int amount)
 	{

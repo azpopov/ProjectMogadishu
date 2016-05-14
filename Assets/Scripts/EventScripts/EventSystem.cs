@@ -17,7 +17,7 @@ public class EventSystem : MonoBehaviour {
 	public static GameObject eventPresent;
 
     static Dictionary<string, int> eventDic;
-	public string[] eventsLoaded;
+	static GameObject[] eventsLoaded;
     public GameObject[] events; 
 
     void Awake()
@@ -27,10 +27,10 @@ public class EventSystem : MonoBehaviour {
         tail = 0;
         eventDic = new Dictionary<string, int>();
 		int i = 0;
-		eventsLoaded = new string[events.Length];
+		eventsLoaded = new GameObject[events.Length];
 		foreach (GameObject _event in events) {
 			eventDic.Add(_event.name, i);
-			eventsLoaded[i] = _event.name;
+			eventsLoaded[i] = _event;
 			i++;
 		}
     }   
@@ -72,15 +72,15 @@ public class EventSystem : MonoBehaviour {
 		tail = (tail + 1) % MAX_PENDING;
     }
 
-    public string RandomTravelEvent()
+    public static string RandomTravelEvent()
     {
         int i = 0;
         var newDic = eventDic.Keys;
 
         while (i < 1000)
         {
-            int rndNum = Random.Range(0, events.Length);
-            if (events[rndNum].name.Contains("TravelEvent")) return events[rndNum].name;
+            int rndNum = Random.Range(0, eventsLoaded.Length);
+            if (eventsLoaded[rndNum].name.Contains("TravelEvent")) return eventsLoaded[rndNum].name;
             i++;
         }
         return "none loaded";

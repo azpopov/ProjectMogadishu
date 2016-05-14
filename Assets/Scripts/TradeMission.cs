@@ -54,16 +54,15 @@ public class TradeMission : GameElement
 		destText.text = "Est Trip Length: " + Math.Round (timeToDest).ToString () + " Turns";
 	}
 
-	void Update ()
+	void FixedUpdate ()
 	{
-
+        destText.text = "Arriving Back in " + Math.Round(timeToDest).ToString() + " Turns";
 	}
 
 	public void SailTick(int n)
 	{
 		if (sailing) {
 			timeToDest -= n;
-			destText.text = "Arriving Back in " + Math.Round (timeToDest).ToString () + " Turns";
 			if (timeToDest < float.Epsilon) {
 				EventSystem.pendingMissions.Add(this);
 				EventSystem.OccurEvent ("TradeComplete");

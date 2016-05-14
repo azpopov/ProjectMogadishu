@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class CustomEvent : GameElement
 {
 	protected Button endTurnButton, disableButton;
-
+    protected ResourceBundle finalBundle, changeBundle;
     public object[] data;
 	public virtual void Awake()
 	{

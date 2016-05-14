@@ -86,6 +86,19 @@ public class ManagerController : GameElement
 		NextTurn ();
 	}
 
+    public override void OnNotification(string p_event_path, object p_target, params object[] p_data)
+    {
+        base.OnNotification(p_event_path, p_target, p_data);
+        if (p_target != this) return;
+        switch (p_event_path)
+        {
+            case GameNotification.ResultResourceChange:
+                Debug.Log("Resutttt");
+                EventSystem.OccurEvent("ResultPrefab", p_data);
+                return;
+        }
+    }
+
 	public bool ShipAvailable ()
 	{
 		if (app.model.manager.currentShips == app.model.manager.maxShips) {return false;}
