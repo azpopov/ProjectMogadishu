@@ -13,6 +13,7 @@ public class Factions : GameElement
 	public GameObject tradePrefab;
 	static System.Random rndGen = new System.Random();
 	public List<Faction> factionList = new List<Faction>();
+    private List<Faction> factionListUndiscovered = new List<Faction>();
 	float refreshTimer = 5f;
     void Awake() {
         var _object = GameObject.Find("UI").GetComponentsInChildren(typeof(Transform), true);
@@ -37,8 +38,16 @@ public class Factions : GameElement
 			current = this;
 		else
 			Destroy (this);
-		factionList.Add (new Faction ("The Celestial Empire", 1.5f, new bool[]{false, true, true}, 4, 7));
-		factionList.Add (new Faction ("Oman", 0.6f, new bool[]{true, true, true}, 1, 5));
+		factionList.Add (new Faction ("The Celestial Empire", 1.9f, new bool[]{false, true, true}, 4, 9));
+		factionList.Add (new Faction ("Oman", 0.6f, new bool[]{true, true, true}, 2, 5));
+        factionList.Add (new Faction ("Bengal", 1.0f, new bool[]{true, true, true}, 3, 6));
+        factionList.Add(new Faction("Ceylon", 0.8f, new bool[] { true, false, true }, 3, 5));
+        factionList.Add(new Faction("Chola", 0.7f, new bool[] { true, true, false }, 2, 5));
+        factionList.Add(new Faction("Khmer", 1.0f, new bool[] { false, true, true }, 3, 6));
+        factionList.Add(new Faction("Seljuk Empire", 1.0f, new bool[] { true, true, true }, 2, 6));
+        factionList.Add(new Faction("Srivijaya Empire", 1.1f, new bool[] { false, false, true }, 3, 7));
+        factionListUndiscovered.Add(new Faction("Champa", 1.4f, new bool[] { true, true, true }, 4, 7));
+        factionListUndiscovered.Add(new Faction("Gujarat", 1.1f, new bool[] { false, true, true }, 2,5));
 		for (int i = 0; i < 5; i++) 
 		{
 			CreateTradeRoute ();
@@ -142,7 +151,14 @@ public class Factions : GameElement
 	{
 		return tradeMissions.ToArray ();
 	}
-
+    public Faction DiscoverNewEmpire()
+    {
+        if (factionListUndiscovered.Count == 0) return new Faction();
+        int rndFactionIndex = UnityEngine.Random.Range(0, factionListUndiscovered.Count);
+        factionList.Add(factionListUndiscovered[rndFactionIndex]);
+        factionListUndiscovered.RemoveAt(rndFactionIndex);
+        return factionList[factionList.Count-1];
+    }
 
 
 }

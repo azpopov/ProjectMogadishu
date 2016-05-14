@@ -93,8 +93,10 @@ public class ManagerController : GameElement
         switch (p_event_path)
         {
             case GameNotification.ResultResourceChange:
-                Debug.Log("Resutttt");
                 EventSystem.OccurEvent("ResultPrefab", p_data);
+                return;
+            case GameNotification.AddResources:
+                app.model.manager.addBundle((ResourceBundle)p_data[0]);
                 return;
         }
     }

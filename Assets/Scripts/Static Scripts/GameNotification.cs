@@ -9,4 +9,5 @@ public static class GameNotification{
     public const string ShipTravelEvent = "shipyard.ship.travel.event";
     public const string ShipOnMission = "shipyard.ship.mission.set";
     public const string ResultResourceChange = "resource.change.result.screen";
+    public const string AddResources = "manager.model.add.bundle";
 }

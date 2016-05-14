@@ -59,6 +59,7 @@ public class ShipyardController : BuildingController {
                 ShipyardModel.Ship newShip = new ShipyardModel.Ship(((ShipyardModel.Ship)p_data[1]).name, p_data[0] as TradeMission);
                 GetComponent<ShipyardModel>().shipsInShipyard[index] = newShip;
                 return;
+
         }
     }
    

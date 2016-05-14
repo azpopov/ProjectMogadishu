@@ -63,5 +63,10 @@ public class ManagerModel : GameElement
 		//UpdateResourceText();
 	}
 
+    public void addBundle(ResourceBundle _change)
+    {
+        resourcesMain += _change;
+    }
+
 }
 

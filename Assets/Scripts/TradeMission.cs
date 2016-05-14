@@ -63,7 +63,7 @@ public class TradeMission : GameElement
 	{
 		if (sailing) {
 			timeToDest -= n;
-			if (timeToDest < float.Epsilon) {
+			if (timeToDest < 0f) {
 				EventSystem.pendingMissions.Add(this);
 				EventSystem.OccurEvent ("TradeComplete");
 				CancelSailing ();
