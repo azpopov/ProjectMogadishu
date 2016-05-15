@@ -16,7 +16,6 @@ public class EventSystem : MonoBehaviour {
     static object[][] pending_data = new object[MAX_PENDING][];
     static int[] pending_priority = new int[MAX_PENDING_PRIORITY];
     static object[][] pending_priority_data = new object[MAX_PENDING_PRIORITY][];
-	public static List<TradeMission> pendingMissions;
 
 	public static GameObject eventPresent;
 
@@ -26,7 +25,6 @@ public class EventSystem : MonoBehaviour {
 
     void Awake()
     {
-		pendingMissions = new List<TradeMission> ();
         eventPresent = null;
         tail = 0;
         tailPriority = 0;
@@ -46,14 +44,14 @@ public class EventSystem : MonoBehaviour {
 	}
 	// Update is called once per frame
 	void Update () {
-        if (eventPresent == null && head != tail)
+        if (eventPresent == null)
         {
             if (headPriority != tailPriority)
             {
                 eventPresent = CreateEvent(pending_priority[headPriority], pending_priority_data[headPriority]);
                 headPriority = (headPriority + 1) % MAX_PENDING_PRIORITY;
             }
-            else
+            else if (head != tail)
             {
                 eventPresent = CreateEvent(pending[head], pending_data[head]);
                 head = (head + 1) % MAX_PENDING;
@@ -99,8 +97,6 @@ public class EventSystem : MonoBehaviour {
     public static string RandomTravelEvent()
     {
         int i = 0;
-        var newDic = eventDic.Keys;
-
         while (i < 1000)
         {
             int rndNum = Random.Range(0, eventsLoaded.Length);

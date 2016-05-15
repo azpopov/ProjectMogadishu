@@ -12,24 +12,22 @@ public class ManagerModel : GameElement
 	//Checks for Tutorial Info
 	public bool embassyTut = false;
 	
-	public static Hashtable buildingHashtable;
+	public static Dictionary<string, GameObject> buildingHashtable;
 	
 	//List of current Buildings
-	public List<Building> buildingList;
 	public static ResourceBundle resourcesMain = new ResourceBundle(1000, 1000, 1000);
     public int currentShips;
     public int maxShips;
-    public Hashtable buildingCostsReferences;
+    public Dictionary<string, ResourceBundle> buildingCostsReferences;
 	void Awake()
 	{
-        buildingCostsReferences = new Hashtable();
+        buildingCostsReferences = new Dictionary<string, ResourceBundle>();
         buildingCostsReferences.Add("embassy", BuildingCosts.embassy);
         buildingCostsReferences.Add("shipyard", BuildingCosts.shipyard);
         buildingCostsReferences.Add("huntersLodge", BuildingCosts.huntersLodge);
         buildingCostsReferences.Add("farm", BuildingCosts.farm);
 		embassyTut = false;
-		buildingList = new List<Building> ();
-		buildingHashtable = new Hashtable ();
+		buildingHashtable = new Dictionary<string, GameObject> ();
 		foreach (GameObject _object in buildingPrefabs) {
 			buildingHashtable [_object.name] = _object;
 		}

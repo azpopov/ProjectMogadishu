@@ -6,7 +6,7 @@ public class EmbassyController : BuildingController {
 
 
     float influenceBonus_;
-    Button changeFactionBtn, receiveEnvoyBtn;
+    Button changeFactionBtn;
     public float influenceBonus
     {
         get
@@ -22,25 +22,20 @@ public class EmbassyController : BuildingController {
     // Update is called once per frame
     void FixedUpdate()
     {
-        CheckProduction();
+       
     }
 
     void Start()
     {
         changeFactionBtn = gameObject.GetComponent<EmbassyView>().embassyUI.transform.FindChild("ChangeFactionButton").GetComponent<Button>();
-        receiveEnvoyBtn = gameObject.GetComponent<EmbassyView>().embassyUI.transform.FindChild("ReceiveEnvoyButton").GetComponent<Button>();
+       // receiveEnvoyBtn = gameObject.GetComponent<EmbassyView>().embassyUI.transform.FindChild("ReceiveEnvoyButton").GetComponent<Button>();
         changeFactionBtn.onClick.AddListener(() => gameObject.GetComponent<EmbassyView>().SelectFaction());
         
     }
 
     protected override void CheckProduction()
     {
-        if (gameObject.GetComponent<EmbassyModel>().timeSinceTick >= gameObject.GetComponent<EmbassyModel>().timeToTick)
-        {
-            //Generate FactionEvent HEre
-            //if (rndGen.Next(5) == 4)
-            //    spriteRnd.sprite = glowSprite[0];
-        }
+        
     }
 
     protected override void OnEnable()
@@ -82,7 +77,14 @@ public class EmbassyController : BuildingController {
                     = gameObject.GetComponent<EmbassyView>().embassyUI.activeSelf;
                 gameObject.GetComponent<EmbassyView>().cnvGroup.interactable 
                     = gameObject.GetComponent<EmbassyView>().embassyUI.activeSelf;
-                break;
+                return;
+            case GameNotification.EmbassyFactionChange:
+                Faction newFaction = (Faction)p_data[1];
+                EmbassyView theView = (EmbassyView)p_data[0];
+                EmbassyModel theModel = GetComponent<EmbassyModel>();
+                theModel.SetFaction(newFaction);
+                theView.UpdateUI();
+                return;
               
         }
     }

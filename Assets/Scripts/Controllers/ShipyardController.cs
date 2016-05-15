@@ -6,15 +6,25 @@ public class ShipyardController : BuildingController {
 
 	Button newShipPopUpButton;
     public GameObject newShipPopUpPrefab;
-	protected override void CheckProduction ()
-	{
-		foreach (ShipyardModel.Ship _ship in gameObject.GetComponent<ShipyardModel>().shipsInShipyard) {
-			if (_ship.theMission != null && Random.Range (0, 10) < 8) {
-                
-				GenerateEvent (_ship);
-			}
-		}
-	}
+    protected override void CheckProduction()
+    {
+        foreach (ShipyardModel.Ship _ship in gameObject.GetComponent<ShipyardModel>().shipsInShipyard)
+        {
+            if (_ship.theMission != null)
+            {
+                _ship.theMission.SailTick(1);
+                if (_ship.theMission.timeToDest < 0f)
+                {
+                    EventSystem.OccurEvent("TradeComplete", _ship);
+                    _ship.theMission.CancelSailing();
+                }
+                if (Random.Range(0, 10) < 3)
+                    GenerateEvent(_ship);
+
+
+            }
+        }
+    }
 
 	public override void ProductionTick ()
 	{

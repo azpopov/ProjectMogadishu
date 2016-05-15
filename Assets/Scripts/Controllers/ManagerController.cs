@@ -1,23 +1,17 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 using System;
 
 public class ManagerController : GameElement
 {
 
-    Hashtable buildingCostsReferences;
+    Dictionary<string, ResourceBundle> buildingCostsReferences;
 	void IncrementProductionTicks ()
 	{
 		foreach (BuildingController building in app.controller.buildings) {
 			building.ProductionTick ();
-		}
-	}
-
-	void DecrementSailingShips ()
-	{
-		foreach (TradeMission missionScript in Factions.current.GetTradeMissionList()) {
-			missionScript.SailTick (1);
 		}
 	}
 
@@ -46,13 +40,11 @@ public class ManagerController : GameElement
 		if (!NextTurnCheck ())
 			return;
 		IncrementProductionTicks ();
-		DecrementSailingShips ();
 	}
 	
 	public void NextTurnForce ()
 	{
 		IncrementProductionTicks ();
-		DecrementSailingShips ();
 	}
 	public void StartBuilding (string _building)
 	{
@@ -97,6 +89,24 @@ public class ManagerController : GameElement
                 return;
             case GameNotification.AddResources:
                 app.model.manager.addBundle((ResourceBundle)p_data[0]);
+                return;
+            case GameNotification.EmbassyFactionInfluence:
+                Faction f = ((Faction)p_data[0]);
+                
+                foreach (BuildingController building in app.controller.buildings)
+                {
+
+                    if (building is EmbassyController)
+                    {
+                        Debug.Log(building.GetComponent<EmbassyModel>().f.name.Equals(f.name));
+                        if (building.GetComponent<EmbassyModel>().f.name.Equals(f.name))
+                        {
+                            Debug.Log("Before: " + EmbassyModel.influenceBonuses[building.GetComponent<EmbassyModel>().f.name]);
+                            (EmbassyModel.influenceBonuses[f.name]) = ((int)EmbassyModel.influenceBonuses[f.name]) + 1;
+                            Debug.Log("After: " + EmbassyModel.influenceBonuses[building.GetComponent<EmbassyModel>().f.name]);
+                        }
+                    }
+                }
                 return;
         }
     }

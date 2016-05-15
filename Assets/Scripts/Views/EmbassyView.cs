@@ -32,23 +32,31 @@ public class EmbassyView : BuildingView {
     }
     void FixedUpdate()
     {
-        influencePointsText.text = gameObject.GetComponent<EmbassyModel>().influenceBonus_.ToString();
-    }
-      
-        public void SelectFaction()
-        {
-            instaceFactionSelectWindow = Instantiate(gameObject.GetComponent<EmbassyModel>().factionSelectWindowPrefab, new Vector3(0, 0), Quaternion.identity) as GameObject;
-            instaceFactionSelectWindow.transform.SetParent(GameObject.Find("UI").transform, false);
-            foreach (Faction _f in Factions.current.factionList)
-            {
-                GameObject instance = Instantiate(gameObject.GetComponent<EmbassyModel>().factionElementPrefab, new Vector3(0, 0), Quaternion.identity) as GameObject;
-                instance.transform.SetParent(instaceFactionSelectWindow.transform, false);
-                instance.transform.FindChild("FactionName").GetComponent<Text>().text = _f.name.ToString();
-                Button instanceButton = instance.transform.FindChild("SetupButton").GetComponent<Button>();
-                instanceButton.onClick.AddListener(() => gameObject.GetComponent<EmbassyModel>().SetFaction(_f));
-                instanceButton.onClick.AddListener(() => Destroy(instaceFactionSelectWindow, 0.2f));
-                instanceButton.onClick.AddListener(() => app.Notify(GameNotification.EmbassyFactionChange, GetComponent<EmbassyController>(), this));
-            }
-            instaceFactionSelectWindow.SetActive(true);
+        if(GetComponent<EmbassyModel>().f.minDistance != 0){
+           influencePointsText.text = EmbassyModel.influenceBonuses[GetComponent<EmbassyModel>().f.name].ToString();
+           
         }
+    }
+
+    public void SelectFaction()
+    {
+        instaceFactionSelectWindow = Instantiate(gameObject.GetComponent<EmbassyModel>().factionSelectWindowPrefab, new Vector3(0, 0), Quaternion.identity) as GameObject;
+        instaceFactionSelectWindow.transform.SetParent(GameObject.Find("UI").transform, false);
+        foreach (Faction _f in Factions.current.factionList)
+        {
+            GameObject instance = Instantiate(gameObject.GetComponent<EmbassyModel>().factionElementPrefab, new Vector3(0, 0), Quaternion.identity) as GameObject;
+            instance.transform.SetParent(instaceFactionSelectWindow.transform, false);
+            instance.transform.FindChild("FactionName").GetComponent<Text>().text = _f.name.ToString();
+            Button instanceButton = instance.transform.FindChild("SetupButton").GetComponent<Button>();
+            instanceButton.onClick.AddListener(() => Destroy(instaceFactionSelectWindow, 0.2f));
+            Faction newFaction = _f;
+            instanceButton.onClick.AddListener(() => app.Notify(GameNotification.EmbassyFactionChange, GetComponent<EmbassyController>(), this, newFaction));
+        }
+        instaceFactionSelectWindow.SetActive(true);
+    }
+
+    public void UpdateUI()
+    {   
+        embassyInsig.sprite = GetComponent<EmbassyModel>().f.insignia;
+    }
 }

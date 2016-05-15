@@ -16,8 +16,6 @@ public class TradeMission : GameElement
 	bool sailing = false;
 	private UnityAction action;
 	public Faction f;
-	public int resultBias = 0;
-	public string shipName;
 
 
     public GameObject shipView, shipyardWindow;
@@ -64,9 +62,7 @@ public class TradeMission : GameElement
 		if (sailing) {
 			timeToDest -= n;
 			if (timeToDest < 0f) {
-				EventSystem.pendingMissions.Add(this);
-				EventSystem.OccurEvent ("TradeComplete");
-				CancelSailing ();
+				
 			}
 		}
 	}
@@ -87,7 +83,6 @@ public class TradeMission : GameElement
 			app.model.manager.addToResource(2, -requestResource.ReturnMax());
 			break;
 		}
-        shipName = _ship.name;
 		app.model.manager.currentShips++;
 		sailing = true;
 		button.GetComponent<Image> ().color = Color.red;
@@ -110,7 +105,7 @@ public class TradeMission : GameElement
         app.view.manager.ShipyardWindowPopulate(this);
     }
 
-	void CancelSailing ()
+	public void CancelSailing ()
 	{
 		button.GetComponent<Button> ().onClick.RemoveListener (action);
 		sailing = false;

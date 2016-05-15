@@ -19,7 +19,6 @@ public class ShipyardView : BuildingView {
 			instance.transform.SetParent (shipyardUI.transform, false);
 			instance.GetComponentInChildren<Text> ().text = _ship.name;
 			Button instanceButton = instance.GetComponentInChildren<Button> ();
-            var shipyardModel = gameObject.GetComponent<ShipyardModel>();
 			if (_ship.theMission != null) {
 				instanceButton.interactable = false;
 			} else {
