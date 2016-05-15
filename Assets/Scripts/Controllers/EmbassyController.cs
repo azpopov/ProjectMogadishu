@@ -28,7 +28,6 @@ public class EmbassyController : BuildingController {
     void Start()
     {
         changeFactionBtn = gameObject.GetComponent<EmbassyView>().embassyUI.transform.FindChild("ChangeFactionButton").GetComponent<Button>();
-       // receiveEnvoyBtn = gameObject.GetComponent<EmbassyView>().embassyUI.transform.FindChild("ReceiveEnvoyButton").GetComponent<Button>();
         changeFactionBtn.onClick.AddListener(() => gameObject.GetComponent<EmbassyView>().SelectFaction());
         
     }
@@ -44,7 +43,7 @@ public class EmbassyController : BuildingController {
         StartCoroutine(GetComponent<BuildingController>().IgnoreMouseDownSec());
         if (app.model.manager.embassyTut)
         {
-            EventSystem.OccurEvent("FirstEmbassyEvent");
+            EventSystem.OccurEvent("TutorialEmbassy");
             app.model.manager.embassyTut = false;
         }
 

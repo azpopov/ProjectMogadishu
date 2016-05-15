@@ -12,6 +12,18 @@ public class ResourceBuildingController : BuildingController {
         CheckProduction();
     }
 
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        StartCoroutine(GetComponent<BuildingController>().IgnoreMouseDownSec());
+        if (app.model.manager.productionTut)
+        {
+            EventSystem.OccurEvent("TutorialProduction");
+            app.model.manager.productionTut = false;
+        }
+
+    }
+
     protected override void OnMouseDown()
     {
         //If there are any stored resources

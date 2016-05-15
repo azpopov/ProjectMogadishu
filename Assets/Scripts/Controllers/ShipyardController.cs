@@ -29,13 +29,19 @@ public class ShipyardController : BuildingController {
 	public override void ProductionTick ()
 	{
 		CheckProduction ();
-	}
-
+	}   
     protected override void OnEnable()
     {
         base.OnEnable();
+        StartCoroutine(GetComponent<BuildingController>().IgnoreMouseDownSec());
+        if (app.model.manager.productionTut)
+        {
+            EventSystem.OccurEvent("TutorialShipyard");
+            app.model.manager.shipyardTut = false;
+        }
         app.model.manager.maxShips += 1;
         EventSystem.OccurEvent("NewShipPopUp");
+       
     }
 
     public void CreateShip(string _name)

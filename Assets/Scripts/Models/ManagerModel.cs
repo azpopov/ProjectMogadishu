@@ -10,7 +10,7 @@ public class ManagerModel : GameElement
 	public GameObject[] buildingPrefabs;
 
 	//Checks for Tutorial Info
-	public bool embassyTut = false;
+    public bool embassyTut, shipyardTut, productionTut, wealthTut;
 	
 	public static Dictionary<string, GameObject> buildingHashtable;
 	
@@ -26,7 +26,6 @@ public class ManagerModel : GameElement
         buildingCostsReferences.Add("shipyard", BuildingCosts.shipyard);
         buildingCostsReferences.Add("huntersLodge", BuildingCosts.huntersLodge);
         buildingCostsReferences.Add("farm", BuildingCosts.farm);
-		embassyTut = false;
 		buildingHashtable = new Dictionary<string, GameObject> ();
 		foreach (GameObject _object in buildingPrefabs) {
 			buildingHashtable [_object.name] = _object;

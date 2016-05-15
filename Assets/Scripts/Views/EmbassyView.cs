@@ -33,7 +33,7 @@ public class EmbassyView : BuildingView {
     void FixedUpdate()
     {
         if(GetComponent<EmbassyModel>().f.minDistance != 0){
-           influencePointsText.text = EmbassyModel.influenceBonuses[GetComponent<EmbassyModel>().f.name].ToString();
+           influencePointsText.text = EmbassyModel.influenceBonuses[GetComponent<EmbassyModel>().f.name].ToString() + "influence points";
            
         }
     }
@@ -42,6 +42,7 @@ public class EmbassyView : BuildingView {
     {
         instaceFactionSelectWindow = Instantiate(gameObject.GetComponent<EmbassyModel>().factionSelectWindowPrefab, new Vector3(0, 0), Quaternion.identity) as GameObject;
         instaceFactionSelectWindow.transform.SetParent(GameObject.Find("UI").transform, false);
+        instaceFactionSelectWindow.GetComponentInChildren<Button>().onClick.AddListener(() => Destroy(instaceFactionSelectWindow, 0.2f));
         foreach (Faction _f in Factions.current.factionList)
         {
             GameObject instance = Instantiate(gameObject.GetComponent<EmbassyModel>().factionElementPrefab, new Vector3(0, 0), Quaternion.identity) as GameObject;
@@ -58,5 +59,6 @@ public class EmbassyView : BuildingView {
     public void UpdateUI()
     {   
         embassyInsig.sprite = GetComponent<EmbassyModel>().f.insignia;
+        embassyInsig.color = new Color(255,255,255, 1);
     }
 }

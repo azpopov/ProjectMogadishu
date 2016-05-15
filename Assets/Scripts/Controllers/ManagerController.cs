@@ -94,19 +94,9 @@ public class ManagerController : GameElement
                 Faction f = ((Faction)p_data[0]);
                 
                 foreach (BuildingController building in app.controller.buildings)
-                {
-
                     if (building is EmbassyController)
-                    {
-                        Debug.Log(building.GetComponent<EmbassyModel>().f.name.Equals(f.name));
                         if (building.GetComponent<EmbassyModel>().f.name.Equals(f.name))
-                        {
-                            Debug.Log("Before: " + EmbassyModel.influenceBonuses[building.GetComponent<EmbassyModel>().f.name]);
                             (EmbassyModel.influenceBonuses[f.name]) = ((int)EmbassyModel.influenceBonuses[f.name]) + 1;
-                            Debug.Log("After: " + EmbassyModel.influenceBonuses[building.GetComponent<EmbassyModel>().f.name]);
-                        }
-                    }
-                }
                 return;
         }
     }

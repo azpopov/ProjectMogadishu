@@ -5,12 +5,7 @@ using UnityEngine.UI;
 public class TradeCompleteScript : CustomEvent {
 
     ShipyardModel.Ship ship;
-	public override void OnEnable ()
-	{
-		base.OnEnable ();
-        
-		
-	}
+
     void Start()
     {
         ship = (ShipyardModel.Ship)data[0];
