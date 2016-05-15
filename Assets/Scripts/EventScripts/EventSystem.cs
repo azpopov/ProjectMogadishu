@@ -4,14 +4,18 @@ using System.Collections.Generic;
 public class EventSystem : MonoBehaviour {
 
     public static int head = 0;
-
+    public static int headPriority = 0;
     static int MAX_PENDING = 10;
+    static int MAX_PENDING_PRIORITY = 5;
     public static int tail;
+    public static int tailPriority;
 
 
 
     static int[] pending = new int[MAX_PENDING];
     static object[][] pending_data = new object[MAX_PENDING][];
+    static int[] pending_priority = new int[MAX_PENDING_PRIORITY];
+    static object[][] pending_priority_data = new object[MAX_PENDING_PRIORITY][];
 	public static List<TradeMission> pendingMissions;
 
 	public static GameObject eventPresent;
@@ -25,6 +29,7 @@ public class EventSystem : MonoBehaviour {
 		pendingMissions = new List<TradeMission> ();
         eventPresent = null;
         tail = 0;
+        tailPriority = 0;
         eventDic = new Dictionary<string, int>();
 		int i = 0;
 		eventsLoaded = new GameObject[events.Length];
@@ -43,8 +48,16 @@ public class EventSystem : MonoBehaviour {
 	void Update () {
         if (eventPresent == null && head != tail)
         {
-			eventPresent = CreateEvent(pending[head], pending_data[head]);
-			head = (head + 1) % MAX_PENDING;
+            if (headPriority != tailPriority)
+            {
+                eventPresent = CreateEvent(pending_priority[headPriority], pending_priority_data[headPriority]);
+                headPriority = (headPriority + 1) % MAX_PENDING_PRIORITY;
+            }
+            else
+            {
+                eventPresent = CreateEvent(pending[head], pending_data[head]);
+                head = (head + 1) % MAX_PENDING;
+            }
         }
     }
 
@@ -59,13 +72,24 @@ public class EventSystem : MonoBehaviour {
     public static void OccurEvent(string eventName, params object[] p_data)
     {
         int eventID = eventDic[eventName];
-        OccurEvent(eventID, p_data);
+        if (eventName.Equals("ResultPrefab"))
+        {
+            OccurEvent(eventID,true, p_data );
+            return;
+        }
+        OccurEvent(eventID,false, p_data);
     }
 
-    static void OccurEvent(int eventID, params object[] p_data)
+    static void OccurEvent(int eventID,  bool priority, params object[] p_data)
     {
-//		for (int i = head; i != tail; i = (i + 1) % MAX_PENDING)
-//			if (pending[i] == eventID) return;
+        if (priority)
+        {
+            if (tailPriority >= MAX_PENDING_PRIORITY) return;
+            pending_priority[tailPriority] = eventID;
+            if (p_data != null) pending_priority_data[tailPriority] = p_data;
+            tailPriority = (tailPriority + 1) % MAX_PENDING_PRIORITY;
+            return;
+        }
        if (tail >= MAX_PENDING) return;
        pending[tail] = eventID;
        if (p_data != null) pending_data[tail] = p_data;

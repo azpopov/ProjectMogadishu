@@ -106,6 +106,7 @@ public class TradeMission : GameElement
         if (!ManagerModel.resourcesMain.CompareBundle(requestResource)) return;
         shipView.SetActive(true);
         shipyardWindow.SetActive(true);
+        app.view.manager.DestroyShipUIInstances();
         app.view.manager.ShipyardWindowPopulate(this);
     }
 
