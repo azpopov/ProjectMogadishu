@@ -4,7 +4,10 @@ using System.Collections;
 public class ResourceBuildingModel : BuildingModel {
 
     //Stores resources to be collected later up to a Maximum
-    public int storedResources = 0, maxResources = 500;
+    //public int storedResources = 0, maxResources = 500;
+
+    public ResourceBundle storedResources;
+    public static ResourceBundle maxResources;
 
     public bool resourcesMaxed = false;
     public int type;
@@ -12,23 +15,16 @@ public class ResourceBuildingModel : BuildingModel {
     // Use this for initialization
     void Start()
     {
+        storedResources = new ResourceBundle(0, 0, 0);
+        maxResources = new ResourceBundle(300, 200, 100);
         timeSinceTick = 0;
     }
 
 
     public void addResource()
     {
-        if (type == 0)
-        {
-            app.model.manager.addToResource(0, storedResources);
-
-        }
-        else if (type == 1)
-        {
-            app.model.manager.addToResource(1, storedResources);
-
-        }
-        storedResources = 0;
+        app.model.manager.addBundle(storedResources);
+        storedResources = new ResourceBundle(0, 0, 0);
         resourcesMaxed = false;
     }
 
@@ -38,6 +34,8 @@ public class ResourceBuildingModel : BuildingModel {
             return BuildingCosts.farm;
         else if (type == 1)
             return BuildingCosts.huntersLodge;
+        else if (type == 2)
+            return BuildingCosts.goldsmith;
         return null;
     }
 

@@ -35,7 +35,6 @@ public class TradeMission : GameElement
 	void Start ()
 	{
 		action = new UnityAction (CheckValidityOfSailing);
-		//action += Game.current.gameController.ShipAvailable; //Unsure
         
 		button = transform.Find ("SendTradeButton");
 		button.GetComponent<Button> ().onClick.AddListener (action);
@@ -97,7 +96,10 @@ public class TradeMission : GameElement
     {
 
         if (!app.controller.manager.ShipAvailable())
+        {
+            app.Notify(GameNotification.ErrorNoShipAvailable, app.controller.manager);
             return;
+        }
         if (!ManagerModel.resourcesMain.CompareBundle(requestResource)) return;
         shipView.SetActive(true);
         shipyardWindow.SetActive(true);

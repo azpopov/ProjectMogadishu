@@ -5,12 +5,16 @@ public class BuildingPlacer : GameElement {
 
 	bool validPlace = false;
 	Collider2D col;
+    Color green = new Color(0, 240, 0);
+    Color red = new Color(220, 0, 0);
+    SpriteRenderer rndSprite;
 	// Use this for initialization
 	void Start () {
 		//set UI aplha to visible
 		GameObject.Find ("Esc Text").GetComponent<CanvasGroup> ().alpha = 1;
 		//Get the Collider
 		col = GetComponent<Collider2D> ();
+        rndSprite = GetComponent<SpriteRenderer>();
 	}
 
     void OnEnable()
@@ -44,6 +48,10 @@ public class BuildingPlacer : GameElement {
 
 		}
 		}
+        if (validPlace)
+            rndSprite.color = green;
+        else
+            rndSprite.color = red;
 		//If able to place & valid location
 		if (validPlace && Input.GetMouseButtonDown(0)) {
 			//Destroy components
@@ -60,6 +68,7 @@ public class BuildingPlacer : GameElement {
 			{
                 GetComponent<BuildingController>().enabled = true;
 			}
+            rndSprite.color = new Color(255, 255, 255, 255);
 			Destroy(GetComponent<Rigidbody2D>());
 
 			Destroy(this);

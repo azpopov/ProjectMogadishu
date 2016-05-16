@@ -9,4 +9,5 @@ public static class BuildingCosts
     public static ResourceBundle embassy = new ResourceBundle(300, 200, 200);
     public static ResourceBundle shipyard = new ResourceBundle(300, 200, 0);
     public static ResourceBundle huntersLodge = new ResourceBundle(1000, 100, 0);
+    public static ResourceBundle goldsmith = new ResourceBundle(1000, 1000, 500);
 }

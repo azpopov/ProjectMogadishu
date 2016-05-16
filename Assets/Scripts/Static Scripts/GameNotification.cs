@@ -11,4 +11,7 @@ public static class GameNotification{
     public const string ResultResourceChange = "resource.change.result.screen";
     public const string AddResources = "manager.model.add.bundle";
     public const string EmbassyFactionInfluence = "embassy.model.faction.influence";
+    public const string ErrorShipAvailable = "shipyard.ship.themission.null";
+    public const string ErrorBuildingCapacityMax = "building.model.maxresources.true";
+    public const string ErrorNoShipAvailable = "sendship.noship.available";
 }

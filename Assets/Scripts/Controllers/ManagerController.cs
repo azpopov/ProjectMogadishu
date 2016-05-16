@@ -21,15 +21,14 @@ public class ManagerController : GameElement
 			if (building.GetType () == Type.GetType ("ResourceBuildingController")) {
                 if (building.GetComponent<ResourceBuildingModel>().resourcesMaxed)
                 {
-                    Debug.Log("ResourceCheck Failed");
-                    EventSystem.OccurEvent("CapacityErrorPanel");
+                    app.Notify(GameNotification.ErrorBuildingCapacityMax, app.controller.manager, building.GetType());
                     return false;
                 }
 			}
 		}
 		//Add building costs
 		if (ShipAvailable()) {
-			EventSystem.OccurEvent ("ShipErrorPanel");
+            app.Notify(GameNotification.ErrorShipAvailable, app.controller.manager);
 			return false;
 		}
 		return true;
@@ -39,12 +38,13 @@ public class ManagerController : GameElement
 	{
 		if (!NextTurnCheck ())
 			return;
-		IncrementProductionTicks ();
+        NextTurnForce();
 	}
 	
 	public void NextTurnForce ()
 	{
 		IncrementProductionTicks ();
+        Factions.timeToNewMission--;
 	}
 	public void StartBuilding (string _building)
 	{
@@ -98,6 +98,17 @@ public class ManagerController : GameElement
                         if (building.GetComponent<EmbassyModel>().f.name.Equals(f.name))
                             (EmbassyModel.influenceBonuses[f.name]) = ((int)EmbassyModel.influenceBonuses[f.name]) + 1;
                 return;
+            case GameNotification.ErrorBuildingCapacityMax:
+                EventSystem.OccurEvent("ErrorCapacityBuilding", p_data);
+                return;
+            case GameNotification.ErrorNoShipAvailable:
+                EventSystem.OccurEvent("ErrorNoAvailableShip");
+                return;
+
+            case GameNotification.ErrorShipAvailable:
+                EventSystem.OccurEvent("ErrorShipAvailable");
+                return;
+
         }
     }
 

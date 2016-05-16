@@ -27,7 +27,7 @@ public class ResourceBuildingController : BuildingController {
     protected override void OnMouseDown()
     {
         //If there are any stored resources
-        if (gameObject.GetComponent<ResourceBuildingModel>().storedResources != 0)
+        if (gameObject.GetComponent<ResourceBuildingModel>().storedResources.ReturnMax() != 0)
             app.Notify(GameNotification.ResourcePickup, this, this);
     }
 
@@ -55,21 +55,29 @@ public class ResourceBuildingController : BuildingController {
 
     void Produce()
     {
-        if (gameObject.GetComponent<ResourceBuildingModel>().storedResources > gameObject.GetComponent<ResourceBuildingModel>().maxResources)
+        if (!ResourceBuildingModel.maxResources.CompareBundle(gameObject.GetComponent<ResourceBuildingModel>().storedResources))
         {
             gameObject.GetComponent<ResourceBuildingModel>().resourcesMaxed = true;
             return;
-
         }
-        if ( gameObject.GetComponent<ResourceBuildingModel>().type == 0)
+        if (gameObject.GetComponent<ResourceBuildingModel>().type == 0)
         {
-            gameObject.GetComponent<ResourceBuildingModel>().storedResources += Random.Range(50, 200);
-
+            gameObject.GetComponent<ResourceBuildingModel>().storedResources += new ResourceBundle(0,Random.Range(50, 100));
         }
         else if ( gameObject.GetComponent<ResourceBuildingModel>().type == 1)
         {
-            gameObject.GetComponent<ResourceBuildingModel>().storedResources += Random.Range(12, 50);
+            gameObject.GetComponent<ResourceBuildingModel>().storedResources += new ResourceBundle(1, Random.Range(25, 75));
 
+        }
+        else if (gameObject.GetComponent<ResourceBuildingModel>().type == 2)
+        {
+            if (gameObject.GetComponent<ResourceBuildingModel>().storedResources.CompareBundle(new ResourceBundle(10, 10, 0)))
+            {
+                gameObject.GetComponent<ResourceBuildingModel>().storedResources -= new ResourceBundle(10, 10, 0);
+                gameObject.GetComponent<ResourceBuildingModel>().storedResources += new ResourceBundle(2, Random.Range(10, 50));
+            }
+            else
+                return;
         }
         gameObject.GetComponent<ResourceBuildingView>().SetGlowSprite();
 
@@ -89,7 +97,7 @@ public class ResourceBuildingController : BuildingController {
                 floatText.transform.parent = transform;
 
                 //Set the string for the floating text
-                floatText.GetComponentInChildren<FloatText>().setFloatText(GetComponent<ResourceBuildingModel>().storedResources.ToString());
+                floatText.GetComponentInChildren<FloatText>().setFloatText(GetComponent<ResourceBuildingModel>().storedResources.ReturnMax().ToString());
 
                 //Enable the script
                 floatText.GetComponent<FloatText>().enabled = true;

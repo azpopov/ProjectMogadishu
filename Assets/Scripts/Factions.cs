@@ -14,7 +14,11 @@ public class Factions : GameElement
 	static System.Random rndGen = new System.Random();
 	public List<Faction> factionList = new List<Faction>();
     private List<Faction> factionListUndiscovered = new List<Faction>();
-	float refreshTimer = 5f;
+
+    static int defaultNewMissionTime = 5;
+    public static int timeToNewMission;
+
+    Text newMissionTime;
     void Awake() {
         var _object = GameObject.Find("UI").GetComponentsInChildren(typeof(Transform), true);
         foreach (Component lookUp in _object)
@@ -24,6 +28,9 @@ public class Factions : GameElement
                 tradeWindow = lookUp.gameObject;
                 var shipView = tradeWindow.transform.parent.gameObject;
                 GameObject.Find("MaxShips").GetComponent<Button>().onClick.AddListener(() => shipView.SetActive(!shipView.activeSelf));
+                foreach (Transform child in lookUp.transform)
+                    if (child.name.Equals("NewMissionTime"))
+                        newMissionTime = child.GetComponent<Text>();
                 return;
             }
 
@@ -52,30 +59,25 @@ public class Factions : GameElement
 		{
 			CreateTradeRoute ();
 		}
-
+        timeToNewMission = defaultNewMissionTime;
 
 	}
 
 
 	// Update is called once per frame
-	void Update ()
+	void FixedUpdate ()
 	{
-		refreshTimer -= Time.deltaTime;
-		if (refreshTimer < float.Epsilon) {
-			refreshTimer = 20f + UnityEngine.Random.Range (-10f, +10f);
-			for(int i = tradeMissions.Count; i < 5; i++)
-			{
-				CreateTradeRoute ();
-			}
-		}
-
+        if (timeToNewMission <= 0)
+            CreateTradeRoute();
+        newMissionTime.text = timeToNewMission.ToString();
 
 	}
 
 
-
-	GameObject CreateTradeRoute ()
+	public GameObject CreateTradeRoute ()
 	{
+        if (tradeMissions.Count > 12)
+            return null;
 		int rndFaction = rndGen.Next(factionList.Count);
 		GameObject instance = (GameObject)Instantiate (tradePrefab, new Vector3 (0, 0), Quaternion.identity);
 		instance.transform.SetParent (tradeWindow.transform, false);
@@ -85,8 +87,9 @@ public class Factions : GameElement
 		                                                            factionList[rndFaction].maxDistance);
         tradeMissionScript.requestResource = GetRandomTrueResourceRequest(factionList[rndFaction]);
         tradeMissionScript.targetResource = GetRandomTrueResourceRequest(factionList[rndFaction]);
-		tradeMissionScript.f = factionList[rndFaction]; //!!!
+		tradeMissionScript.f = factionList[rndFaction]; 
 		tradeMissions.Add (tradeMissionScript);
+        timeToNewMission = defaultNewMissionTime;
 		return instance;
 	}
 	ResourceBundle GetRandomTrueResourceRequest(Faction _f)

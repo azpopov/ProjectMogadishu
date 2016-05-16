@@ -26,6 +26,7 @@ public class ManagerModel : GameElement
         buildingCostsReferences.Add("shipyard", BuildingCosts.shipyard);
         buildingCostsReferences.Add("huntersLodge", BuildingCosts.huntersLodge);
         buildingCostsReferences.Add("farm", BuildingCosts.farm);
+        buildingCostsReferences.Add("goldsmith", BuildingCosts.goldsmith);
 		buildingHashtable = new Dictionary<string, GameObject> ();
 		foreach (GameObject _object in buildingPrefabs) {
 			buildingHashtable [_object.name] = _object;
