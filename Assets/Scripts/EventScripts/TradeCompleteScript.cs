@@ -78,7 +78,7 @@ public class TradeCompleteScript : CustomEvent {
 	public override void OnDisable ()
 	{
 		Factions.current.RemoveTradeMission (this.ship.theMission);
-        Destroy(ship.theMission.gameObject);
+        app.model.manager.currentShips--;
 		base.OnDisable ();
 
 	}

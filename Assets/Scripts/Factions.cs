@@ -158,8 +158,8 @@ public class Factions : GameElement
 
 	public void RemoveTradeMission(TradeMission _removedTrader)
 	{
+        Destroy(_removedTrader.gameObject);
 		tradeMissions.Remove (_removedTrader);
-		app.model.manager.currentShips--;
 	}
 
 	public TradeMission[] GetTradeMissionList()

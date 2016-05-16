@@ -53,26 +53,7 @@ public class ManagerController : GameElement
 	{
 		app.model.manager.CancelBuild ();
         ResourceBundle buildCost = app.model.manager.buildingCostsReferences[_building] as ResourceBundle;
-        if (!ManagerModel.resourcesMain.CompareBundle(buildCost))
-        {
-            switch(_building)
-            {
-                case "farm":
-                    if (app.model.manager.productionTut)
-                        break;
-                    return;
-                case "embassy":
-                    if (app.model.manager.embassyTut)
-                        break;
-                    return;
-                case "shipyard":
-                    if (app.model.manager.shipyardTut)
-                        break;
-                    return;
-                default:
-                    return;
-            }
-        }
+        if (!ManagerModel.resourcesMain.CompareBundle(buildCost)) return;
 		Vector3 currentMousePosition = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 		currentMousePosition.z = 0;
 		GameObject instance = (GameObject)Instantiate (ManagerModel.buildingHashtable [_building] as UnityEngine.Object, currentMousePosition, Quaternion.identity);

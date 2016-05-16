@@ -39,7 +39,7 @@ public class TradeMission : GameElement
         
 		button = transform.Find ("SendTradeButton");
 		button.GetComponent<Button> ().onClick.AddListener (action);
-		
+        transform.Find("CancelMissionButton").GetComponent<Button>().onClick.AddListener(() => Factions.current.RemoveTradeMission(this));
 		insigiaComp = transform.Find ("FactionInsignia").GetComponent<Image> ();
 
 		insigiaComp.sprite = insignia;
@@ -61,9 +61,6 @@ public class TradeMission : GameElement
 	{
 		if (sailing) {
 			timeToDest -= n;
-			if (timeToDest < 0f) {
-				
-			}
 		}
 	}
 
