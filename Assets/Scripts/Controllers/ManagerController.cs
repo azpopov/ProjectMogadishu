@@ -28,6 +28,8 @@ public class ManagerController : GameElement
 		}
 		//Add building costs
 		if (ShipAvailable()) {
+            if(!ManagerModel.resourcesMain.CompareBundle(new ResourceBundle(400,300,100)))
+                  return true;
             app.Notify(GameNotification.ErrorShipAvailable, app.controller.manager);
 			return false;
 		}
@@ -43,6 +45,7 @@ public class ManagerController : GameElement
 	
 	public void NextTurnForce ()
 	{
+        ManagerModel.currentTurn++;
 		IncrementProductionTicks ();
         Factions.timeToNewMission--;
 	}
@@ -50,7 +53,26 @@ public class ManagerController : GameElement
 	{
 		app.model.manager.CancelBuild ();
         ResourceBundle buildCost = app.model.manager.buildingCostsReferences[_building] as ResourceBundle;
-		if (!ManagerModel.resourcesMain.CompareBundle(buildCost)) return;// check to make sure build costs satisfy
+        if (!ManagerModel.resourcesMain.CompareBundle(buildCost))
+        {
+            switch(_building)
+            {
+                case "farm":
+                    if (app.model.manager.productionTut)
+                        break;
+                    return;
+                case "embassy":
+                    if (app.model.manager.embassyTut)
+                        break;
+                    return;
+                case "shipyard":
+                    if (app.model.manager.shipyardTut)
+                        break;
+                    return;
+                default:
+                    return;
+            }
+        }
 		Vector3 currentMousePosition = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 		currentMousePosition.z = 0;
 		GameObject instance = (GameObject)Instantiate (ManagerModel.buildingHashtable [_building] as UnityEngine.Object, currentMousePosition, Quaternion.identity);

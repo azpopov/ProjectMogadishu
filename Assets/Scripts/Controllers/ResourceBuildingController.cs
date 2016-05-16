@@ -20,6 +20,7 @@ public class ResourceBuildingController : BuildingController {
         {
             EventSystem.OccurEvent("TutorialProduction");
             app.model.manager.productionTut = false;
+            app.model.manager.addBundle(BuildingCosts.farm);
         }
 
     }
@@ -71,10 +72,10 @@ public class ResourceBuildingController : BuildingController {
         }
         else if (gameObject.GetComponent<ResourceBuildingModel>().type == 2)
         {
-            if (gameObject.GetComponent<ResourceBuildingModel>().storedResources.CompareBundle(new ResourceBundle(10, 10, 0)))
+            if (ManagerModel.resourcesMain.CompareBundle(new ResourceBundle(10, 10, 0)))
             {
-                gameObject.GetComponent<ResourceBuildingModel>().storedResources -= new ResourceBundle(10, 10, 0);
-                gameObject.GetComponent<ResourceBuildingModel>().storedResources += new ResourceBundle(2, Random.Range(10, 50));
+                app.model.manager.addBundle(new ResourceBundle(10, 10, 0));
+                gameObject.GetComponent<ResourceBuildingModel>().storedResources += new ResourceBundle(2, Random.Range(10, 20));
             }
             else
                 return;

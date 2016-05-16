@@ -28,7 +28,7 @@ public class TradeCompleteScript : CustomEvent {
             amountReceived = (float)SuccessfulJourney();
 		} else {
             result = "Incredible Trading";
-            amountReceived = (float)SuccessfulJourney() * 1.5f;
+            amountReceived = (float)SuccessfulJourney() * 1.4f;
 		}
         foreach (Transform child in transform)
         {
@@ -43,38 +43,36 @@ public class TradeCompleteScript : CustomEvent {
                 customText = customText.Replace("[amountrequest]", ship.theMission.requestResource.ReturnMax().ToString());
                 customText = customText.Replace("[amountreceive]", amountReceived.ToString());
                 customText = customText.Replace("[requesttype]", ship.theMission.requestResource.ReturnStringofMax().ToString());
-                customText = customText.Replace("[targettype]", ship.theMission.targetResource.ReturnStringofMax().ToString());
+                customText = customText.Replace("[targettype]", ResourceBundle.TypePluralToString(ship.theMission.targetResource));
                 child.GetComponent<Text>().text = customText;
             }
         }
         app.Notify(GameNotification.EmbassyFactionInfluence, app.controller.manager, ship.theMission.f);
-        app.model.manager.addBundle (new ResourceBundle(ship.theMission.targetResource.ReturnTypeofMax(), (int)amountReceived));
+        app.model.manager.addBundle (new ResourceBundle(ship.theMission.targetResource, (int)amountReceived));
 
 	}
 	int SuccessfulJourney()
 	{
-        float amountReturned = (float)ship.theMission.targetResource.ReturnMax();
-		amountReturned *= ship.theMission.f.tradeBias;
-		
-		if (ship.theMission.requestResource.ReturnTypeofMax() == 0
-            && ship.theMission.targetResource.ReturnTypeofMax() == 1) {
-			amountReturned /= 2f;
-		} else if (ship.theMission.requestResource.ReturnTypeofMax() == 0 
-            && ship.theMission.targetResource.ReturnTypeofMax() == 2) {
-			amountReturned /= 6f;
-		} else if (ship.theMission.requestResource.ReturnTypeofMax() == 1
-            && ship.theMission.targetResource.ReturnTypeofMax() == 2)
+        float amountReturned = (float)ship.theMission.requestResource.ReturnMax();
+        switch(ship.theMission.requestResource.ReturnTypeofMax())
         {
-			amountReturned *= 0.6f;
-		} else if (ship.theMission.requestResource.ReturnTypeofMax() == 1
-            && ship.theMission.targetResource.ReturnTypeofMax() == 0)
-        {
-			amountReturned *= 2.2f;
+            case 1:
+                amountReturned *= 1.5f;
+                break;
+            case 2:
+                amountReturned *= 5f;
+                break;
         }
-        else if (ship.theMission.requestResource.ReturnTypeofMax() == 
-            ship.theMission.targetResource.ReturnTypeofMax())
-			amountReturned *= 1.7f;
-		
+        amountReturned *= 1.5f;
+        switch (ship.theMission.targetResource)
+        {
+            case 1:
+                amountReturned *= 0.66f;
+                break;
+            case 2:
+                amountReturned *= 0.2f;
+                break;
+        }
 		return (int)amountReturned;
 	}
 	public override void OnDisable ()

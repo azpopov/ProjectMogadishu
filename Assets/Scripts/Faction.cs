@@ -15,16 +15,17 @@ public struct Faction
 	public float tradeBias;
 	public Sprite insignia;
 	public string name;
-	public bool[] tradeResourceTypes;
+	public bool[] tradeResourceTypes, tradeForTypes;
 	public int minDistance, maxDistance;
 	//public GameObject[] customEvent;
-	public Faction(string _name, float _tradeBias, bool[] _tradeResourceTypes, int _minDistance, int _maxDistance)
+	public Faction(string _name, float _tradeBias, bool[] _tradeResourceTypes,bool[] _tradeForTypes, int _minDistance, int _maxDistance)
 	{
 		tradeBias = _tradeBias;
 		insignia = Resources.Load("Insignias/"+_name+"_Insignia", typeof(Sprite)) as Sprite;
 		//insignia = Factions.current.insignias [0];
 		name = _name;
 		tradeResourceTypes = _tradeResourceTypes;
+        tradeForTypes = _tradeForTypes;
 		minDistance = _minDistance;
 		maxDistance = _maxDistance;
 	}

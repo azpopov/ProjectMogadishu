@@ -8,7 +8,10 @@ public class BuildingController : GameElement
     public virtual void ProductionTick()
     {
     }
-
+    public virtual bool TutorialStatus()
+    {
+        return false;
+    }
     protected virtual void OnMouseDown()
     {
     }

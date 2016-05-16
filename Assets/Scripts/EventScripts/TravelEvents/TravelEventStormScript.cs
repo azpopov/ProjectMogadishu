@@ -19,7 +19,7 @@ public class TravelEventStormScript : CustomEvent {
                 customText = customText.Replace("[percent]", (rndRandom * 10).ToString());
                 child.GetComponent<Text>().text = customText;
             }
-        ship.theMission.targetResource *= (1 - (((float)rndRandom) / 10));
+        ship.theMission.requestResource *= (1 - (((float)rndRandom) / 10));
 	}
 
 }

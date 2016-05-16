@@ -8,7 +8,8 @@ public class TradeMission : GameElement
 {
 
 	public float timeToDest, originalTime;
-    public ResourceBundle requestResource, targetResource;
+    public ResourceBundle requestResource;
+    public int targetResource;
 	public Sprite insignia;
 	Image insigiaComp;
 	Transform button;
@@ -45,7 +46,7 @@ public class TradeMission : GameElement
 		destText = transform.Find ("TripLength").GetComponent<Text> ();
         transform.Find("ResourcesRequested").Find("ResourceText").GetComponent<Text>().text = requestResource.ReturnMax().ToString();
 		transform.Find ("ResourcesRequested").Find ("ResourceImage").GetComponent<Image> ().sprite = app.view.manager.resourceSprites [requestResource.ReturnTypeofMax()];
-		transform.Find ("ResourcesRequested").Find ("TargetResourceImage").GetComponent<Image> ().sprite = app.view.manager.resourceSprites [targetResource.ReturnTypeofMax()];
+		transform.Find ("ResourcesRequested").Find ("TargetResourceImage").GetComponent<Image> ().sprite = app.view.manager.resourceSprites [targetResource];
 		timeToDest = originalTime;
 
 		destText.text = "Est Trip Length: " + Math.Round (timeToDest).ToString () + " Turns";

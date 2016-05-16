@@ -37,23 +37,21 @@ public class TravelEventPiratesScript : CustomEvent
 
     void ChoiceGuarantee()
     {
-        finalBundle = ship.theMission.targetResource * 0.75f;
-        ship.theMission.requestResource *= 0.75f;
-        changeBundle = finalBundle - ship.theMission.targetResource;
+        finalBundle = ship.theMission.requestResource * 0.75f;
+        changeBundle = finalBundle - ship.theMission.requestResource;
         app.Notify(GameNotification.ResultResourceChange, app.controller.manager, changeBundle, false); 
-        ship.theMission.targetResource = finalBundle;
+        ship.theMission.requestResource = finalBundle;
     }
 
     void ChoiceRisk()
     {
-        finalBundle = ship.theMission.targetResource * 0.25f;
-        changeBundle = finalBundle - ship.theMission.targetResource;
+        finalBundle = ship.theMission.requestResource * 0.25f;
+        changeBundle = finalBundle - ship.theMission.requestResource;
         int riskRandom = Random.Range(0, 5);
         Debug.Log(riskRandom.ToString());
         if (riskRandom == 4)
         {
-            ship.theMission.targetResource = finalBundle;
-            ship.theMission.requestResource *= 0.25f;
+            ship.theMission.requestResource = finalBundle;
             app.Notify(GameNotification.ResultResourceChange, app.controller.manager, changeBundle, false);
 
         }

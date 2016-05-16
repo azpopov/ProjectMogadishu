@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class AppLoader : MonoBehaviour {
 
     public void LoadNewGame()
     {
-        Application.LoadLevel("Main Map Scene");
+        SceneManager.LoadScene("Main Map Scene");
     }
 }

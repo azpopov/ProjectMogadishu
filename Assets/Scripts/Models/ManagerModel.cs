@@ -10,15 +10,17 @@ public class ManagerModel : GameElement
 	public GameObject[] buildingPrefabs;
 
 	//Checks for Tutorial Info
-    public bool embassyTut, shipyardTut, productionTut, wealthTut;
+    public bool embassyTut, shipyardTut, productionTut;
 	
 	public static Dictionary<string, GameObject> buildingHashtable;
 	
 	//List of current Buildings
-	public static ResourceBundle resourcesMain = new ResourceBundle(1000, 1000, 1000);
+	public static ResourceBundle resourcesMain = new ResourceBundle(0, 000, 000);
     public int currentShips;
     public int maxShips;
     public Dictionary<string, ResourceBundle> buildingCostsReferences;
+
+    public static int currentTurn = 0;
 
 	void Awake()
 	{

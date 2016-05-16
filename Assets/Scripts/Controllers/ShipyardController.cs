@@ -18,6 +18,7 @@ public class ShipyardController : BuildingController {
                 {
                     EventSystem.OccurEvent("TradeComplete", _ship);
                     _ship.theMission.CancelSailing();
+                    return;
                 }
                 if (Random.Range(0, 10) < 3 && GetComponent<ShipyardModel>().eventShip == null)
                 {
@@ -40,6 +41,7 @@ public class ShipyardController : BuildingController {
         {
             EventSystem.OccurEvent("TutorialShipyard");
             app.model.manager.shipyardTut = false;
+            app.model.manager.addBundle(BuildingCosts.shipyard);
         }
         app.model.manager.maxShips += 1;
         EventSystem.OccurEvent("NewShipPopUp");
@@ -73,7 +75,7 @@ public class ShipyardController : BuildingController {
                 GetComponent<ShipyardView>().CreateShipUI(p_data[0] as TradeMission);
                 return;
             case GameNotification.ShipTravelEvent:
-                string eventName = EventSystem.RandomTravelEvent();
+                string eventName = EventSystem.RandomTravelEvent("TravelEvent");
                 if (eventName.Equals("none loaded")) return;
                 EventSystem.OccurEvent(eventName, p_data);
                 return;

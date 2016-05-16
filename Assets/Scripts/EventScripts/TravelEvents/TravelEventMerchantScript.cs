@@ -27,7 +27,7 @@ public class TravelEventMerchantScript : CustomEvent {
         float rndModifier = Random.Range(0.2f, 3f);
         int rndType = Random.Range(0, 3);
 
-        changeBundle = new ResourceBundle(rndType, (int)(ship.theMission.targetResource.ReturnMax() * rndModifier));
+        changeBundle = new ResourceBundle(rndType, (int)(ship.theMission.targetResource * rndModifier));
 
 
         foreach (Transform child in transform)
@@ -38,19 +38,20 @@ public class TravelEventMerchantScript : CustomEvent {
                 customText = customText.Replace("[shipname]", ship.name);
                 customText = customText.Replace("[amount]", changeBundle.ReturnMax().ToString());
                 customText = customText.Replace("[type]", changeBundle.ReturnStringofMax());
+                customText = customText.Replace("[amountcargo]", ship.theMission.requestResource.ReturnMax().ToString());
+                customText = customText.Replace("[typecargo]", ship.theMission.requestResource.ReturnStringofMax());
                 child.GetComponent<Text>().text = customText;
             }
     }
 
     void ChoiceGuarantee()
     {
-
+        
     }
 
     void ChoiceRisk()
     {
         app.Notify(GameNotification.AddResources, app.controller.manager, changeBundle, true);
-        ship.theMission.targetResource *= 0.5f;
         ship.theMission.requestResource *= 0.5f;
     }
 }

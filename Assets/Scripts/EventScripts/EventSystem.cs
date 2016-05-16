@@ -94,13 +94,13 @@ public class EventSystem : MonoBehaviour {
 		tail = (tail + 1) % MAX_PENDING;
     }
 
-    public static string RandomTravelEvent()
+    public static string RandomTravelEvent(string eventName)
     {
         int i = 0;
         while (i < 1000)
         {
             int rndNum = Random.Range(0, eventsLoaded.Length);
-            if (eventsLoaded[rndNum].name.Contains("TravelEvent")) return eventsLoaded[rndNum].name;
+            if (eventsLoaded[rndNum].name.Contains(eventName)) return eventsLoaded[rndNum].name;
             i++;
         }
         return "none loaded";

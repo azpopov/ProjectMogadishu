@@ -45,16 +45,16 @@ public class Factions : GameElement
 			current = this;
 		else
 			Destroy (this);
-		factionList.Add (new Faction ("The Celestial Empire", 1.9f, new bool[]{false, true, true}, 4, 10));
-		factionList.Add (new Faction ("Oman", 0.6f, new bool[]{true, false, true}, 1, 5));
-        factionList.Add (new Faction ("Bengal", 1.0f, new bool[]{true, true, false}, 3, 6));
-        factionList.Add(new Faction("Ceylon", 0.8f, new bool[] { true, false, true }, 2, 5));
-        factionList.Add(new Faction("Chola", 0.7f, new bool[] { true, true, false }, 3, 5));
-        factionList.Add(new Faction("Khmer", 1.0f, new bool[] { false, true, true }, 4, 8));
-        factionList.Add(new Faction("Seljuk Empire", 1.0f, new bool[] { true, true, true }, 2, 6));
-        factionList.Add(new Faction("Srivijaya Empire", 1.1f, new bool[] { false, false, true }, 4, 8));
-        factionListUndiscovered.Add(new Faction("Champa", 1.4f, new bool[] { true, true, false }, 4, 9));
-        factionListUndiscovered.Add(new Faction("Gujarat", 1.1f, new bool[] { false, true, true }, 2,5));
+		factionList.Add (new Faction ("The Celestial Empire", 2f, new bool[]{true, true, true}, new bool[]{false, true, true}, 4, 10));
+        factionList.Add(new Faction("Oman", 1f, new bool[] { true, false, false }, new bool[] { true, true, false }, 1, 5));
+        factionList.Add(new Faction("Bengal", 1.2f, new bool[] { true, false, false }, new bool[] { false, true, true }, 3, 6));
+        factionList.Add(new Faction("Ceylon", 1f, new bool[] { true, false, false }, new bool[] { true, true, false }, 2, 5));
+        factionList.Add(new Faction("Chola", 1.1f, new bool[] { true, true, false }, new bool[] { true, true, false }, 3, 5));
+        factionList.Add(new Faction("Khmer", 1.6f, new bool[] { true, false, false }, new bool[] { false, true, true }, 4, 8));
+        factionList.Add(new Faction("Seljuk Empire", 1f, new bool[] { false, true, false }, new bool[] { false, true, true }, 2, 6));
+        factionList.Add(new Faction("Srivijaya Empire", 1.5f, new bool[] { false, false, true }, new bool[] { true, true, false }, 4, 8));
+        factionListUndiscovered.Add(new Faction("Champa", 1.6f, new bool[] { false, true, false }, new bool[] { true, true, true }, 4, 9));
+        factionListUndiscovered.Add(new Faction("Gujarat", 1.3f, new bool[] { true, true, false }, new bool[] { true, true, true }, 2, 5));
 		for (int i = 0; i < 5; i++) 
 		{
 			CreateTradeRoute ();
@@ -78,6 +78,7 @@ public class Factions : GameElement
 	{
         if (tradeMissions.Count > 12)
             return null;
+        
 		int rndFaction = rndGen.Next(factionList.Count);
 		GameObject instance = (GameObject)Instantiate (tradePrefab, new Vector3 (0, 0), Quaternion.identity);
 		instance.transform.SetParent (tradeWindow.transform, false);
@@ -86,7 +87,7 @@ public class Factions : GameElement
 		tradeMissionScript.originalTime = UnityEngine.Random.Range (factionList[rndFaction].minDistance, 
 		                                                            factionList[rndFaction].maxDistance);
         tradeMissionScript.requestResource = GetRandomTrueResourceRequest(factionList[rndFaction]);
-        tradeMissionScript.targetResource = GetRandomTrueResourceRequest(factionList[rndFaction]);
+        tradeMissionScript.targetResource = getRandomTrueResource(factionList[rndFaction]);
 		tradeMissionScript.f = factionList[rndFaction]; 
 		tradeMissions.Add (tradeMissionScript);
         timeToNewMission = defaultNewMissionTime;
@@ -101,12 +102,13 @@ public class Factions : GameElement
             if (_f.tradeResourceTypes[rndType])
                 break;
         }
+        
         int baseValue = 0;
 
         switch (rndType)
         { 
             case 0:
-                baseValue = UnityEngine.Random.Range(300, 600);
+                baseValue = UnityEngine.Random.Range(200, 800);
                 baseValue = (int)((float)baseValue * _f.tradeBias);
                 return new ResourceBundle("Commodity", baseValue);
             case 1:
@@ -121,7 +123,17 @@ public class Factions : GameElement
                 return null;
         }
 	}
-
+    int getRandomTrueResource(Faction _f)
+    {
+        int rndType;
+        while (true)
+        {
+            rndType = rndGen.Next(_f.tradeForTypes.Length);
+            if (_f.tradeForTypes[rndType])
+                return rndType;
+        }
+       
+    }
 
 	static T GetRandomEnum<T> ()
 	{
