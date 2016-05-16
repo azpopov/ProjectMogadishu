@@ -6,6 +6,7 @@ public class ShipyardController : BuildingController {
 
 	Button newShipPopUpButton;
     public GameObject newShipPopUpPrefab;
+
     protected override void CheckProduction()
     {
         foreach (ShipyardModel.Ship _ship in gameObject.GetComponent<ShipyardModel>().shipsInShipyard)
@@ -13,15 +14,16 @@ public class ShipyardController : BuildingController {
             if (_ship.theMission != null)
             {
                 _ship.theMission.SailTick(1);
-                if (_ship.theMission.timeToDest < 0f)
+                if (_ship.theMission.timeToDest <= 0f)
                 {
                     EventSystem.OccurEvent("TradeComplete", _ship);
                     _ship.theMission.CancelSailing();
                 }
-                if (Random.Range(0, 10) < 3)
-                    GenerateEvent(_ship);
-
-
+                if (Random.Range(0, 10) < 3 && GetComponent<ShipyardModel>().eventShip == null)
+                {
+                    GetComponent<ShipyardModel>().eventShip = _ship;
+                    GetComponent<ShipyardView>().SetGlowSprite();
+                }
             }
         }
     }
@@ -50,12 +52,17 @@ public class ShipyardController : BuildingController {
         GetComponent<ShipyardModel>().shipsInShipyard.Add(_ship);
     }
 
+    protected override void OnMouseDown()
+    {
+        if (GetComponent<ShipyardModel>().eventShip != null)
+        {
+            ShipyardModel.Ship newShip = GetComponent<ShipyardModel>().eventShip;
+            app.Notify(GameNotification.ShipTravelEvent, this, newShip);
+            GetComponent<ShipyardView>().SetDefaultSprite();
+            GetComponent<ShipyardModel>().eventShip = null;
+        }
+    }
 
-	void GenerateEvent (ShipyardModel.Ship _ship)
-	{
-        app.Notify(GameNotification.ShipTravelEvent, this, _ship);
-
-	}
     public override void OnNotification(string p_event_path, object p_target, params object[] p_data)
     {
         base.OnNotification(p_event_path, p_target, p_data);
@@ -79,8 +86,4 @@ public class ShipyardController : BuildingController {
         }
     }
    
-	protected override void OnMouseDown ()
-	{
-
-	}
 }

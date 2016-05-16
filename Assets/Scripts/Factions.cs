@@ -46,14 +46,14 @@ public class Factions : GameElement
 		else
 			Destroy (this);
 		factionList.Add (new Faction ("The Celestial Empire", 1.9f, new bool[]{false, true, true}, 4, 10));
-		factionList.Add (new Faction ("Oman", 0.6f, new bool[]{true, true, true}, 2, 5));
-        factionList.Add (new Faction ("Bengal", 1.0f, new bool[]{true, true, true}, 3, 6));
+		factionList.Add (new Faction ("Oman", 0.6f, new bool[]{true, false, true}, 1, 5));
+        factionList.Add (new Faction ("Bengal", 1.0f, new bool[]{true, true, false}, 3, 6));
         factionList.Add(new Faction("Ceylon", 0.8f, new bool[] { true, false, true }, 2, 5));
         factionList.Add(new Faction("Chola", 0.7f, new bool[] { true, true, false }, 3, 5));
         factionList.Add(new Faction("Khmer", 1.0f, new bool[] { false, true, true }, 4, 8));
         factionList.Add(new Faction("Seljuk Empire", 1.0f, new bool[] { true, true, true }, 2, 6));
         factionList.Add(new Faction("Srivijaya Empire", 1.1f, new bool[] { false, false, true }, 4, 8));
-        factionListUndiscovered.Add(new Faction("Champa", 1.4f, new bool[] { true, true, true }, 4, 9));
+        factionListUndiscovered.Add(new Faction("Champa", 1.4f, new bool[] { true, true, false }, 4, 9));
         factionListUndiscovered.Add(new Faction("Gujarat", 1.1f, new bool[] { false, true, true }, 2,5));
 		for (int i = 0; i < 5; i++) 
 		{

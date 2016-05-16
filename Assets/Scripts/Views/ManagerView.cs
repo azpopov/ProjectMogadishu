@@ -22,6 +22,12 @@ public class ManagerView : GameElement
 
 	}
 
+    public void FindNewTradeRoute()
+    {
+        app.model.manager.addToResource(0, -100);
+        Factions.current.CreateTradeRoute();
+    }
+
 	void Update()
 	{
 		if (Input.GetKeyDown(KeyCode.Escape))

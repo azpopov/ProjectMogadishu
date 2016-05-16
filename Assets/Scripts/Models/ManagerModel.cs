@@ -19,6 +19,7 @@ public class ManagerModel : GameElement
     public int currentShips;
     public int maxShips;
     public Dictionary<string, ResourceBundle> buildingCostsReferences;
+
 	void Awake()
 	{
         buildingCostsReferences = new Dictionary<string, ResourceBundle>();

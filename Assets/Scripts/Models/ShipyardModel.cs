@@ -4,6 +4,7 @@ using System.Collections;
 
 public class ShipyardModel : BuildingModel {
     public string shipList;
+    public ShipyardModel.Ship eventShip;
 	public class Ship
 	{
 		public Ship (string _name)
@@ -29,6 +30,7 @@ public class ShipyardModel : BuildingModel {
 	void Start ()
 	{
 		shipsInShipyard = new List<Ship> ();
+        eventShip = null;
 	}
 
     void Update()
