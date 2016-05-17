@@ -7,7 +7,6 @@ public class GameOverEventScript : CustomEvent {
     public override void Awake()
     {
         base.Awake();
-        disableButton.onClick.AddListener(() => Application.LoadLevel("Main Menu"));
         string customText;
         foreach (Transform child in transform)
             if (child.name == "ContentText")
@@ -26,8 +25,19 @@ public class GameOverEventScript : CustomEvent {
                 customText = contentText.text;
                 contentText.text = customText;
                 return;
+            case "monetary":
+                customText = titleText.text;
+                customText = customText.Replace("[reason]","");
+                titleText.text = customText;
+                customText = contentText.text;
+                contentText.text = customText;
+                return;
         }
     }
-
+    public override void OnDisable()
+    {
+        base.OnDisable();
+        Application.LoadLevel("Main Menu");
+    }
     
 }

@@ -130,6 +130,14 @@ public class ResourceBundle
                     return "";
             }
         }
+        public static int ReturnWorth(ResourceBundle _bundle)
+        {
+            int bundleWorth = 0;
+            bundleWorth += _bundle.commodity;
+            bundleWorth += (int)((float)_bundle.luxury * 1.5f);
+            bundleWorth += (int)((float)_bundle.luxury * 5f);
+            return bundleWorth;
+        }
 }
 
 

@@ -49,6 +49,8 @@ public class ManagerController : GameElement
 		if (!NextTurnCheck ())
 			return;
         NextTurnForce();
+        if (GetNetWorth() > app.model.manager.winningWorth)
+            app.Notify(GameNotification.Victory, this, "monetary");
 	}
 	
 	public void NextTurnForce ()
@@ -136,5 +138,32 @@ public class ManagerController : GameElement
 		if (app.model.manager.currentShips == app.model.manager.maxShips) {return false;}
 		return true;
 	}
+
+    public int GetNetWorth()
+    {
+        ResourceBundle netWorth = new ResourceBundle(0,0,0);
+        foreach (BuildingController building in app.controller.buildings)
+        {
+            if (building is ShipyardController)
+                netWorth += BuildingCosts.shipyard;
+            else if (building is ResourceBuildingController)
+            {
+                if (building.GetComponent<ResourceBuildingModel>().type == 0)
+                    netWorth += BuildingCosts.farm;
+                else if (building.GetComponent<ResourceBuildingModel>().type == 1)
+                    netWorth += BuildingCosts.huntersLodge;
+                else
+                    netWorth += BuildingCosts.goldsmith;
+            }
+            else if (building is ShipyardController)
+                netWorth += BuildingCosts.shipyard;
+            else if (building is EmbassyController)
+                netWorth += BuildingCosts.embassy;
+
+        }
+        netWorth += ManagerModel.resourcesMain;
+        netWorth *= 1.2f;
+        return ResourceBundle.ReturnWorth(netWorth);
+    }
 }
 

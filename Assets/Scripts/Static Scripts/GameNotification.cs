@@ -18,4 +18,7 @@ public static class GameNotification{
     public const string StoryEventInterest = "event.story.debt.interest.increase";
     public const string ErrorShipEventAvailable = "error.shipyard.ship.event.present";
     public const string GameOver = "game.over";
+    public const string VascoStory = "vasco.is.back.event";
+    public const string VascoAnger = "vasco.anger.triggered";
+    public const string Victory = "victory";
 }

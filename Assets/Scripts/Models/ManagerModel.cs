@@ -8,7 +8,7 @@ public class ManagerModel : GameElement
 
 	public GameObject currentlyBuilding;
 	public GameObject[] buildingPrefabs;
-
+    public int winningWorth = 10000;
 	//Checks for Tutorial Info
     public bool embassyTut, shipyardTut, productionTut;
 	
