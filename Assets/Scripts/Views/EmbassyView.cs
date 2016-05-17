@@ -61,5 +61,6 @@ public class EmbassyView : BuildingView {
     {   
         embassyInsig.sprite = GetComponent<EmbassyModel>().f.insignia;
         embassyInsig.color = new Color(255,255,255, 1);
+        
     }
 }
