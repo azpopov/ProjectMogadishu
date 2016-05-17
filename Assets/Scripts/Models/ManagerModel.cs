@@ -8,7 +8,7 @@ public class ManagerModel : GameElement
 
 	public GameObject currentlyBuilding;
 	public GameObject[] buildingPrefabs;
-    public int winningWorth = 10000;
+    public int winningWorth = 1000;
 	//Checks for Tutorial Info
     public bool embassyTut, shipyardTut, productionTut;
 	
@@ -24,6 +24,7 @@ public class ManagerModel : GameElement
 
 	void Awake()
 	{
+        winningWorth = 1000;
         buildingCostsReferences = new Dictionary<string, ResourceBundle>();
         buildingCostsReferences.Add("embassy", BuildingCosts.embassy);
         buildingCostsReferences.Add("shipyard", BuildingCosts.shipyard);

@@ -88,7 +88,7 @@ public class StoryManager : GameElement {
         remainingDebt = (ManagerModel.resourcesMain * 5).ReturnMax();
         maxDebt = remainingDebt * 2;
         GetComponent<Button>().onClick.AddListener(() => storyPanelInstance.SetActive(!storyPanelInstance.activeSelf));
-        moneyValue = transform.Find("NetWorthText").GetComponent<Text>();
+        moneyValue = storyPanelInstance.transform.Find("NetWorthText").GetComponent<Text>();
         storyPanelInstance.SetActive(false);
 	}
 
@@ -98,7 +98,7 @@ public class StoryManager : GameElement {
     }
 
 	// Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
         if (gameObject.activeSelf)
         {
@@ -113,7 +113,11 @@ public class StoryManager : GameElement {
                 vascoCounterText.text = interestCounter.ToString();
                
             }
-            moneyValue.text = app.controller.manager.GetNetWorth().ToString();
+            float currentWorth = (float)app.controller.manager.GetNetWorth();
+            float neededWorth = (float)app.model.manager.winningWorth;
+            int percentWin = (int)(currentWorth / neededWorth)*100;
+            Debug.Log(percentWin.ToString());
+            moneyValue.text = percentWin.ToString() + "%";
         }
     }
 
