@@ -21,7 +21,9 @@ public class EventSystem : MonoBehaviour {
 
     static Dictionary<string, int> eventDic;
 	static GameObject[] eventsLoaded;
-    public GameObject[] events; 
+    public GameObject[] events;
+    
+
 
     void Awake()
     {

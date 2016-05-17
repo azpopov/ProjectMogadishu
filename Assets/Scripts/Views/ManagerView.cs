@@ -57,9 +57,9 @@ public class ManagerView : GameElement
 
 	public void UpdateResourceText()
 	{
-		commoditiesText.text = ":" + ManagerModel.resourcesMain.commodity.ToString();
-		luxuriesText.text = ":" + ManagerModel.resourcesMain.luxury.ToString();
-		wealthText.text = ":" + ManagerModel.resourcesMain.wealth.ToString();
+		commoditiesText.text =  ManagerModel.resourcesMain.commodity.ToString();
+		luxuriesText.text =  ManagerModel.resourcesMain.luxury.ToString();
+		wealthText.text = ManagerModel.resourcesMain.wealth.ToString();
 	}
 
 	public void ShipyardWindowPopulate (TradeMission currentTradeMission)
