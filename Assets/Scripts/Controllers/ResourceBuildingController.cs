@@ -19,6 +19,7 @@ public class ResourceBuildingController : BuildingController {
         if (app.model.manager.productionTut)
         {
             EventSystem.OccurEvent("TutorialProduction");
+            app.Notify(GameNotification.StoryEventDebt, app.controller.story, "StoryEventResources");
             app.model.manager.productionTut = false;
             app.model.manager.addBundle(BuildingCosts.farm);
         }

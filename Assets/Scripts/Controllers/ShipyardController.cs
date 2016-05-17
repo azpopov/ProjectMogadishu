@@ -37,7 +37,7 @@ public class ShipyardController : BuildingController {
     {
         base.OnEnable();
         StartCoroutine(GetComponent<BuildingController>().IgnoreMouseDownSec());
-        if (app.model.manager.productionTut)
+        if (app.model.manager.shipyardTut)
         {
             EventSystem.OccurEvent("TutorialShipyard");
             app.model.manager.shipyardTut = false;

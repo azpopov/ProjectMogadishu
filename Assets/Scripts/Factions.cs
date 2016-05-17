@@ -47,10 +47,10 @@ public class Factions : GameElement
 			Destroy (this);
 		factionList.Add (new Faction ("The Celestial Empire", 2f, new bool[]{true, true, true}, new bool[]{false, true, true}, 4, 10));
         factionList.Add(new Faction("Oman", 1f, new bool[] { true, false, false }, new bool[] { true, true, false }, 1, 5));
-        factionList.Add(new Faction("Bengal", 1.2f, new bool[] { true, false, false }, new bool[] { false, true, true }, 3, 6));
+        factionList.Add(new Faction("Bengal", 1.2f, new bool[] { true, false, false }, new bool[] { true, true, true }, 3, 6));
         factionList.Add(new Faction("Ceylon", 1f, new bool[] { true, false, false }, new bool[] { true, true, false }, 2, 5));
         factionList.Add(new Faction("Chola", 1.1f, new bool[] { true, true, false }, new bool[] { true, true, false }, 3, 5));
-        factionList.Add(new Faction("Khmer", 1.6f, new bool[] { true, false, false }, new bool[] { false, true, true }, 4, 8));
+        factionList.Add(new Faction("Khmer", 1.6f, new bool[] { true, false, false }, new bool[] { true, true, true }, 4, 8));
         factionList.Add(new Faction("Seljuk Empire", 1f, new bool[] { false, true, false }, new bool[] { false, true, true }, 2, 6));
         factionList.Add(new Faction("Srivijaya Empire", 1.5f, new bool[] { false, false, true }, new bool[] { true, true, false }, 4, 8));
         factionListUndiscovered.Add(new Faction("Champa", 1.6f, new bool[] { false, true, false }, new bool[] { true, true, true }, 4, 9));
@@ -76,7 +76,7 @@ public class Factions : GameElement
 
 	public GameObject CreateTradeRoute ()
 	{
-        if (tradeMissions.Count > 12)
+        if (tradeMissions.Count > 6)
             return null;
         
 		int rndFaction = rndGen.Next(factionList.Count);

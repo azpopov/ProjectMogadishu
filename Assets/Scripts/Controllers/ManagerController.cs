@@ -18,13 +18,21 @@ public class ManagerController : GameElement
 	bool NextTurnCheck ()
 	{
 		foreach (BuildingController building in app.controller.buildings) {
-			if (building.GetType () == Type.GetType ("ResourceBuildingController")) {
+			if (building is ResourceBuildingController) {
                 if (building.GetComponent<ResourceBuildingModel>().resourcesMaxed)
                 {
                     app.Notify(GameNotification.ErrorBuildingCapacityMax, app.controller.manager, building.GetType());
                     return false;
                 }
 			}
+            else if (building is ShipyardController)
+            {
+                if (building.GetComponent<ShipyardModel>().eventShip != null)
+                {
+                    app.Notify(GameNotification.ErrorShipEventAvailable, app.controller.manager);
+                    return false;
+                }
+            }
 		}
 		//Add building costs
 		if (ShipAvailable()) {
@@ -46,6 +54,7 @@ public class ManagerController : GameElement
 	public void NextTurnForce ()
 	{
         ManagerModel.currentTurn++;
+        app.controller.story.interestCounter--;
 		IncrementProductionTicks ();
         Factions.timeToNewMission--;
 	}
@@ -98,7 +107,8 @@ public class ManagerController : GameElement
                 
                 foreach (BuildingController building in app.controller.buildings)
                     if (building is EmbassyController)
-                        if (building.GetComponent<EmbassyModel>().f.name.Equals(f.name))
+                        if (building.GetComponent<EmbassyModel>().f.minDistance != 0 &&
+                            building.GetComponent<EmbassyModel>().f.name.Equals(f.name))
                             (EmbassyModel.influenceBonuses[f.name]) = ((int)EmbassyModel.influenceBonuses[f.name]) + 1;
                 return;
             case GameNotification.ErrorBuildingCapacityMax:
@@ -110,6 +120,12 @@ public class ManagerController : GameElement
 
             case GameNotification.ErrorShipAvailable:
                 EventSystem.OccurEvent("ErrorShipAvailable");
+                return;
+            case GameNotification.ErrorShipEventAvailable:
+                EventSystem.OccurEvent("ErrorShipEventAvailable");
+                return;
+            case GameNotification.GameOver:
+                EventSystem.OccurEvent("GameOverEvent", p_data);
                 return;
 
         }

@@ -32,6 +32,7 @@ public class CustomEvent : GameElement
 		EventSystem.eventPresent = null;
 		Destroy (gameObject, 5.0f);
 	}
+    
 	
 
 }

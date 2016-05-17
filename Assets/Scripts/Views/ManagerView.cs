@@ -14,6 +14,8 @@ public class ManagerView : GameElement
 		luxuriesText = GameObject.Find("Luxuries").GetComponentInChildren<Text>();
 		wealthText = GameObject.Find("Wealth").GetComponentInChildren<Text>();
 		shipText = GameObject.Find("MaxShips").GetComponentInChildren<Text>();
+        //GameObject panel = GameObject.Find("StoryPanel").gameObject;
+      //  GameObject.Find("ObjectiveButton").GetComponent<Button>().onClick.AddListener(() => panel.SetActive(!panel.activeSelf));
 
 	}
 	// Use this for initialization
@@ -24,8 +26,9 @@ public class ManagerView : GameElement
 
     public void FindNewTradeRoute()
     {
-        app.model.manager.addToResource(0, -100);
-        Factions.current.CreateTradeRoute();
+        if( Factions.current.CreateTradeRoute() != null)
+            app.model.manager.addToResource(1, -50);
+       
     }
 
 	void Update()

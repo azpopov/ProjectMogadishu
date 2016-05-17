@@ -14,4 +14,8 @@ public static class GameNotification{
     public const string ErrorShipAvailable = "shipyard.ship.themission.null";
     public const string ErrorBuildingCapacityMax = "building.model.maxresources.true";
     public const string ErrorNoShipAvailable = "sendship.noship.available";
+    public const string StoryEventDebt = "event.story.debt.next";
+    public const string StoryEventInterest = "event.story.debt.interest.increase";
+    public const string ErrorShipEventAvailable = "error.shipyard.ship.event.present";
+    public const string GameOver = "game.over";
 }

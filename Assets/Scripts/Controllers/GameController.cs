@@ -6,6 +6,7 @@ public class GameController : GameElement {
 
 	public ManagerController manager;
     public List<BuildingController> buildings;
+    public StoryManager story;
     void Awake()
     {
         buildings = new List<BuildingController>();
@@ -29,6 +30,7 @@ public class GameController : GameElement {
         List<GameElement> controllers = new List<GameElement>();
         controllers.AddRange(buildings.ToArray());
         controllers.Add(manager);
+        controllers.Add(story);
         return controllers;
 
     }

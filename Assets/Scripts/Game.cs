@@ -21,6 +21,7 @@ public class Game : MonoBehaviour
         {
             c.OnNotification(p_event_path, p_target, p_data);
         }
+
     }
 
     // Fetches all scene Controllers.
