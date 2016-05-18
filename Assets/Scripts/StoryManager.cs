@@ -8,7 +8,7 @@ public class StoryManager : GameElement {
     GameObject storyPanelInstance;
     protected Button endTurnButton, disableButton, debtButton;
    public int remainingDebt, maxDebt;
-    int _interestCounter;
+    int _interestCounter, vascoStoryCounter;
     bool debtStory, vascoStory;
     public int interestCounter
     {
@@ -20,7 +20,7 @@ public class StoryManager : GameElement {
                 remainingDebt = (int)((float)remainingDebt * 1.1f);
                 app.Notify(GameNotification.StoryEventInterest, this, this);
                 if (remainingDebt >= maxDebt) app.Notify(GameNotification.GameOver, app.controller.manager, "debt" ,remainingDebt);
-                _interestCounter = 10;
+                _interestCounter = 8;
             }
         }
         get {
@@ -37,7 +37,6 @@ public class StoryManager : GameElement {
             if (_vascoCounter <= 0)
             {
                 app.Notify(GameNotification.VascoStory, this);
-                if (remainingDebt >= maxDebt) app.Notify(GameNotification.GameOver, app.controller.manager, "debt", remainingDebt);
                 _vascoCounter = 10;
             }
         }
@@ -68,6 +67,7 @@ public class StoryManager : GameElement {
     List<string> storyDept;
 	// Use this for initialization
 	public void Awake () {
+        vascoStoryCounter = 0;
         interestCounter = 10;
         debtStory = true;
         vascoStory = false;
@@ -85,7 +85,7 @@ public class StoryManager : GameElement {
         interestTurnText = storyPanelInstance.transform.Find("InterestText").GetComponent<Text>();
         vascoText = storyPanelInstance.transform.Find("VascoText").GetComponent<Text>();
         vascoCounterText = storyPanelInstance.transform.Find("ReturnText").GetComponent<Text>();
-        remainingDebt = (ManagerModel.resourcesMain * 5).ReturnMax();
+        remainingDebt = (ManagerModel.resourcesMain * 3).ReturnMax();
         maxDebt = remainingDebt * 2;
         GetComponent<Button>().onClick.AddListener(() => storyPanelInstance.SetActive(!storyPanelInstance.activeSelf));
         moneyValue = storyPanelInstance.transform.Find("NetWorthText").GetComponent<Text>();
@@ -109,22 +109,20 @@ public class StoryManager : GameElement {
             }
             if (vascoStory)
             {
-                vascoText.text = remainingDebt.ToString();
-                vascoCounterText.text = interestCounter.ToString();
+                vascoText.text = vascoAnger.ToString();
+                vascoCounterText.text = vascoCounter.ToString();
                
             }
             float currentWorth = (float)app.controller.manager.GetNetWorth();
             float neededWorth = (float)app.model.manager.winningWorth;
-            int percentWin = (int)(currentWorth / neededWorth)*100;
-            Debug.Log(percentWin.ToString());
-            moneyValue.text = percentWin.ToString() + "%";
+            moneyValue.text = ((currentWorth / neededWorth) * 100).ToString() + "%";
         }
     }
 
     void PayDebt()
     {
-        if (!ManagerModel.resourcesMain.CompareBundle(new ResourceBundle(100, 0, 0))) return;
-        app.model.manager.addBundle(new ResourceBundle(0, -100));
+        if (!ManagerModel.resourcesMain.CompareBundle(new ResourceBundle(0, 100, 0))) return;
+        app.model.manager.addBundle(new ResourceBundle(1, -100));
           remainingDebt -= 100;
           if (remainingDebt <= 0)
           {
@@ -146,6 +144,33 @@ public class StoryManager : GameElement {
             case GameNotification.StoryEventInterest:
                 EventSystem.OccurEvent("StoryEventInterest", p_data);
                 return;
+            case GameNotification.VascoStory:
+                switch (vascoStoryCounter)
+                {
+                    case 0:
+                        EventSystem.OccurEvent("VascoSpookEvent", p_data);
+                        break;
+                    case 1:
+                        EventSystem.OccurEvent("VascoShowsUpEvent", p_data);
+                        break;
+                    case 2:
+                        EventSystem.OccurEvent("VascoShipNameEvent", p_data);
+                        break;
+                    case 3:
+                        EventSystem.OccurEvent("VascoStealsTradeEvent", p_data);
+                        break;
+                    case 4:
+                        EventSystem.OccurEvent("VascoExtortEvent", p_data);
+                        break;
+                }
+                if(vascoStoryCounter != 4)
+                    vascoStoryCounter++;
+                return;
+            case GameNotification.VascoAnger:
+                string vascoEvent = EventSystem.RandomTravelEvent("VascoAnger");
+                EventSystem.OccurEvent(vascoEvent, p_data);
+                return;
+                
         }
     }
 

@@ -50,7 +50,7 @@ public class ManagerController : GameElement
 			return;
         NextTurnForce();
         if (GetNetWorth() > app.model.manager.winningWorth)
-            app.Notify(GameNotification.Victory, this, "monetary");
+            app.Notify(GameNotification.GameOver, this, "monetary");
 	}
 	
 	public void NextTurnForce ()
