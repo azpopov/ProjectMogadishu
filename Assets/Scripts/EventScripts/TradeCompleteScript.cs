@@ -20,9 +20,9 @@ public class TradeCompleteScript : CustomEvent {
              rndChance += (int)EmbassyModel.influenceBonuses[ship.theMission.f.name];
 		float amountReceived = 0;
         string result;
-		if (rndChance <= 20) {
-			result = "Disastrous Trading";
-            amountReceived = (float)SuccessfulJourney() * 0.6f;
+		if (rndChance <= 15) {
+			result = "Okay Trading";
+            amountReceived = (float)SuccessfulJourney() * 0.7f;
 		} else if (rndChance <= 80) {
             result = "Favorable Trading";
             amountReceived = (float)SuccessfulJourney();

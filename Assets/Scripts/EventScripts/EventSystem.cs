@@ -71,6 +71,7 @@ public class EventSystem : MonoBehaviour {
     }
     public static void OccurEvent(string eventName, params object[] p_data)
     {
+        Debug.Log(eventName);
         int eventID = eventDic[eventName];
         if (eventName.Equals("ResultPrefab"))
         {

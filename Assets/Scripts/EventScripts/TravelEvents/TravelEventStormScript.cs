@@ -8,7 +8,7 @@ public class TravelEventStormScript : CustomEvent {
     string customText;
 	// Use this for initialization
 	void Start () {
-        int rndRandom = Random.Range(2, 7);
+        int rndRandom = Random.Range(2, 5);
         ship = (ShipyardModel.Ship)data[0];
         foreach(Transform child in transform)
             if (child.name == "ContentText")

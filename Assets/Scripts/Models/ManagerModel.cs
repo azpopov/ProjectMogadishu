@@ -15,7 +15,7 @@ public class ManagerModel : GameElement
 	public static Dictionary<string, GameObject> buildingHashtable;
 	
 	//List of current Buildings
-	public static ResourceBundle resourcesMain = new ResourceBundle(2500, 000, 000);
+	public static ResourceBundle resourcesMain = new ResourceBundle(3500, 350, 150);
     public int currentShips;
     public int maxShips;
     public Dictionary<string, ResourceBundle> buildingCostsReferences;

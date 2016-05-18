@@ -41,7 +41,6 @@ public class ShipyardController : BuildingController {
         {
             EventSystem.OccurEvent("TutorialShipyard");
             app.model.manager.shipyardTut = false;
-            app.model.manager.addBundle(BuildingCosts.shipyard);
         }
         app.model.manager.maxShips += 1;
         EventSystem.OccurEvent("NewShipPopUp");

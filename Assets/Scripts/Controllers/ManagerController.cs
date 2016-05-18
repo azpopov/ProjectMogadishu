@@ -52,12 +52,15 @@ public class ManagerController : GameElement
         NextTurnForce();
         if (GetNetWorth() > app.model.manager.winningWorth)
             app.Notify(GameNotification.GameOver, this, "monetary");
+        if (GetNetWorth() >= app.model.manager.winningWorth / 2)
+            app.controller.story.vascoStory = true;
 	}
 	
 	public void NextTurnForce ()
 	{
         ManagerModel.currentTurn++;
         app.controller.story.interestCounter--;
+        app.controller.story.vascoCounter--;
 		IncrementProductionTicks ();
         Factions.timeToNewMission--;
 	}

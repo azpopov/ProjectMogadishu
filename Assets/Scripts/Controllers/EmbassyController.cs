@@ -45,7 +45,6 @@ public class EmbassyController : BuildingController {
         {
             EventSystem.OccurEvent("TutorialEmbassy");
             app.model.manager.embassyTut = false;
-            app.model.manager.addBundle(BuildingCosts.embassy);
         }
 
     }

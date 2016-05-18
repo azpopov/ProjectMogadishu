@@ -9,7 +9,7 @@ public class StoryManager : GameElement {
     protected Button endTurnButton, disableButton, debtButton;
    public int remainingDebt, maxDebt;
     int _interestCounter, vascoStoryCounter;
-    bool debtStory, vascoStory;
+    public bool debtStory, vascoStory;
     public int interestCounter
     {
         set
@@ -17,10 +17,10 @@ public class StoryManager : GameElement {
             _interestCounter = value;
             if (_interestCounter <= 0)
             {
-                remainingDebt = (int)((float)remainingDebt * 1.1f);
+                remainingDebt = (int)((float)remainingDebt * 1.05f);
                 app.Notify(GameNotification.StoryEventInterest, this, this);
                 if (remainingDebt >= maxDebt) app.Notify(GameNotification.GameOver, app.controller.manager, "debt" ,remainingDebt);
-                _interestCounter = 8;
+                _interestCounter = 6;
             }
         }
         get {
@@ -33,11 +33,14 @@ public class StoryManager : GameElement {
     {
         set
         {
+            if (!vascoStory) return;
             _vascoCounter = value;
             if (_vascoCounter <= 0)
             {
                 app.Notify(GameNotification.VascoStory, this);
-                _vascoCounter = 10;
+                _vascoCounter = 5;
+                if (vascoStoryCounter == 4)
+                    _vascoCounter = 7;
             }
         }
         get
@@ -145,7 +148,6 @@ public class StoryManager : GameElement {
         {
             case GameNotification.StoryEventDebt:
                 EventSystem.OccurEvent((string)p_data[0], this, p_data);
-                interestCounter = interestCounter + 3; 
                 return;
             case GameNotification.StoryEventInterest:
                 EventSystem.OccurEvent("StoryEventInterest", p_data);
