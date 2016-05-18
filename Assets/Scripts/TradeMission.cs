@@ -14,7 +14,7 @@ public class TradeMission : GameElement
 	Image insigiaComp;
 	Transform button;
 	Text destText;
-	bool sailing = false;
+	public bool sailing = false;
 	private UnityAction action;
 	public Faction f;
 

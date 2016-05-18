@@ -48,7 +48,13 @@ public class StoryManager : GameElement {
     int _vascoAnger;
     public int vascoAnger {
         set {
-            _vascoAnger = value;
+            if (_vascoAnger <= value)
+                _vascoAnger += 20;
+            else { 
+                if(_vascoAnger != 0)
+                    _vascoAnger -= 10;
+            }
+               
             if (_vascoAnger >= 100)
             {
                 app.Notify(GameNotification.GameOver, app.controller.manager, "vascoAnger");
@@ -67,7 +73,7 @@ public class StoryManager : GameElement {
     List<string> storyDept;
 	// Use this for initialization
 	public void Awake () {
-        vascoStoryCounter = 0;
+        vascoStoryCounter = 10;
         interestCounter = 10;
         debtStory = true;
         vascoStory = false;
@@ -107,7 +113,7 @@ public class StoryManager : GameElement {
                 debtText.text = remainingDebt.ToString();
                 interestTurnText.text = interestCounter.ToString();
             }
-            if (vascoStory)
+            if (true)
             {
                 vascoText.text = vascoAnger.ToString();
                 vascoCounterText.text = vascoCounter.ToString();

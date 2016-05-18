@@ -6,8 +6,9 @@ using System;
 
 public class ManagerController : GameElement
 {
-
     Dictionary<string, ResourceBundle> buildingCostsReferences;
+
+
 	void IncrementProductionTicks ()
 	{
 		foreach (BuildingController building in app.controller.buildings) {
