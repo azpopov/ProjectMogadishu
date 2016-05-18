@@ -10,7 +10,7 @@ public class EventSystem : MonoBehaviour {
     public static int tail;
     public static int tailPriority;
 
-
+    static System.Random rndGen = new System.Random();
 
     static int[] pending = new int[MAX_PENDING];
     static object[][] pending_data = new object[MAX_PENDING][];
@@ -102,7 +102,7 @@ public class EventSystem : MonoBehaviour {
         int i = 0;
         while (i < 1000)
         {
-            int rndNum = Random.Range(0, eventsLoaded.Length);
+            int rndNum = rndGen.Next(eventsLoaded.Length);
             if (eventsLoaded[rndNum].name.Contains(eventName)) return eventsLoaded[rndNum].name;
             i++;
         }

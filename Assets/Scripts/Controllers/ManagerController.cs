@@ -52,7 +52,7 @@ public class ManagerController : GameElement
         NextTurnForce();
         if (GetNetWorth() > app.model.manager.winningWorth)
             app.Notify(GameNotification.GameOver, this, "monetary");
-        if (GetNetWorth() >= app.model.manager.winningWorth / 2)
+        if (GetNetWorth() >= (app.model.manager.winningWorth / 6))
             app.controller.story.vascoStory = true;
 	}
 	
@@ -121,14 +121,14 @@ public class ManagerController : GameElement
                 EventSystem.OccurEvent("ErrorCapacityBuilding", p_data);
                 return;
             case GameNotification.ErrorNoShipAvailable:
-                EventSystem.OccurEvent("ErrorNoAvailableShip");
+                EventSystem.OccurEvent("ErrorNoAvailableShip", p_data);
                 return;
 
             case GameNotification.ErrorShipAvailable:
-                EventSystem.OccurEvent("ErrorShipAvailable");
+                EventSystem.OccurEvent("ErrorShipAvailable", p_data);
                 return;
             case GameNotification.ErrorShipEventAvailable:
-                EventSystem.OccurEvent("ErrorShipEventAvailable");
+                EventSystem.OccurEvent("ErrorShipEventAvailable", p_data);
                 return;
             case GameNotification.GameOver:
                 EventSystem.OccurEvent("GameOverEvent", p_data);

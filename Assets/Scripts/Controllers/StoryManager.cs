@@ -17,7 +17,7 @@ public class StoryManager : GameElement {
             _interestCounter = value;
             if (_interestCounter <= 0)
             {
-                remainingDebt = (int)((float)remainingDebt * 2f);
+                remainingDebt = (int)((float)remainingDebt * 1.1f);
                 app.Notify(GameNotification.StoryEventInterest, this, this);
                 if (remainingDebt >= maxDebt) app.Notify(GameNotification.GameOver, app.controller.manager, "debt" ,remainingDebt);
                 _interestCounter = 6;
@@ -76,7 +76,7 @@ public class StoryManager : GameElement {
     List<string> storyDept;
 	// Use this for initialization
 	public void Awake () {
-        vascoStoryCounter = 10;
+        vascoStoryCounter = 0;
         interestCounter = 10;
         debtStory = true;
         vascoStory = false;
@@ -153,6 +153,7 @@ public class StoryManager : GameElement {
                 EventSystem.OccurEvent("StoryEventInterest", p_data);
                 return;
             case GameNotification.VascoStory:
+                Debug.Log("VascoSpook? " + vascoStoryCounter.ToString());
                 switch (vascoStoryCounter)
                 {
                     case 0:
