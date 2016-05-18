@@ -17,15 +17,11 @@ public class BuildingPlacer : GameElement {
         rndSprite = GetComponent<SpriteRenderer>();
 	}
 
-    void OnEnable()
-    {
-        GameObject.Find("background").gameObject.layer = LayerMask.NameToLayer("Buildable");
-        GameObject.Find("Water").gameObject.layer = LayerMask.NameToLayer("Water");
-    }
-
 
 	// Update is called once per frame
 	void Update () {
+        GameObject.Find("background").gameObject.layer = LayerMask.NameToLayer("Buildable");
+        GameObject.Find("Water").gameObject.layer = LayerMask.NameToLayer("Water");
 		//Set to false
 		validPlace = false;
 		//Get current mouse coord
@@ -35,7 +31,7 @@ public class BuildingPlacer : GameElement {
 		//Whatever this script is attached to, follow mouse.
 		this.transform.position = mousePos;
 		if(!col.IsTouchingLayers(LayerMask.GetMask("Building")) && !col.IsTouchingLayers(LayerMask.GetMask("NonBuildable"))){
-		if (transform.name.Equals ("shipyard(Clone)")) {
+		if (GetComponent<ShipyardController>() != null) {
           
 			if( col.IsTouchingLayers(LayerMask.GetMask("Water")) && col.IsTouchingLayers(LayerMask.GetMask("Buildable"))){
 				validPlace = true;
