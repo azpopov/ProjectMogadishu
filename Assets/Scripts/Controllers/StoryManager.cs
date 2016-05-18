@@ -17,7 +17,7 @@ public class StoryManager : GameElement {
             _interestCounter = value;
             if (_interestCounter <= 0)
             {
-                remainingDebt = (int)((float)remainingDebt * 1.05f);
+                remainingDebt = (int)((float)remainingDebt * 2f);
                 app.Notify(GameNotification.StoryEventInterest, this, this);
                 if (remainingDebt >= maxDebt) app.Notify(GameNotification.GameOver, app.controller.manager, "debt" ,remainingDebt);
                 _interestCounter = 6;

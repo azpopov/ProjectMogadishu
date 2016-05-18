@@ -27,21 +27,18 @@ public class GameOverEventScript : CustomEvent {
             case "debt":
                 customText = customText.Replace("[reason]", "Game Over - Debt");
                 titleText.text = customText;
-                customText = contentText.text;
                 customText = "As our debt has reached critically high levels, the moneylenders have returned to seize the city port. \nNothing could be done as they come with an army..";
-                return;
+                break;
             case "monetary":
                 customText = customText.Replace("[reason]", "Victory - Monetary");
                 titleText.text = customText;
                 customText = "Victory! We have established a highly respected city and our trade relations will ensure our safety and our continuous growth and prosperity. \nHuzzah!";
-                customText = contentText.text;
-                return;
+                break;
             case "vascoAnger":
                 customText = customText.Replace("[reason]", "Game Over - Hostile Takeover");
                 titleText.text = customText;
-                customText = "PLACEHOLDER";
-                customText = contentText.text;
-                return;
+                customText = "Vasco Took over the city port overnight. We've been kicked out of our own city";
+                break;
         }
         contentText.text = customText;
 
