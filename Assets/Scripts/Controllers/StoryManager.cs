@@ -94,7 +94,7 @@ public class StoryManager : GameElement {
         interestTurnText = storyPanelInstance.transform.Find("InterestText").GetComponent<Text>();
         vascoText = storyPanelInstance.transform.Find("VascoText").GetComponent<Text>();
         vascoCounterText = storyPanelInstance.transform.Find("ReturnText").GetComponent<Text>();
-        remainingDebt = (ManagerModel.resourcesMain * 3).ReturnMax();
+        remainingDebt = (ManagerModel.resourcesMain * 4).ReturnMax();
         maxDebt = remainingDebt * 2;
         GetComponent<Button>().onClick.AddListener(() => storyPanelInstance.SetActive(!storyPanelInstance.activeSelf));
         moneyValue = storyPanelInstance.transform.Find("NetWorthText").GetComponent<Text>();

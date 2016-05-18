@@ -52,7 +52,7 @@ public class ManagerController : GameElement
         NextTurnForce();
         if (GetNetWorth() > app.model.manager.winningWorth)
             app.Notify(GameNotification.GameOver, this, "monetary");
-        if (GetNetWorth() >= (app.model.manager.winningWorth / 6))
+        if (GetNetWorth() >= (app.model.manager.winningWorth / 2))
             app.controller.story.vascoStory = true;
 	}
 	
