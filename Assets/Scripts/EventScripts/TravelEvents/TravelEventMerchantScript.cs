@@ -27,7 +27,7 @@ public class TravelEventMerchantScript : CustomEvent {
         float rndModifier = Random.Range(0.2f, 3f);
         int rndType = Random.Range(0, 3);
 
-        changeBundle = new ResourceBundle(rndType, (int)(ship.theMission.targetResource * rndModifier));
+        changeBundle = new ResourceBundle(rndType, (ship.theMission.requestResource *= rndModifier).ReturnMax());
 
 
         foreach (Transform child in transform)

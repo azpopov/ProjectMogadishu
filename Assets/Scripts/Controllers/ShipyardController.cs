@@ -36,6 +36,7 @@ public class ShipyardController : BuildingController {
     protected override void OnEnable()
     {
         base.OnEnable();
+        shipyardSFX = AudioManager.Instance.shipyardSFX;
         StartCoroutine(GetComponent<BuildingController>().IgnoreMouseDownSec());
         if (app.model.manager.shipyardTut)
         {

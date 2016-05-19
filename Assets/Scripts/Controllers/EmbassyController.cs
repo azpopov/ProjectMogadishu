@@ -3,38 +3,12 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class EmbassyController : BuildingController {
-
-
-    float influenceBonus_;
     Button changeFactionBtn;
-    public float influenceBonus
-    {
-        get
-        {
-            return influenceBonus_;
-        }
-        set
-        {
-            influenceBonus_ = value;
-
-        }
-    }
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-       
-    }
 
     void Start()
     {
         changeFactionBtn = gameObject.GetComponent<EmbassyView>().embassyUI.transform.FindChild("ChangeFactionButton").GetComponent<Button>();
         changeFactionBtn.onClick.AddListener(() => gameObject.GetComponent<EmbassyView>().SelectFaction());
-        
-    }
-
-    protected override void CheckProduction()
-    {
-        
     }
 
     protected override void OnEnable()
@@ -61,7 +35,14 @@ public class EmbassyController : BuildingController {
 
     public override void ProductionTick()
     {
-        gameObject.GetComponent<EmbassyModel>().timeSinceTick++;
+        if (GetComponent<EmbassyModel>().timeSinceTick == 3)
+        {
+            if (GetComponent<EmbassyModel>().f.minDistance != 0)
+                (EmbassyModel.influenceBonuses[GetComponent<EmbassyModel>().f.name]) = (EmbassyModel.influenceBonuses[GetComponent<EmbassyModel>().f.name]) + 1;
+            GetComponent<EmbassyModel>().timeSinceTick = 0;
+            return;
+        }
+        GetComponent<EmbassyModel>().timeSinceTick++;
     }
 
     public override void OnNotification(string p_event_path, object p_target, params object[] p_data)

@@ -165,8 +165,9 @@ public class ManagerController : GameElement
                 netWorth += BuildingCosts.embassy;
 
         }
-        netWorth += ManagerModel.resourcesMain;
         netWorth *= 1.2f;
+        netWorth += ManagerModel.resourcesMain;
+        
         return ResourceBundle.ReturnWorth(netWorth);
     }
 }

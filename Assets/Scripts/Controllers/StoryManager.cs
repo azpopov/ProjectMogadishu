@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class StoryManager : GameElement {
     public GameObject storyPanelPrefab;
-    GameObject storyPanelInstance;
+    GameObject storyPanelInstance, vascoEtcTxt1, vascoEtcTxt2;
     protected Button endTurnButton, disableButton, debtButton;
    public int remainingDebt, maxDebt;
     int _interestCounter, vascoStoryCounter;
@@ -17,7 +17,7 @@ public class StoryManager : GameElement {
             _interestCounter = value;
             if (_interestCounter <= 0)
             {
-                remainingDebt = (int)((float)remainingDebt * 1.1f);
+                remainingDebt = (int)((float)remainingDebt * 1.05f);
                 app.Notify(GameNotification.StoryEventInterest, this, this);
                 if (remainingDebt >= maxDebt) app.Notify(GameNotification.GameOver, app.controller.manager, "debt" ,remainingDebt);
                 _interestCounter = 6;
@@ -88,13 +88,21 @@ public class StoryManager : GameElement {
                 _child.GetComponent<Button>().onClick.AddListener(() => storyPanelInstance.SetActive(false));
             if (_child.name.Equals("DebtPayButton"))
                 debtButton = _child.GetComponent<Button>();
+            if (_child.name.Equals("ReturnTitle"))
+                vascoEtcTxt1 = _child.gameObject;
+            if (_child.name.Equals("VascoTitle"))
+                vascoEtcTxt2 = _child.gameObject;
         }
         debtButton.onClick.AddListener(() => PayDebt());
         debtText = storyPanelInstance.transform.Find("DebtText").GetComponent<Text>();
         interestTurnText = storyPanelInstance.transform.Find("InterestText").GetComponent<Text>();
         vascoText = storyPanelInstance.transform.Find("VascoText").GetComponent<Text>();
         vascoCounterText = storyPanelInstance.transform.Find("ReturnText").GetComponent<Text>();
-        remainingDebt = (ManagerModel.resourcesMain * 4).ReturnMax();
+        vascoText.gameObject.SetActive(false);
+        vascoCounterText.gameObject.SetActive(false);
+        vascoEtcTxt2.gameObject.SetActive(false);
+        vascoEtcTxt1.gameObject.SetActive(false);
+        remainingDebt = (ManagerModel.resourcesMain * 3).ReturnMax();
         maxDebt = remainingDebt * 2;
         GetComponent<Button>().onClick.AddListener(() => storyPanelInstance.SetActive(!storyPanelInstance.activeSelf));
         moneyValue = storyPanelInstance.transform.Find("NetWorthText").GetComponent<Text>();
@@ -116,15 +124,19 @@ public class StoryManager : GameElement {
                 debtText.text = remainingDebt.ToString();
                 interestTurnText.text = interestCounter.ToString();
             }
-            if (true)
+            if (vascoStory)
             {
+                vascoText.gameObject.SetActive(true);
+                vascoCounterText.gameObject.SetActive(true);
+                vascoEtcTxt2.gameObject.SetActive(true);
+                vascoEtcTxt1.gameObject.SetActive(true);
                 vascoText.text = vascoAnger.ToString();
                 vascoCounterText.text = vascoCounter.ToString();
                
             }
             float currentWorth = (float)app.controller.manager.GetNetWorth();
             float neededWorth = (float)app.model.manager.winningWorth;
-            moneyValue.text = ((currentWorth / neededWorth) * 100).ToString() + "%";
+            moneyValue.text = Mathf.RoundToInt(((currentWorth / neededWorth) * 100)).ToString() + "%";
         }
     }
 
@@ -133,6 +145,7 @@ public class StoryManager : GameElement {
         if (!ManagerModel.resourcesMain.CompareBundle(new ResourceBundle(0, 100, 0))) return;
         app.model.manager.addBundle(new ResourceBundle(1, -100));
           remainingDebt -= 100;
+          AudioManager.Instance.RandomizeSfx(AudioManager.Instance.pickUP);
           if (remainingDebt <= 0)
           {
               remainingDebt = 0;

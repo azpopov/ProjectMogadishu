@@ -14,7 +14,7 @@ public class AudioManager : MonoBehaviour {
     public AudioSource efxSource;                  
     public AudioSource musicSource;
     public AudioSource efxSource2;
-    public AudioClip openParch, closeParch, pickUP;
+    public AudioClip openParch, closeParch, pickUP, shipyardSFX;
 
     public float lowPitchRange = .95f;              //The lowest a sound effect will be randomly pitched.
     public float highPitchRange = 1.05f;            //The highest a sound effect will be randomly pitched.
@@ -40,6 +40,9 @@ public class AudioManager : MonoBehaviour {
         //RandomizeSfx chooses randomly between various audio clips and slightly changes their pitch.
         public void RandomizeSfx (params AudioClip[] clips)
         {
+            AudioSource _efxSource = efxSource;
+            if (efxSource.isPlaying)
+                _efxSource = efxSource2;
             //Generate a random number between 0 and the length of our array of clips passed in.
             int randomIndex = Random.Range(0, clips.Length);
             
@@ -47,13 +50,13 @@ public class AudioManager : MonoBehaviour {
             float randomPitch = Random.Range(lowPitchRange, highPitchRange);
             
             //Set the pitch of the audio source to the randomly chosen pitch.
-            efxSource.pitch = randomPitch;
+            _efxSource.pitch = randomPitch;
             
             //Set the clip to the clip at our randomly chosen index.
-            efxSource.clip = clips[randomIndex];
+            _efxSource.clip = clips[randomIndex];
             
             //Play the clip.
-            efxSource.Play();
+            _efxSource.Play();
         }
 
 }

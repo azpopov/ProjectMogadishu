@@ -2,7 +2,6 @@
 using System.Collections;
 using System;
 public class BuildingPlacer : GameElement {
-
 	bool validPlace = false;
 	Collider2D col;
     Color green = new Color(0, 240, 0);
@@ -31,18 +30,20 @@ public class BuildingPlacer : GameElement {
 		//Whatever this script is attached to, follow mouse.
 		this.transform.position = mousePos;
 		if(!col.IsTouchingLayers(LayerMask.GetMask("Building")) && !col.IsTouchingLayers(LayerMask.GetMask("NonBuildable"))){
-		if (GetComponent<ShipyardController>() != null) {
-          
-			if( col.IsTouchingLayers(LayerMask.GetMask("Water")) && col.IsTouchingLayers(LayerMask.GetMask("Buildable"))){
-				validPlace = true;
-			}
-			}
-		//As long as it's not touching Water
-		else if(!col.IsTouchingLayers(LayerMask.GetMask("Water")))
-		   {
-			validPlace = true;
+            if (GetComponent<ShipyardController>() != null)
+            {
 
-		}
+                if (col.IsTouchingLayers(LayerMask.GetMask("Water")) && col.IsTouchingLayers(LayerMask.GetMask("Buildable")))
+                {
+                    validPlace = true;
+                }
+            }
+            //As long as it's not touching Water
+            else if (!col.IsTouchingLayers(LayerMask.GetMask("Water")))
+            {
+                validPlace = true;
+
+            }
 		}
         if (validPlace)
             rndSprite.color = green;

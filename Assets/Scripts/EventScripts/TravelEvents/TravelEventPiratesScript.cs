@@ -37,9 +37,9 @@ public class TravelEventPiratesScript : CustomEvent
 
     void ChoiceGuarantee()
     {
-        finalBundle = ship.theMission.requestResource * 0.75f;
+        finalBundle = ship.theMission.requestResource * 0.80f;
         changeBundle = finalBundle - ship.theMission.requestResource;
-        app.Notify(GameNotification.ResultResourceChange, app.controller.manager, changeBundle, false); 
+        app.Notify(GameNotification.ResultResourceChange, app.controller.manager, changeBundle, true); 
         ship.theMission.requestResource = finalBundle;
     }
 

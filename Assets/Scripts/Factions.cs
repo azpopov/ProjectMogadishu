@@ -49,10 +49,10 @@ public class Factions : GameElement
         factionList.Add(new Faction("Oman", 1f, new bool[] { true, false, false }, new bool[] { true, true, false }, 1, 5));
         factionList.Add(new Faction("Bengal", 1.2f, new bool[] { true, false, false }, new bool[] { true, true, true }, 3, 6));
         factionList.Add(new Faction("Ceylon", 1f, new bool[] { true, false, false }, new bool[] { true, true, false }, 2, 5));
-        factionList.Add(new Faction("Chola", 1.1f, new bool[] { true, true, false }, new bool[] { true, true, false }, 3, 5));
+        factionList.Add(new Faction("Chola", 1.1f, new bool[] { false, true, false }, new bool[] { true, true, false }, 3, 5));
         factionList.Add(new Faction("Khmer", 1.6f, new bool[] { true, false, false }, new bool[] { true, true, true }, 4, 8));
-        factionList.Add(new Faction("Seljuk Empire", 1f, new bool[] { false, true, false }, new bool[] { false, true, true }, 2, 6));
-        factionList.Add(new Faction("Srivijaya Empire", 1.5f, new bool[] { false, false, true }, new bool[] { true, true, false }, 4, 8));
+        factionList.Add(new Faction("Seljuk Empire", 1f, new bool[] { false, true, false }, new bool[] { false, true, false }, 2, 6));
+        factionList.Add(new Faction("Srivijaya Empire", 1.5f, new bool[] { false, false, true }, new bool[] { true, true, true }, 4, 8));
         factionListUndiscovered.Add(new Faction("Champa", 1.6f, new bool[] { false, true, false }, new bool[] { true, true, true }, 4, 9));
         factionListUndiscovered.Add(new Faction("Gujarat", 1.3f, new bool[] { true, true, false }, new bool[] { true, true, true }, 2, 5));
 		for (int i = 0; i < 5; i++) 
