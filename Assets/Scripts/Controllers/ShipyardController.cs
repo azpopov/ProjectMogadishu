@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class ShipyardController : BuildingController {
-
+    public AudioClip shipyardSFX;
 	Button newShipPopUpButton;
     public GameObject newShipPopUpPrefab;
 
@@ -61,8 +61,12 @@ public class ShipyardController : BuildingController {
             app.Notify(GameNotification.ShipTravelEvent, this, newShip);
             GetComponent<ShipyardView>().SetDefaultSprite();
             GetComponent<ShipyardModel>().eventShip = null;
+            AudioManager.Instance.RandomizeSfx(shipyardSFX); 
+                
+            
         }
     }
+
 
     public override void OnNotification(string p_event_path, object p_target, params object[] p_data)
     {

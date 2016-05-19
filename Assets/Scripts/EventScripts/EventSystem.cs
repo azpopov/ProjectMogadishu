@@ -24,7 +24,6 @@ public class EventSystem : MonoBehaviour {
     public GameObject[] events;
     
 
-
     void Awake()
     {
         eventPresent = null;

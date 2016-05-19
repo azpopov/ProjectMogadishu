@@ -1,10 +1,12 @@
 fileFormatVersion: 2
 guid: 3ad389a8bce1beb40aaf7fe83c49c907
-timeCreated: 1461248110
+timeCreated: 1463665271
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - openSFX: {fileID: 8300000, guid: 3642766e93e113e47871acba384d855e, type: 3}
+  - closeSFX: {fileID: 8300000, guid: 45da4ad2304ac0a4d83b001f3ef84697, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

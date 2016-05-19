@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class ResourceBuildingController : BuildingController {
-
+    public AudioClip pickupSFX;
     
 
    
@@ -15,6 +15,7 @@ public class ResourceBuildingController : BuildingController {
     protected override void OnEnable()
     {
         base.OnEnable();
+        pickupSFX = AudioManager.Instance.pickUP;
         StartCoroutine(GetComponent<BuildingController>().IgnoreMouseDownSec());
         if (app.model.manager.productionTut)
         {
@@ -107,7 +108,7 @@ public class ResourceBuildingController : BuildingController {
 
                 //Add stored resources to player Vault
                 GetComponent<ResourceBuildingModel>().addResource();
-
+                AudioManager.Instance.RandomizeSfx(pickupSFX);
                 return;
         }
     }
