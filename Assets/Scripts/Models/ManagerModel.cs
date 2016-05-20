@@ -39,7 +39,7 @@ public class ManagerModel : GameElement
 	}
     void Start()
     {
-        winningWorth = app.controller.story.maxDebt * 2;
+        winningWorth = app.controller.story.maxDebt * 3;
         Debug.Log(winningWorth.ToString());
     }
 	

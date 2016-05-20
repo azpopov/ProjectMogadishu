@@ -26,6 +26,7 @@ public class ManagerView : GameElement
 
     public void FindNewTradeRoute()
     {
+        if (!ManagerModel.resourcesMain.CompareBundle(new ResourceBundle(1, 50))) return;
         if( Factions.current.CreateTradeRoute() != null)
             app.model.manager.addToResource(1, -50);
        

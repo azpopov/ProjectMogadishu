@@ -20,4 +20,6 @@ public static class GameNotification{
     public const string GameOver = "game.over";
     public const string VascoStory = "vasco.is.back.event";
     public const string VascoAnger = "vasco.anger.triggered";
+    public const string ErrorTradeMission = "error.trademission.lack.resources";
+    public const string ErrorBuilding = "error.building.resourcesmain.not.enough";
 }

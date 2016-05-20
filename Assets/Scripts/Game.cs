@@ -9,6 +9,14 @@ public class Game : MonoBehaviour
 	//Singleton
 	static public Game current;
 
+    void Awake()
+    {
+        if (current == null)
+            current = this;
+        else
+            Destroy(this);
+    }
+
 	public GameModel model;
 	public GameView view;
 	public GameController controller;
@@ -26,10 +34,5 @@ public class Game : MonoBehaviour
 
     // Fetches all scene Controllers.
     public List<GameElement> GetAllControllers() { return controller.GetAll() ; }
-
-	void Awake()
-	{
-
-	}
 	
 }

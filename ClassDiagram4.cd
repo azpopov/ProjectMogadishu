@@ -1,0 +1,417 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="AudioManager" Collapsed="true">
+    <Position X="97.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAARAAAAAAAAAAAACQABAAAEBAAAAAQAAEAAAQIEA=</HashCode>
+      <FileName>Assets\AudioManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AppLoader" Collapsed="true">
+    <Position X="0.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\AppLoader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuildingPlacer" Collapsed="true">
+    <Position X="9.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAQBAAAAACAAAQAAAAIAIQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\BuildingPlacer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ConcurrentDictionary&lt;tkey, tvalue&gt;" Collapsed="true">
+    <Position X="101" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAICAAAAAAAEEAAACAAABAwAAAACAAAAAAAAAABAAAA=</HashCode>
+      <FileName>Assets\Scripts\ConcurrentDictionary.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuildingController" Collapsed="true">
+    <Position X="27.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAACAAAAQAAAAAAAAIAQAEAAACAA=</HashCode>
+      <FileName>Assets\Scripts\Controllers\BuildingController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EmbassyController" Collapsed="true">
+    <Position X="29.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACACAAAAAAAAAAAAAQAAAAAAAEIAAAAAAACAA=</HashCode>
+      <FileName>Assets\Scripts\Controllers\EmbassyController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameController" Collapsed="true">
+    <Position X="90.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAQAAAAAACAAAAAAAAAAAAAUAAAAAAAAAgAAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Controllers\GameController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ManagerController" Collapsed="true">
+    <Position X="95" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAEACAAIAAAAAAAAAACCAgAAIgAAAQIgAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Controllers\ManagerController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ResourceBuildingController" Collapsed="true">
+    <Position X="25.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAQAAAACAAEAAAAAAAAAgAAQAAAAAAAAIAAAEAAACAA=</HashCode>
+      <FileName>Assets\Scripts\Controllers\ResourceBuildingController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ShipyardController" Collapsed="true">
+    <Position X="27.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAACAAAAAAAAAAAAAAAQAIhAAAAAIAAAEAAACAA=</HashCode>
+      <FileName>Assets\Scripts\Controllers\ShipyardController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StoryManager" Collapsed="true">
+    <Position X="11.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABQQAJhiACCAAAQAAABAAAySAAEAAQAAAgIKgQAAAEI=</HashCode>
+      <FileName>Assets\Scripts\Controllers\StoryManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CheckErrorScript" Collapsed="true">
+    <Position X="52.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\EventScripts\CheckErrorScript.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CustomEvent" Collapsed="true">
+    <Position X="56.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAAIQAQAgDEA=</HashCode>
+      <FileName>Assets\Scripts\EventScripts\CustomEvent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EventSystem" Collapsed="true">
+    <Position X="97.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AARggCAAgKAIAAAAAQAAAAQAAAAAAEIBgIAFAAAAAmA=</HashCode>
+      <FileName>Assets\Scripts\EventScripts\EventSystem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="JourneyCompletedEvent" Collapsed="true">
+    <Position X="70.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\EventScripts\JourneyCompletedEvent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NewShipNaming" Collapsed="true">
+    <Position X="77" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACQAAAAEACAAAAAAAAAAAAAAACAAAAAAAAAAAAAACEA=</HashCode>
+      <FileName>Assets\Scripts\EventScripts\NewShipNaming.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ResultScript">
+    <Position X="32" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\EventScripts\ResultScript.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ShipNamePopUp" Collapsed="true">
+    <Position X="101" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\EventScripts\ShipNamePopUp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StoryEventExposureScript" Collapsed="true">
+    <Position X="45.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\EventScripts\StoryScripts\StoryEventExposureScript.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StoryEventInterestScript" Collapsed="true">
+    <Position X="54.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\EventScripts\StoryScripts\StoryEventInterestScript.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VascoAngerRepelledScript" Collapsed="true">
+    <Position X="61.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\EventScripts\StoryScripts\VascoAngerRepelledScript.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VascoAngerStealScript" Collapsed="true">
+    <Position X="65.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAACAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\EventScripts\StoryScripts\VascoAngerStealScript.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VascoExtortEventScript" Collapsed="true">
+    <Position X="72.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEACAAAAACAAAAACABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\EventScripts\StoryScripts\VascoExtortEventScript.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VascoShipNameScript" Collapsed="true">
+    <Position X="79.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACgAAEACAAAAACAAIAAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\EventScripts\StoryScripts\VascoShipNameScript.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VascoShowsUpScipt">
+    <Position X="34.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEACAAAAIEAAAAACABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\EventScripts\StoryScripts\VascoShowsUpScipt.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VascoStealsTradeEventScript">
+    <Position X="38.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACgAAEACAAAAACAAIAAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\EventScripts\StoryScripts\VascoStealsTradeEventScript.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TradeCompleteScript" Collapsed="true">
+    <Position X="47.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAEAAABAAAAAAAAAAAAAAIgAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\EventScripts\TradeCompleteScript.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameOverEventScript" Collapsed="true">
+    <Position X="56.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABACAAAAgAAAIAAAAAAAAAAAAIAAAAAAAAEEA=</HashCode>
+      <FileName>Assets\Scripts\EventScripts\TravelEvents\GameOverEventScript.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TravelEventDiseaseScript" Collapsed="true">
+    <Position X="63.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAACAAAgAAAAAAAAAAAAAAAgAAgAAAAAAAEAA=</HashCode>
+      <FileName>Assets\Scripts\EventScripts\TravelEvents\TravelEventDiseaseScript.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TravelEventFavorableWinds" Collapsed="true">
+    <Position X="68" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAEAA=</HashCode>
+      <FileName>Assets\Scripts\EventScripts\TravelEvents\TravelEventFavorableWinds.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TravelEventLostTresureScript" Collapsed="true">
+    <Position X="74.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAQAAAAAAEAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\EventScripts\TravelEvents\TravelEventLostTresureScript.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TravelEventMerchantScript" Collapsed="true">
+    <Position X="81.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAACAAAgAAAAAAAAAAAAAAAgAAgAAAAAAAEAA=</HashCode>
+      <FileName>Assets\Scripts\EventScripts\TravelEvents\TravelEventMerchantScript.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TravelEventNewFactionScript">
+    <Position X="36.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAEAA=</HashCode>
+      <FileName>Assets\Scripts\EventScripts\TravelEvents\TravelEventNewFactionScript.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TravelEventPiratesScript">
+    <Position X="41" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAACAAAgAAAAAAAAAAAAAAAgAAgAAAAAAAEAA=</HashCode>
+      <FileName>Assets\Scripts\EventScripts\TravelEvents\TravelEventPiratesScript.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TravelEventStillWatersScript" Collapsed="true">
+    <Position X="50" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAEAA=</HashCode>
+      <FileName>Assets\Scripts\EventScripts\TravelEvents\TravelEventStillWatersScript.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TravelEventStormScript" Collapsed="true">
+    <Position X="59" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAEAA=</HashCode>
+      <FileName>Assets\Scripts\EventScripts\TravelEvents\TravelEventStormScript.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Factions" Collapsed="true">
+    <Position X="86" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAACggAAiACABAAAABAAAAAgBAgAGAAAAACAAQgFEA=</HashCode>
+      <FileName>Assets\Scripts\Factions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FloatText" Collapsed="true">
+    <Position X="99.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACBAAACACAAAJAgBAACAAQAAAAAAAAAAAAACAAgAAA=</HashCode>
+      <FileName>Assets\Scripts\FloatText.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Game" Collapsed="true">
+    <Position X="101" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAEAAAAAAAAAgAAAAABAAQAAAAAIAEA=</HashCode>
+      <FileName>Assets\Scripts\Game.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameElement" Collapsed="true">
+    <Position X="47.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\GameElement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuildingModel" Collapsed="true">
+    <Position X="5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAABAAAAAAAAAAAAAAAAgAgAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Models\BuildingModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EmbassyModel">
+    <Position X="2.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAgCAwQAIAAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Models\EmbassyModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameModel" Collapsed="true">
+    <Position X="16.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Models\GameModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ManagerModel">
+    <Position X="83.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAABAAAAgCAAAAAECAAADAAACAgAAAAAAIgBAAAAgEI=</HashCode>
+      <FileName>Assets\Scripts\Models\ManagerModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ResourceBuildingModel">
+    <Position X="5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAKAQAAAAAAAAAAAAAAABCAgAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Models\ResourceBuildingModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ShipyardModel">
+    <Position X="7.25" Y="3.5" Width="1.5" />
+    <NestedTypes>
+      <Class Name="ShipyardModel.Ship" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\Scripts\Models\ShipyardModel.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAEAAAAQAAAAAAAAAAAAAgAABAAAAAAIAA=</HashCode>
+      <FileName>Assets\Scripts\Models\ShipyardModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ResourceBundle" Collapsed="true">
+    <Position X="99.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAkQI4AEARAABABAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\ResourceBundle.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuildingCosts" Collapsed="true">
+    <Position X="99.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAQAAAAAAAAAAABIAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Static Scripts\BuildingCosts.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameNotification" Collapsed="true">
+    <Position X="97.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AUQEgAKAAAIAAAIAAEkAAAABAEAAgAIQAIBAAAQAAAA=</HashCode>
+      <FileName>Assets\Scripts\Static Scripts\GameNotification.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TradeMission" Collapsed="true">
+    <Position X="14" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAABAJAAiAAAAAABABwABAAQAAAAAAQAAAIgAQgAEA=</HashCode>
+      <FileName>Assets\Scripts\TradeMission.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BuildingView" Collapsed="true">
+    <Position X="20.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgQAAAQAACAAAAQAAAAAAAAAAAAAAAABAAAAgAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Views\BuildingView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EmbassyView" Collapsed="true">
+    <Position X="20.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAQAAIAAiAAAACAAAAAEAQAAAAAAAAAAAAEAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\Views\EmbassyView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameView" Collapsed="true">
+    <Position X="88.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Views\GameView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ManagerView" Collapsed="true">
+    <Position X="92.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABQAAAAAAiAAAAAAAAAAAAAACoAAAIAAQAAIAAQAAFA=</HashCode>
+      <FileName>Assets\Scripts\Views\ManagerView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ResourceBuildingView" Collapsed="true">
+    <Position X="23" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Assets\Scripts\Views\ResourceBuildingView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ShipyardView">
+    <Position X="18.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgAAAAAAAAEAQAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Views\ShipyardView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VascoAngerFireScript">
+    <Position X="43.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\VascoAngerFireScript.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Faction" Collapsed="true">
+    <Position X="97.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABQAAAAAhAAAAAAAAAAEAAAAEAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>Assets\Scripts\Faction.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

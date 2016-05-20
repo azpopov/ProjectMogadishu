@@ -98,7 +98,9 @@ public class TradeMission : GameElement
             app.Notify(GameNotification.ErrorNoShipAvailable, app.controller.manager);
             return;
         }
-        if (!ManagerModel.resourcesMain.CompareBundle(requestResource)) return;
+        if (!ManagerModel.resourcesMain.CompareBundle(requestResource)) {
+            app.Notify(GameNotification.ErrorTradeMission, app.controller.manager);
+            return; }
         shipView.SetActive(true);
         shipyardWindow.SetActive(true);
         app.view.manager.DestroyShipUIInstances();

@@ -68,7 +68,10 @@ public class ManagerController : GameElement
 	{
 		app.model.manager.CancelBuild ();
         ResourceBundle buildCost = app.model.manager.buildingCostsReferences[_building] as ResourceBundle;
-        if (!ManagerModel.resourcesMain.CompareBundle(buildCost)) return;
+        if (!ManagerModel.resourcesMain.CompareBundle(buildCost)){
+            app.Notify(GameNotification.ErrorBuilding, app.controller.manager);
+            return;
+            }
 		Vector3 currentMousePosition = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 		currentMousePosition.z = 0;
 		GameObject instance = (GameObject)Instantiate (ManagerModel.buildingHashtable [_building] as UnityEngine.Object, currentMousePosition, Quaternion.identity);
@@ -132,6 +135,12 @@ public class ManagerController : GameElement
                 return;
             case GameNotification.GameOver:
                 EventSystem.OccurEvent("GameOverEvent", p_data);
+                return;
+            case GameNotification.ErrorTradeMission:
+                EventSystem.OccurEvent("ErrorTradeMission", p_data);
+                return;
+            case GameNotification.ErrorBuilding:
+                EventSystem.OccurEvent("ErrorBuilding", p_data);
                 return;
 
         }
