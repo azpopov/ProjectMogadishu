@@ -26,11 +26,12 @@ public class EventSystem : MonoBehaviour {
 
     void Awake()
     {
+        //Checks if an event is on screen
         eventPresent = null;
-        tail = 0;
-        tailPriority = 0;
-        eventDic = new Dictionary<string, int>();
-		int i = 0;
+        tail = 0; //tail of the queue
+        tailPriority = 0; // trail of the priorityqueue which is used for result events
+        eventDic = new Dictionary<string, int>(); //Gives easy access to events by their index
+        int i = 0;
 		eventsLoaded = new GameObject[events.Length];
 		foreach (GameObject _event in events) {
 			eventDic.Add(_event.name, i);
@@ -38,39 +39,42 @@ public class EventSystem : MonoBehaviour {
 			i++;
 		}
     }   
-    
-    // Use this for initialization
-	void Start () {
-	   
-	}
+
 	// Update is called once per frame
 	void Update () {
-        if (eventPresent == null)
+        if (eventPresent == null) // if no event present
         {
-            if (headPriority != tailPriority)
+            //priority queue fires first
+            if (headPriority != tailPriority) //if tail hasn't reached head
             {
+                //ensures no 2 events can play at the same time
                 eventPresent = CreateEvent(pending_priority[headPriority], pending_priority_data[headPriority]);
                 headPriority = (headPriority + 1) % MAX_PENDING_PRIORITY;
             }
-            else if (head != tail)
+            else if (head != tail) 
             {
                 eventPresent = CreateEvent(pending[head], pending_data[head]);
                 head = (head + 1) % MAX_PENDING;
             }
         }
     }
-
+    //returns the gameobject of the event just instantiated and passes the data to it
     GameObject CreateEvent(int eventID, params object[] p_data)
     {
+        //Creates an instance of the vent on scree
         GameObject uiEvent = Instantiate(events[eventID], new Vector3(0, 0), Quaternion.identity) as GameObject;
-		uiEvent.transform.SetParent (GameObject.Find ("UI").transform, false);
+		//Sets the hierarchichal parent of the event to the UI to ensure it's in the correct position
+        uiEvent.transform.SetParent (GameObject.Find ("UI").transform, false);
+        // if there is any data in p_data pass it into the event
         if (p_data != null) uiEvent.GetComponent<CustomEvent>().data = p_data;
+        //show the event on screen
         uiEvent.SetActive(true);
         return uiEvent;
     }
+    //Allows to call events by their string names
     public static void OccurEvent(string eventName, params object[] p_data)
     {
-        Debug.Log(eventName);
+        //get the event from the dictionarty
         int eventID = eventDic[eventName];
         if (eventName.Equals("ResultPrefab"))
         {
