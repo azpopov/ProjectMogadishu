@@ -86,11 +86,16 @@ public class EventSystem : MonoBehaviour {
 
     static void OccurEvent(int eventID,  bool priority, params object[] p_data)
     {
+        //if the event is for the priority queue, insert it there.
         if (priority)
         {
+            //if the queue is full discard the event
             if (tailPriority >= MAX_PENDING_PRIORITY) return;
+            // otherwise, add the eventId to the queue
             pending_priority[tailPriority] = eventID;
+            //if there is data add that to the queue too
             if (p_data != null) pending_priority_data[tailPriority] = p_data;
+            //wrap around the array
             tailPriority = (tailPriority + 1) % MAX_PENDING_PRIORITY;
             return;
         }
@@ -102,6 +107,7 @@ public class EventSystem : MonoBehaviour {
 
     public static string RandomTravelEvent(string eventName)
     {
+        //return random event that contains the passed string. 
         int i = 0;
         while (i < 1000)
         {

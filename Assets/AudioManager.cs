@@ -16,8 +16,9 @@ public class AudioManager : MonoBehaviour {
     public AudioSource efxSource2;
     public AudioClip openParch, closeParch, pickUP, shipyardSFX;
 
-    public float lowPitchRange = .95f;              //The lowest a sound effect will be randomly pitched.
-    public float highPitchRange = 1.05f;            //The highest a sound effect will be randomly pitched.
+    public float lowPitchRange = .90f;              //The lowest a sound effect will be randomly pitched.
+    public float highPitchRange = 1.1f;            //The highest a sound effect will be randomly pitched.
+    //Singleton in order to keep the music persistent through scenes
     void Awake() {
      if (instance == null) {
          instance = this;
